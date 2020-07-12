@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="f0_gray_line">#f0f0f0</color>
+    <color name="white">#ffffff</color>
+
+    <color name="blue_yq">#0096FF</color>
+    <color name="gray_99">#ff999999</color>
+    <color name="black_33">#333333</color>
+    <color name="black">#000000</color>
+    <color name="grenn_39">#39349237</color>
+</resources>

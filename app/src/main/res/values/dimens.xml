@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <dimen name="tab_text_size">11sp</dimen>
+    <!-- 底部功能条距离上面控件的距离 -->
+    <dimen name="tab_padding_top">10dp</dimen>
+    <!-- 底部功能条距离底部的距离 -->
+    <dimen name="tab_padding_bottom">4dp</dimen>
+    <dimen name="tab_top">30dp</dimen>
+
+</resources>
