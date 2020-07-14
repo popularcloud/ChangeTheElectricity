@@ -16,7 +16,9 @@ import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseFragment;
 import com.younge.changetheelectricity.changetheelectricity.activity.BatteryDetailActivity;
 import com.younge.changetheelectricity.changetheelectricity.fragment.BatteryDetailsFragment;
+import com.younge.changetheelectricity.changetheelectricity.fragment.ChargeDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ShopDetailFragment;
+import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 
@@ -37,6 +39,11 @@ public class MainChargeFragment extends BaseFragment {
     TextView tv_scan;
     @BindView(R.id.tv_battery_detail_txt)
     TextView tv_battery_detail_txt;
+
+    @BindView(R.id.tv_changeElectricity)
+    TextView tv_changeElectricity;
+    @BindView(R.id.tv_chargeElectricity)
+    TextView tv_chargeElectricity;
 
     private List<Fragment> fragmentList = new ArrayList<>();
 
@@ -65,7 +72,7 @@ public class MainChargeFragment extends BaseFragment {
 
         fragmentList.clear();
 
-        BatteryDetailsFragment batteryDetailsFragment01 = new BatteryDetailsFragment();
+        ChargeDetailsFragment batteryDetailsFragment01 = new ChargeDetailsFragment();
         ShopDetailFragment shopDetailFragment = new ShopDetailFragment();
 
         fragmentList.add(batteryDetailsFragment01);
@@ -118,11 +125,17 @@ public class MainChargeFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.tv_scan})
+    @OnClick({R.id.tv_scan,R.id.tv_changeElectricity,R.id.tv_chargeElectricity})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_scan:
                 getActivity().startActivity(new Intent(getActivity(), BatteryDetailActivity.class));
+                break;
+            case R.id.tv_changeElectricity: //充电
+                ((MainActivity)getActivity()).changeTag(2);
+                break;
+            case R.id.tv_chargeElectricity: //换电
+                ((MainActivity)getActivity()).changeTag(3);
                 break;
         }
     }

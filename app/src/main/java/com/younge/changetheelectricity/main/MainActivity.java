@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.main.adapter.FragmentsPagerAdapter;
+import com.younge.changetheelectricity.main.fragment.MainChargeFragment;
 import com.younge.changetheelectricity.main.fragment.MainFragment;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 
@@ -34,6 +35,8 @@ public class MainActivity extends BaseActivity {
     RadioButton radioNews;
     @BindView(R.id.radio_mine)
     RadioButton radioMine;
+    @BindView(R.id.radio_charge_battery)
+    RadioButton radio_charge_battery;
     @BindView(R.id.group_tab)
     RadioGroup groupTab;
 
@@ -59,15 +62,17 @@ public class MainActivity extends BaseActivity {
         fragmentHashMap.put(0, new MainFragment());
         fragmentHashMap.put(1, new MainFragment());
         fragmentHashMap.put(2, new MainFragment());
-        fragmentHashMap.put(3, new MainFragment());
-        fragmentHashMap.put(4,new MainFragment());
+        fragmentHashMap.put(3, new MainChargeFragment());
+        fragmentHashMap.put(4, new MainFragment());
+        fragmentHashMap.put(5,new MainFragment());
 
         rButtonHashMap = new HashMap<>();
         rButtonHashMap.put(0, radioHome);
         rButtonHashMap.put(1, radioMBA);
         rButtonHashMap.put(2, radioNews);
-        rButtonHashMap.put(3, radioOrder);
-        rButtonHashMap.put(4, radioMine);
+        rButtonHashMap.put(3, radio_charge_battery);
+        rButtonHashMap.put(4, radioOrder);
+        rButtonHashMap.put(5, radioMine);
 
         //是否滑动
         cViewPager.setPagingEnabled(false);
@@ -89,6 +94,11 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    public void changeTag(int position){
+        cViewPager.setChecked(rButtonHashMap, position);
+        cViewPager.setCurrentItem(position, false);
+    }
+
     @OnClick({R.id.radio_home, R.id.radio_order, R.id.radio_news, R.id.radio_mine,R.id.radio_mba})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -102,10 +112,10 @@ public class MainActivity extends BaseActivity {
                 cViewPager.setCurrentItem(2, false);
                 break;
             case R.id.radio_order:
-                cViewPager.setCurrentItem(3, false);
+                cViewPager.setCurrentItem(4, false);
                 break;
             case R.id.radio_mine:
-                cViewPager.setCurrentItem(4, false);
+                cViewPager.setCurrentItem(5, false);
                 break;
         }
     }

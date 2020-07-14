@@ -41,6 +41,12 @@
                 android:drawableTop="@drawable/tab_main_selector"
                 android:text="出发" />
             <RadioButton
+                android:id="@+id/radio_charge_battery"
+                style="@style/main_menu_radiobutton_style"
+                android:drawableTop="@drawable/tab_main_selector"
+                android:visibility="gone"
+                android:text="出发" />
+            <RadioButton
                 android:id="@+id/radio_order"
                 style="@style/main_menu_radiobutton_style"
                 android:drawableTop="@drawable/tab_main_selector"

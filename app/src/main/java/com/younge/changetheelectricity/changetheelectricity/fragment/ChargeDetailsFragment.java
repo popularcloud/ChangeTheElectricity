@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.younge.changetheelectricity.R;
@@ -26,6 +27,8 @@ public class ChargeDetailsFragment extends BaseFragment {
 
     @BindView(R.id.rv_data)
     RecyclerView rv_data;
+    @BindView(R.id.ll_data_title)
+    LinearLayout ll_data_title;
     private BatteryDetailsAdapter mAdapter;
 
 
@@ -46,6 +49,7 @@ public class ChargeDetailsFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.fragment_battery_details, null);
         unbinder = ButterKnife.bind(this, v);
 
+        ll_data_title.setVisibility(View.GONE);
         initList();
         return v;
     }
@@ -63,8 +67,8 @@ public class ChargeDetailsFragment extends BaseFragment {
         allList.add(listBean3);
         allList.add(listBean4);
 
-        mAdapter = new BatteryDetailsAdapter(getContext(),allList,R.layout.item_battery_details);
-        rv_data.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter = new BatteryDetailsAdapter(getContext(),allList,R.layout.item_charge_battery_details);
+        rv_data.setLayoutManager(new GridLayoutManager(getContext(),2));
         rv_data.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
