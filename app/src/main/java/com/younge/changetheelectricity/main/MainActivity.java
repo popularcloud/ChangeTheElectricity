@@ -13,6 +13,7 @@ import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.main.adapter.FragmentsPagerAdapter;
 import com.younge.changetheelectricity.main.fragment.MainChargeFragment;
 import com.younge.changetheelectricity.main.fragment.MainFragment;
+import com.younge.changetheelectricity.main.fragment.ServiceFragment;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 
 import java.util.HashMap;
@@ -59,12 +60,12 @@ public class MainActivity extends BaseActivity {
     private void initFragment(){
 
         fragmentHashMap = new HashMap<>();
-        fragmentHashMap.put(0, new MainFragment());
-        fragmentHashMap.put(1, new MainFragment());
+        fragmentHashMap.put(0, new ServiceFragment());
+        fragmentHashMap.put(1, new ServiceFragment());
         fragmentHashMap.put(2, new MainFragment());
         fragmentHashMap.put(3, new MainChargeFragment());
-        fragmentHashMap.put(4, new MainFragment());
-        fragmentHashMap.put(5,new MainFragment());
+        fragmentHashMap.put(4, new ServiceFragment());
+        fragmentHashMap.put(5,new ServiceFragment());
 
         rButtonHashMap = new HashMap<>();
         rButtonHashMap.put(0, radioHome);
@@ -85,7 +86,11 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                cViewPager.setChecked(rButtonHashMap, position);
+                if(position == 3){
+                    cViewPager.setChecked(rButtonHashMap, 2);
+                }else{
+                    cViewPager.setChecked(rButtonHashMap, position);
+                }
             }
 
             @Override
@@ -96,7 +101,7 @@ public class MainActivity extends BaseActivity {
 
     public void changeTag(int position){
         cViewPager.setChecked(rButtonHashMap, position);
-        cViewPager.setCurrentItem(position, false);
+        cViewPager.setCurrentItem(position, true);
     }
 
     @OnClick({R.id.radio_home, R.id.radio_order, R.id.radio_news, R.id.radio_mine,R.id.radio_mba})

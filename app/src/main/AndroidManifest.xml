@@ -30,7 +30,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- -->
         <activity android:name=".changetheelectricity.activity.BatteryDetailActivity" />
+        <!-- -->
+        <activity android:name=".changetheelectricity.activity.OperateStatuActivity" />
+        <activity android:name=".changetheelectricity.activity.ChargeDetailActivity" />
+        <activity android:name=".changetheelectricity.activity.ConfirmOrderActivity" />
     </application>
 
     <meta-data android:name="com.amap.api.v2.apikey" android:value="27faf0210c16cf81b8f93a2f2072ca45">

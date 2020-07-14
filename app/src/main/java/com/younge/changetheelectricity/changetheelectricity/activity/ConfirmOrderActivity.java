@@ -38,7 +38,7 @@ public class ConfirmOrderActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_battery_detail);
+        setContentView(R.layout.activity_confirm_order);
         ButterKnife.bind(this);
 
         tv_center_title.setText("确认订单");
@@ -67,11 +67,14 @@ public class ConfirmOrderActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_scan})
+    @OnClick({R.id.tv_submit,R.id.rl_fanhui_left})
     public void onBtnClick(View view){
         switch (view.getId()){
-            case R.id.tv_scan:
-                startActivity(new Intent(this, ConfirmOrderActivity.class));
+            case R.id.tv_submit:
+               // startActivity(new Intent(this, ConfirmOrderActivity.class));
+                break;
+            case R.id.rl_fanhui_left:
+                finish();
                 break;
         }
     }

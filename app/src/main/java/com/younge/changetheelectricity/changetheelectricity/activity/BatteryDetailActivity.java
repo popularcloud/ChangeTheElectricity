@@ -69,11 +69,14 @@ public class BatteryDetailActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_scan})
+    @OnClick({R.id.tv_submit,R.id.rl_fanhui_left})
     public void onBtnClick(View view){
         switch (view.getId()){
-            case R.id.tv_scan:
-                startActivity(new Intent(this, BatteryDetailActivity.class));
+            case R.id.tv_submit:
+                startActivity(new Intent(this, OperateStatuActivity.class));
+                break;
+            case R.id.rl_fanhui_left:
+                finish();
                 break;
         }
     }

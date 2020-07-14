@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,35 +69,41 @@ public class ChargeDetailActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
-
+               mAdapter.setSelPosition(position);
             }
         });
 
         bllList.clear();
 
         BatteryDetailsBean listBean4 = new BatteryDetailsBean();
-        bllList.add(listBean1);
-        bllList.add(listBean2);
-        bllList.add(listBean3);
+        BatteryDetailsBean listBean5 = new BatteryDetailsBean();
+        BatteryDetailsBean listBean6 = new BatteryDetailsBean();
+        BatteryDetailsBean listBean7 = new BatteryDetailsBean();
         bllList.add(listBean4);
+        bllList.add(listBean5);
+        bllList.add(listBean6);
+        bllList.add(listBean7);
 
         mAdapterTwo = new ChargeDetailsTwoAdapter(this,bllList,R.layout.item_charge_detail_two);
-        rv_data_two.setLayoutManager(new LinearLayoutManager(this));
+        rv_data_two.setLayoutManager(new GridLayoutManager(this,2));
         rv_data_two.setAdapter(mAdapterTwo);
 
         mAdapterTwo.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
-
+                mAdapterTwo.setSelPosition(position);
             }
         });
     }
 
-    @OnClick({R.id.tv_scan})
+    @OnClick({R.id.tv_submit,R.id.rl_fanhui_left})
     public void onBtnClick(View view){
         switch (view.getId()){
-            case R.id.tv_scan:
-                startActivity(new Intent(this, ChargeDetailActivity.class));
+            case R.id.tv_submit:
+                startActivity(new Intent(this, ConfirmOrderActivity.class));
+                break;
+            case R.id.rl_fanhui_left:
+                finish();
                 break;
         }
     }

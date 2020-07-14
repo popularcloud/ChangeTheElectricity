@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_15"
                 android:gravity="center"
-                android:textColor="@color/blue_yq"
+                android:textColor="@color/black_33"
                 android:text="换电"/>
             <TextView
                 android:id="@+id/tv_chargeElectricity"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_15"
                 android:gravity="center"
-                android:textColor="@color/black_33"
+                android:textColor="@color/blue_yq"
                 android:text="充电"/>
             <TextView
                 android:layout_width="0dp"

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseFragment;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
+import com.younge.changetheelectricity.util.ToastUtil;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -26,6 +28,8 @@ public class BatteryDetailsFragment extends BaseFragment {
 
     @BindView(R.id.rv_data)
     RecyclerView rv_data;
+    @BindView(R.id.ll_order_battery)
+    LinearLayout ll_order_battery;
     private BatteryDetailsAdapter mAdapter;
 
 
@@ -70,7 +74,9 @@ public class BatteryDetailsFragment extends BaseFragment {
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
-
+                ToastUtil.makeText(getContext(),"预约成功");
+                ll_order_battery.setVisibility(View.VISIBLE);
+                rv_data.setVisibility(View.GONE);
             }
         });
     }
