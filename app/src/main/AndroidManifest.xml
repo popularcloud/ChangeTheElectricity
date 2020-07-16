@@ -43,6 +43,12 @@
         <activity android:name=".mine.activity.RealNameAuthentication01Activity" />
         <!-- 实名认证 -->
         <activity android:name=".mine.activity.MyCarActivity" />
+        <activity android:name=".mine.activity.MyBatteryActivity" />
+        <activity android:name=".mine.activity.MyWalletActivity" />
+        <activity android:name=".mine.activity.BindCarActivity" />
+        <activity android:name=".mine.activity.PersonalInfoActivity" />
+        <activity android:name=".mine.activity.MyPackageActivity" />
+        <activity android:name=".mine.activity.UseHistoryActivity" />
     </application>
 
     <meta-data android:name="com.amap.api.v2.apikey" android:value="27faf0210c16cf81b8f93a2f2072ca45">

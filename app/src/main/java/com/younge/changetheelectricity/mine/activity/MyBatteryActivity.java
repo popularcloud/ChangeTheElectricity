@@ -1,5 +1,6 @@
 package com.younge.changetheelectricity.mine.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -27,8 +28,8 @@ public class MyBatteryActivity extends BaseActivity {
     RecyclerView rv_data;
     @BindView(R.id.tv_center_title)
     TextView tv_center_title;
-    @BindView(R.id.tv_submit)
-    TextView tv_submit;
+    @BindView(R.id.tv_right)
+    TextView tv_right;
     private ConfirmOrderAdapter mAdapter;
 
     private List<BatteryDetailsBean> allList = new ArrayList<>();
@@ -40,6 +41,15 @@ public class MyBatteryActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         tv_center_title.setText("我的电池");
+
+        tv_right.setVisibility(View.VISIBLE);
+        tv_right.setText("添加车辆");
+        tv_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyBatteryActivity.this, BindCarActivity.class));
+            }
+        });
         initList();
     }
 
@@ -65,12 +75,9 @@ public class MyBatteryActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_submit,R.id.rl_fanhui_left})
+    @OnClick({R.id.rl_fanhui_left})
     public void onBtnClick(View view){
         switch (view.getId()){
-            case R.id.tv_submit:
-               // startActivity(new Intent(this, ConfirmOrderActivity.class));
-                break;
             case R.id.rl_fanhui_left:
                 finish();
                 break;

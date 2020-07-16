@@ -11,9 +11,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.main.adapter.FragmentsPagerAdapter;
+import com.younge.changetheelectricity.main.fragment.HuodongFragment;
 import com.younge.changetheelectricity.main.fragment.MainChargeFragment;
 import com.younge.changetheelectricity.main.fragment.MainFragment;
+import com.younge.changetheelectricity.main.fragment.MineFragment;
 import com.younge.changetheelectricity.main.fragment.ServiceFragment;
+import com.younge.changetheelectricity.main.fragment.ShopFragment;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 
 import java.util.HashMap;
@@ -61,11 +64,11 @@ public class MainActivity extends BaseActivity {
 
         fragmentHashMap = new HashMap<>();
         fragmentHashMap.put(0, new ServiceFragment());
-        fragmentHashMap.put(1, new ServiceFragment());
+        fragmentHashMap.put(1, new ShopFragment());
         fragmentHashMap.put(2, new MainFragment());
         fragmentHashMap.put(3, new MainChargeFragment());
-        fragmentHashMap.put(4, new ServiceFragment());
-        fragmentHashMap.put(5,new ServiceFragment());
+        fragmentHashMap.put(4, new HuodongFragment());
+        fragmentHashMap.put(5,new MineFragment());
 
         rButtonHashMap = new HashMap<>();
         rButtonHashMap.put(0, radioHome);

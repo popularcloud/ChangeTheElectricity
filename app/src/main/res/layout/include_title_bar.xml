@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:background="@null">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="@dimen/dp_48"
         android:layout_centerVertical="true"
         android:background="@color/white">
@@ -37,4 +39,15 @@
             android:textStyle="bold"
             tools:text="中间文字" />
     </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="tijao"
+        android:textSize="@dimen/sp_14"
+        android:visibility="gone"
+        android:paddingRight="@dimen/dp_15"
+        android:textColor="@color/black"/>
 </LinearLayout>
