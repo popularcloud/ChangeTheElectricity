@@ -78,7 +78,7 @@
         </LinearLayout>
         <View android:layout_height="1px" android:layout_width="match_parent" android:background="@color/f0_gray_line"/>
         <LinearLayout
-            android:id="@+id/ll_package"
+            android:id="@+id/ll_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"

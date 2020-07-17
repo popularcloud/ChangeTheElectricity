@@ -1,5 +1,6 @@
 package com.younge.changetheelectricity.mine.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -27,11 +28,17 @@ public class MyWalletActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_fanhui_left})
+    @OnClick({R.id.rl_fanhui_left,R.id.ll_wallet,R.id.ll_detail})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.rl_fanhui_left:
                 finish();
+                break;
+            case R.id.ll_wallet:
+                startActivity(new Intent(MyWalletActivity.this, MyDepositActivity.class));
+                break;
+            case R.id.ll_detail:
+                startActivity(new Intent(MyWalletActivity.this, DepositHistoryActivity.class));
                 break;
         }
     }

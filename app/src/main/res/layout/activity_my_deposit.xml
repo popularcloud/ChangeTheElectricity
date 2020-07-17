@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_content_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/include_title_bar" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/sp_20"
+        android:textColor="@color/black"
+        android:text="骑行押金"
+        android:layout_marginTop="@dimen/dp_60"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/sp_20"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="0.00"
+        android:layout_marginTop="@dimen/dp_15"/>
+    <TextView
+        android:id="@+id/tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_75"
+        android:background="@drawable/btn_blue_bg"
+        android:text="缴纳押金" />
+</LinearLayout>

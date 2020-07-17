@@ -18,9 +18,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/cte_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".main.MainActivity">
@@ -49,6 +48,8 @@
         <activity android:name=".mine.activity.PersonalInfoActivity" />
         <activity android:name=".mine.activity.MyPackageActivity" />
         <activity android:name=".mine.activity.UseHistoryActivity" />
+        <activity android:name=".mine.activity.MyDepositActivity" />
+        <activity android:name=".mine.activity.DepositHistoryActivity" />
     </application>
 
     <meta-data android:name="com.amap.api.v2.apikey" android:value="27faf0210c16cf81b8f93a2f2072ca45">

@@ -1,4 +1,4 @@
-package com.younge.changetheelectricity.changetheelectricity.activity;
+package com.younge.changetheelectricity.mine.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -21,14 +21,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ConfirmOrderActivity extends BaseActivity {
+public class DepositHistoryActivity extends BaseActivity {
 
     @BindView(R.id.rv_data)
     RecyclerView rv_data;
     @BindView(R.id.tv_center_title)
     TextView tv_center_title;
-    @BindView(R.id.tv_submit)
-    TextView tv_submit;
+    @BindView(R.id.tv_right)
+    TextView tv_right;
     private ConfirmOrderAdapter mAdapter;
 
     private List<BatteryDetailsBean> allList = new ArrayList<>();
@@ -36,10 +36,19 @@ public class ConfirmOrderActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirm_order);
+        setContentView(R.layout.activity_deposit_history);
         ButterKnife.bind(this);
 
-        tv_center_title.setText("确认订单");
+            tv_center_title.setText("押金明细");
+/*
+        tv_right.setVisibility(View.VISIBLE);
+        tv_right.setText("使用记录");
+        tv_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // startActivity(new Intent(MyPackageActivity.this, BindCarActivity.class));
+            }
+        });*/
         initList();
     }
 
@@ -53,7 +62,7 @@ public class ConfirmOrderActivity extends BaseActivity {
         allList.add(listBean2);
 
 
-        mAdapter = new ConfirmOrderAdapter(this,allList,R.layout.item_comfirm_order);
+        mAdapter = new ConfirmOrderAdapter(this,allList,R.layout.item_deposit_history);
         rv_data.setLayoutManager(new LinearLayoutManager(this));
         rv_data.setAdapter(mAdapter);
 
@@ -65,12 +74,9 @@ public class ConfirmOrderActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.tv_submit,R.id.rl_fanhui_left})
+    @OnClick({R.id.rl_fanhui_left})
     public void onBtnClick(View view){
         switch (view.getId()){
-            case R.id.tv_submit:
-               // startActivity(new Intent(this, ConfirmOrderActivity.class));
-                break;
             case R.id.rl_fanhui_left:
                 finish();
                 break;
