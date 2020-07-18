@@ -19,6 +19,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/cte_logo"
+        android:roundIcon="@mipmap/cte_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

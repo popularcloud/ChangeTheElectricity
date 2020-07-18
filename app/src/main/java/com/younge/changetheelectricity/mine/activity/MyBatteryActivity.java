@@ -43,7 +43,7 @@ public class MyBatteryActivity extends BaseActivity {
         tv_center_title.setText("我的电池");
 
         tv_right.setVisibility(View.VISIBLE);
-        tv_right.setText("添加车辆");
+        tv_right.setText("添加电池");
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
