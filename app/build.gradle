@@ -66,4 +66,17 @@ dependencies {
     implementation 'org.byteam.superadapter:superadapter:3.6.6'
 
 
+    //#######图片轮播
+    //androidX 版本使用下面的依赖
+    //implementation 'com.github.xiaohaibin:XBanner:androidx_v1.0.8'
+    //普通版本依赖
+    implementation 'com.github.xiaohaibin:XBanner:1.7.4'
+
+
+    //###网络请求框架
+    implementation 'com.zhouyou:rxeasyhttp:2.1.5'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
 }
