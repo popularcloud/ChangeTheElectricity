@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.lzy.okgo.OkGo;
 import com.stx.xhb.xbanner.XBanner;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseActivity;
@@ -13,11 +14,7 @@ import com.younge.changetheelectricity.base.BaseBean;
 import com.younge.changetheelectricity.base.NetRequestUrl;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
-import com.younge.changetheelectricity.mine.activity.MyBatteryActivity;
-import com.younge.changetheelectricity.util.ToastUtil;
-import com.zhouyou.http.EasyHttp;
-import com.zhouyou.http.callback.SimpleCallBack;
-import com.zhouyou.http.exception.ApiException;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +60,8 @@ public class LoadingActivity extends BaseActivity {
     }
 
     private void getBannerData(){
-        EasyHttp.post("/api/index").params("HTTP_API","vv/cms/api/index/banner")
-                    .execute(new SimpleCallBack<BaseBean<List<LoadingImgBean>>>() {
+   /*     EasyHttp.getInstance().setBaseUrl(NetRequestUrl.baseUrl).post("/api/index").params("HTTP_API","vv/cms/api/index/banner")
+                    .execute(new SimpleCallBack<Object>() {
 
                         @Override
                         public void onError(ApiException e) {
@@ -73,10 +70,13 @@ public class LoadingActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void onSuccess(BaseBean<List<LoadingImgBean>> loadingImgBeanBaseBean) {
-                            xBanner.setBannerData(loadingImgBeanBaseBean.getData());
+                        public void onSuccess(Object loadingImgBeanBaseBean) {
+                            //xBanner.setBannerData(loadingImgBeanBaseBean.getData());
                         }
-                    });
+                    });*/
+        OkGo.post("http://winpower.wljueli.com/api/index").
+
+
     }
 
 }

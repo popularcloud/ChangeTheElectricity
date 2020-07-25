@@ -74,7 +74,14 @@ dependencies {
 
 
     //###网络请求框架
-    implementation 'com.zhouyou:rxeasyhttp:2.1.5'
+    //implementation 'com.zhouyou:rxeasyhttp:2.1.5'
+
+    //必须使用
+    implementation 'com.lzy.net:okgo:3.0.4'
+
+    //以下三个选择添加，okrx和okrx2不能同时使用
+    implementation 'com.lzy.net:okrx2:2.0.2'
+    implementation 'com.lzy.net:okserver:2.0.5'
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
