@@ -1,7 +1,9 @@
 package com.younge.changetheelectricity.main.fragment;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +16,20 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.MyLocationStyle;
+import com.orhanobut.logger.Logger;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseFragment;
+import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.base.MyBaseFragment;
 import com.younge.changetheelectricity.changetheelectricity.activity.BatteryDetailActivity;
 import com.younge.changetheelectricity.changetheelectricity.fragment.BatteryDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ShopDetailFragment;
 import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
+import com.younge.changetheelectricity.main.bean.ShopDetailBean;
+import com.younge.changetheelectricity.main.presenter.MainPresenter;
+import com.younge.changetheelectricity.main.view.MainView;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 
 import java.util.ArrayList;
@@ -30,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends MyBaseFragment<MainPresenter> implements MainView,AMap.OnMyLocationChangeListener {
 
     @BindView(R.id.map)
     MapView mMapView;
@@ -63,6 +72,8 @@ public class MainFragment extends BaseFragment {
 
     private List<Fragment> fragmentList = new ArrayList<>();
 
+    private MyLocationStyle myLocationStyle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +92,13 @@ public class MainFragment extends BaseFragment {
         if (aMap == null) {
             aMap = mMapView.getMap();
         }
+
+
+        myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
+        myLocationStyle.interval(10000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
+        aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
+        aMap.getUiSettings().setMyLocationButtonEnabled(true); //设置默认定位按钮是否显示，非必需设置。
+        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
     }
 
     private void initViewpager() {
@@ -113,6 +131,11 @@ public class MainFragment extends BaseFragment {
             }
         });
         cvp_data.setCurrentItem(0);
+    }
+
+    @Override
+    protected MainPresenter createPresenter() {
+        return new MainPresenter(this);
     }
 
     @Override
@@ -190,4 +213,18 @@ public class MainFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onGetShopLocationSuccess(BaseModel<ShopDetailBean> data) {
+
+    }
+
+    @Override
+    public void onGetDataFail() {
+
+    }
+
+    @Override
+    public void onMyLocationChange(Location location) {
+        Logger.e("获取到了定位信息","经度:"+location.getLongitude() + "=========维度："+location.getLatitude());
+    }
 }

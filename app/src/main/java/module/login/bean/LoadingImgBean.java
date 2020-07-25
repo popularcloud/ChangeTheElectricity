@@ -3,7 +3,7 @@ package module.login.bean;
 
 import com.stx.xhb.xbanner.entity.BaseBannerInfo;
 
-public class LoadingImgBean implements BaseBannerInfo {
+public class LoadingImgBean {
 
 
     /**
@@ -15,16 +15,6 @@ public class LoadingImgBean implements BaseBannerInfo {
     private String image;
     private String url;
     private String title;
-
-    @Override
-    public Object getXBannerUrl() {
-        return image;
-    }
-
-    @Override
-    public String getXBannerTitle() {
-        return title;
-    }
 
     public String getImage() {
 

@@ -15,8 +15,6 @@
     <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
-
     <application
         android:name=".base.MyApplication"
         android:allowBackup="true"
@@ -33,10 +31,11 @@
             </intent-filter>
         </activity>
 
-        <!-- -->
-        <activity android:name=".changetheelectricity.activity.BatteryDetailActivity" />
+        <!-- 首页 -->
         <activity android:name=".main.MainActivity" />
-        <!-- -->
+        <!-- 电池详情 -->
+        <activity android:name=".changetheelectricity.activity.BatteryDetailActivity" />
+        <!-- 操作状态 -->
         <activity android:name=".changetheelectricity.activity.OperateStatuActivity" />
         <activity android:name=".changetheelectricity.activity.ChargeDetailActivity" />
         <activity android:name=".changetheelectricity.activity.ConfirmOrderActivity" />
@@ -54,6 +53,7 @@
         <activity android:name=".mine.activity.UseHistoryActivity" />
         <activity android:name=".mine.activity.MyDepositActivity" />
         <activity android:name=".mine.activity.DepositHistoryActivity" />
+        <activity android:name="module.login.activity.LoginActivity" />
     </application>
 
     <meta-data android:name="com.amap.api.v2.apikey" android:value="27faf0210c16cf81b8f93a2f2072ca45">
