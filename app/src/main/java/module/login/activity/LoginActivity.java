@@ -13,7 +13,7 @@ import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
 import com.younge.changetheelectricity.main.MainActivity;
-import com.younge.changetheelectricity.mine.activity.MyWalletActivity;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import module.login.bean.LoginBean;
 import module.login.presenter.LoginPresenter;
 import module.login.view.LoginView;
 
@@ -101,15 +102,16 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
                     ToastUtil.makeText(LoginActivity.this,"请同意以下服务协议");
                     return;
                 }
-                startActivity(new Intent(this, MainActivity.class));
-               // mPresenter.loginByCode(phone,code,"");
+                //startActivity(new Intent(this, MainActivity.class));
+                mPresenter.loginByCode(phone,code,"");
                 break;
         }
     }
 
     @Override
-    public void onLoginSuccess(BaseModel<Object> data) {
+    public void onLoginSuccess(BaseModel<LoginBean> data) {
         ToastUtil.makeText(LoginActivity.this,"登录成功");
+        SharedPreferencesUtils.setParam(LoginActivity.this,"token",data.getData().getToken());
         startActivity(new Intent(this, MainActivity.class));
     }
 
@@ -120,6 +122,6 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
 
     @Override
     public void onGetDataFail() {
-        ToastUtil.makeText(LoginActivity.this,"获取轮播图失败");
+        ToastUtil.makeText(LoginActivity.this,"获取失败");
     }
 }

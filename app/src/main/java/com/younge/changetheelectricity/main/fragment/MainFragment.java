@@ -3,7 +3,6 @@ package com.younge.changetheelectricity.main.fragment;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.orhanobut.logger.Logger;
 import com.younge.changetheelectricity.R;
-import com.younge.changetheelectricity.base.BaseFragment;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
 import com.younge.changetheelectricity.changetheelectricity.activity.BatteryDetailActivity;
@@ -92,7 +90,6 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         if (aMap == null) {
             aMap = mMapView.getMap();
         }
-
 
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.interval(10000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。

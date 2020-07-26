@@ -2,21 +2,28 @@ package com.younge.changetheelectricity.main.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
-import com.younge.changetheelectricity.base.BaseFragment;
-import com.younge.changetheelectricity.mine.activity.BindBatteryActivity;
-import com.younge.changetheelectricity.mine.activity.BindCarActivity;
+import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.base.MyBaseFragment;
 import com.younge.changetheelectricity.mine.activity.MyBatteryActivity;
 import com.younge.changetheelectricity.mine.activity.MyCarActivity;
 import com.younge.changetheelectricity.mine.activity.MyPackageActivity;
 import com.younge.changetheelectricity.mine.activity.MyWalletActivity;
 import com.younge.changetheelectricity.mine.activity.PersonalInfoActivity;
 import com.younge.changetheelectricity.mine.activity.RealNameAuthentication01Activity;
+import com.younge.changetheelectricity.mine.bean.UserInfoBean;
+import com.younge.changetheelectricity.mine.presenter.MinePresenter;
+import com.younge.changetheelectricity.mine.view.MineView;
+import com.younge.changetheelectricity.util.ImageLoaderUtil;
+import com.younge.changetheelectricity.util.JsonUtil;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,10 +32,22 @@ import butterknife.OnClick;
 /**
  * 我的
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends MyBaseFragment<MinePresenter> implements MineView {
 
     @BindView(R.id.imgRight)
     ImageView imgRight;
+
+    @BindView(R.id.txt_name)
+    TextView txt_name;
+    @BindView(R.id.tv_status)
+    TextView tv_status;
+    @BindView(R.id.img_head)
+    ImageView img_head;
+
+
+    private String token;
+
+    private UserInfoBean.UserinfoBean userinfoBean;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -42,7 +61,18 @@ public class MineFragment extends BaseFragment {
 
             }
         });
+
+        createPresenter();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        token = (String) SharedPreferencesUtils.getParam(getContext(),"token","");
+        if(mPresenter != null && !TextUtils.isEmpty(token)){
+            mPresenter.getPersonalInfo(token);
+        }
     }
 
     @OnClick({R.id.ll_wallet,R.id.tv_status,R.id.tv_bind_battery,R.id.tv_bind_car,R.id.txt_name,R.id.img_head,R.id.txt_huiyuan,R.id.ll_package})
@@ -69,5 +99,33 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
                 break;
         }
+    }
+
+    @Override
+    protected MinePresenter createPresenter() {
+        mPresenter = new MinePresenter(this);
+        return mPresenter;
+    }
+
+    @Override
+    public void onGetDataSuccess(BaseModel<UserInfoBean> data) {
+        userinfoBean = data.getData().getUserinfo();
+
+        String userInfoDetail = JsonUtil.parserObjectToGson(userinfoBean);
+        SharedPreferencesUtils.setParam(getContext(),"userInfoDetail",userInfoDetail);
+
+        txt_name.setText(userinfoBean.getUsername());
+
+        ImageLoaderUtil.getInstance().displayFromNetDCircularT(getContext(),userinfoBean.getAvatar(),img_head,R.mipmap.default_portrait_100);
+
+
+
+       // tv_status.setText(userinfoBean.getVerification_desc());
+
+    }
+
+    @Override
+    public void onGetDataFail() {
+
     }
 }

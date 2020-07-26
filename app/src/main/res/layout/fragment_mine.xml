@@ -85,7 +85,7 @@
                     android:layout_marginTop="@dimen/dp_20"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:gravity="center"
-                    android:text="1390000"
+                    android:text=""
                     android:textColor="@color/white"
                     android:drawablePadding="@dimen/dp_10"
                     android:drawableRight="@mipmap/ic_my_edit"

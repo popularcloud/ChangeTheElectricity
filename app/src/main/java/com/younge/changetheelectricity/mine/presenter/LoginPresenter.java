@@ -1,4 +1,4 @@
-package module.login.presenter;
+package com.younge.changetheelectricity.mine.presenter;
 
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
