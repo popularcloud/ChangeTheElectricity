@@ -11,5 +11,7 @@ public interface LoginView extends BaseView {
 
     void ongetCodeSuccess(BaseModel<Object> data);
 
+    void onUplaod(BaseModel<Object> data);
+
     void onGetDataFail();
 }

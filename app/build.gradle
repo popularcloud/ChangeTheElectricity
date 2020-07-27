@@ -93,4 +93,7 @@ dependencies {
     //动态权限请求
     implementation 'com.yanzhenjie:permission:2.0.3'
 
+    //图片选择
+    implementation 'com.github.wildma:PictureSelector:1.1.1'
+
 }

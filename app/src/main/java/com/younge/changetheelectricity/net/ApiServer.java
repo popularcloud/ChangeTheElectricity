@@ -9,10 +9,13 @@ import java.util.List;
 import io.reactivex.Observable;
 import module.login.bean.LoadingImgBean;
 import module.login.bean.LoginBean;
+import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface ApiServer {
 
@@ -55,5 +58,19 @@ public interface ApiServer {
     @Headers("HTTP_API: vv/usercenter/api/user/profile")
     Observable<BaseModel<UserInfoBean>> getPersonalInfo(@Field("HTTP_API") String httpApi,
                                                         @Field("token") String token);
+
+    //获取我的车辆
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/car")
+    Observable<BaseModel<UserInfoBean>> getMyCar(@Field("HTTP_API") String httpApi,
+                                                        @Field("page") String page,
+                                                        @Field("token") String token);
+
+
+    @Multipart
+    @POST("/api/index")
+    @Headers("HTTP_API: api/common/upload")
+    Observable<BaseModel<Object>> upLoadPic(@Part() List<MultipartBody.Part> partList);
 
 }
