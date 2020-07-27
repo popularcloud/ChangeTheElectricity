@@ -43,7 +43,7 @@ public class LoadingDialog extends Dialog {
         window.setAttributes(wl);
 
         setContentView(R.layout.dialog_loading);
-       // mTvText = findViewById(R.id.tv_text);
+        mTvText = findViewById(R.id.tv_text);
         setCanceledOnTouchOutside(false);
     }
 

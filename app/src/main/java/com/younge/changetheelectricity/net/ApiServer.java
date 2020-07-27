@@ -67,7 +67,18 @@ public interface ApiServer {
                                                         @Field("page") String page,
                                                         @Field("token") String token);
 
-
+    //车辆添加
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/car_edit")
+    Observable<BaseModel<UserInfoBean>> addCar(@Field("HTTP_API") String httpApi,
+                                                 @Field("carvin") String carvin,
+                                                 @Field("serial") String serial,
+                                               @Field("carno") String carno,
+                                               @Field("picfront") String picfront,
+                                               @Field("picback") String picback,
+                                               @Field("picleft") String picleft,
+                                               @Field("picright") String picright);
     @Multipart
     @POST("/api/index")
     @Headers("HTTP_API: api/common/upload")

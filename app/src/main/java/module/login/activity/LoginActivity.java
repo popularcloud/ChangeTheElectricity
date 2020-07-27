@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
-import com.wildma.pictureselector.PictureSelector;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
@@ -109,45 +107,13 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
                     return;
                 }
                 //startActivity(new Intent(this, MainActivity.class));
-               // mPresenter.loginByCode(phone,code,"");
+                mPresenter.loginByCode(phone,code,"");
 
-                /**
-                 * create()方法参数一是上下文，在activity中传activity.this，在fragment中传fragment.this。参数二为请求码，用于结果回调onActivityResult中判断
-                 * selectPicture()方法参数分别为 是否裁剪、裁剪后图片的宽(单位px)、裁剪后图片的高、宽比例、高比例。都不传则默认为裁剪，宽200，高200，宽高比例为1：1。
-                 */
-                PictureSelector
-                        .create(LoginActivity.this, PictureSelector.SELECT_REQUEST_CODE)
-                        .selectPicture(true, 200, 200, 1, 1);
                 break;
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        /*结果回调*/
-        if (requestCode == PictureSelector.SELECT_REQUEST_CODE) {
-            if (data != null) {
-                String picturePath = data.getStringExtra(PictureSelector.PICTURE_PATH);
 
-                Log.d("picAddress",picturePath);
-                File file = new File(picturePath);
-
-               /* RequestBody requestFile =
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-                MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestFile);*/
-
-                MultipartBody.Builder builder = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)//表单类型
-                        .addFormDataPart("HTTP_API", "api/common/upload");
-                RequestBody photoRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                builder.addFormDataPart("file", file.getName(), photoRequestBody);
-
-                mPresenter.uploadPicToService(builder.build().parts());
-            }
-        }
-    }
 
     @Override
     public void onLoginSuccess(BaseModel<LoginBean> data) {

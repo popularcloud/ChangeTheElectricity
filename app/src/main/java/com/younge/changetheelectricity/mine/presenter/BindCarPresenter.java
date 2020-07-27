@@ -1,29 +1,28 @@
-package module.login.presenter;
+package com.younge.changetheelectricity.mine.presenter;
 
 import com.google.gson.JsonObject;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
+import com.younge.changetheelectricity.mine.view.BindCarView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
 
 import java.util.List;
 
-import module.login.bean.LoginBean;
-import module.login.view.LoginView;
 import okhttp3.MultipartBody;
 
-public class LoginPresenter extends BasePresenter<LoginView> {
+public class BindCarPresenter extends BasePresenter<BindCarView> {
 
-    public LoginPresenter(LoginView baseView) {
+    public BindCarPresenter(BindCarView baseView) {
         super(baseView);
     }
 
-    public void getPhoneCode(String mobile){
-        addDisposable(ApiRetrofit.getInstance().getApiService().getPhoneCode("vv/sms/api/index/send",mobile,"mobilebind"), new BaseObserver(baseView) {
+    public void uploadPicToService(List<MultipartBody.Part> partList) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().upLoadPic(partList), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.ongetCodeSuccess((BaseModel<Object>) o);
+                baseView.onUploadPicSuccess((BaseModel<JsonObject>) o);
             }
 
             @Override
@@ -40,12 +39,12 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         });
     }
 
-    public void loginByCode(String mobile,String code,String pid){
-        addDisposable(ApiRetrofit.getInstance().getApiService().loginByCode("vv/usercenter/api/user/login","mobile",mobile,code,pid), new BaseObserver(baseView) {
+    public void addCar(String carvin, String serial,String carno,String picfront,String picback,String picleft,String picright) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().addCar("vv/usercenter/api/car/car_edit",carvin,serial,carno,picfront,picback,picleft,picright), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onLoginSuccess((BaseModel<LoginBean>) o);
+                baseView.onUploadPicSuccess((BaseModel<JsonObject>) o);
             }
 
             @Override
@@ -61,7 +60,5 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             }
         });
     }
-
-
 
 }
