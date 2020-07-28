@@ -4,8 +4,10 @@ import com.google.gson.JsonObject;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
+import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.view.BindCarView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class BindCarPresenter extends BasePresenter<BindCarView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onUploadPicSuccess((BaseModel<JsonObject>) o);
+                baseView.onUploadPicSuccess((BaseModel<ReturnImgUrlBean>) o);
             }
 
             @Override
@@ -39,12 +41,12 @@ public class BindCarPresenter extends BasePresenter<BindCarView> {
         });
     }
 
-    public void addCar(String carvin, String serial,String carno,String picfront,String picback,String picleft,String picright) {
-        addDisposable(ApiRetrofit.getInstance().getApiService().addCar("vv/usercenter/api/car/car_edit",carvin,serial,carno,picfront,picback,picleft,picright), new BaseObserver(baseView) {
+    public void addCar(String carvin, String serial,String carno,String picfront,String picback,String picleft,String picright,String token) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().addCar("vv/usercenter/api/car/car_edit",carvin,serial,carno,picfront,picback,picleft,picright, token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onUploadPicSuccess((BaseModel<JsonObject>) o);
+                baseView.onAddCarSuccess((BaseModel<Object>) o);
             }
 
             @Override

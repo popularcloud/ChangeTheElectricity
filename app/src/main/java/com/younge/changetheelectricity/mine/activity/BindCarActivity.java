@@ -16,9 +16,12 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
+import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.presenter.BindCarPresenter;
 import com.younge.changetheelectricity.mine.view.BindCarView;
+import com.younge.changetheelectricity.util.ImageLoaderUtil;
 import com.younge.changetheelectricity.util.JsonUtil;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 
 import java.io.File;
@@ -142,7 +145,7 @@ public class BindCarActivity extends MyBaseActivity<BindCarPresenter> implements
                     return;
                 }
 
-                mPresenter.addCar(carvin,serial,carno,positiveImg,backImg,leftImg,rightImg);
+                mPresenter.addCar(carvin,serial,carno,positiveImg,backImg,leftImg,rightImg, String.valueOf(SharedPreferencesUtils.getParam(BindCarActivity.this,"token","")));
                 //ToastUtil.makeText(this,"绑定成功！");
                 //startActivity(new Intent(BindCarActivity.this, MyCarActivity.class));
                 break;
@@ -203,29 +206,33 @@ public class BindCarActivity extends MyBaseActivity<BindCarPresenter> implements
 
 
     @Override
-    public void onUploadPicSuccess(BaseModel<JsonObject> data) {
+    public void onUploadPicSuccess(BaseModel<ReturnImgUrlBean> data) {
 
         dissMissDialog();
 
         switch (imgType){
             case 0:
-               positiveImg = data.getData().get("url").getAsString();
+                positiveImg = data.getData().getUrl();
+                ImageLoaderUtil.getInstance().displayFromNetDCircular(BindCarActivity.this,positiveImg,iv_car_positive,R.mipmap.cte_logo);
                 break;
             case 1:
-                backImg = data.getData().get("url").getAsString();
+                backImg = data.getData().getUrl();
+                ImageLoaderUtil.getInstance().displayFromNetDCircular(BindCarActivity.this,backImg,iv_car_back,R.mipmap.cte_logo);
                 break;
             case 2:
-                leftImg = data.getData().get("url").getAsString();
+                leftImg = data.getData().getUrl();
+                ImageLoaderUtil.getInstance().displayFromNetDCircular(BindCarActivity.this,leftImg,iv_car_left,R.mipmap.cte_logo);
                 break;
             case 3:
-                rightImg = data.getData().get("url").getAsString();
+                rightImg = data.getData().getUrl();
+                ImageLoaderUtil.getInstance().displayFromNetDCircular(BindCarActivity.this,rightImg,iv_car_right,R.mipmap.cte_logo);
                 break;
         }
     }
 
     @Override
-    public void onAddCarSuccess(BaseModel<JsonObject> data) {
-        ToastUtil.makeText(BindCarActivity.this,"添加成功");
+    public void onAddCarSuccess(BaseModel<Object> data) {
+        ToastUtil.makeText(BindCarActivity.this,"添加成功"+data.getErrmsg());
         finish();
     }
 

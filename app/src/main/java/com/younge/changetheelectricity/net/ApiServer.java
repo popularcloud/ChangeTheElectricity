@@ -2,6 +2,7 @@ package com.younge.changetheelectricity.net;
 
 
 import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 
 import java.util.List;
@@ -78,10 +79,13 @@ public interface ApiServer {
                                                @Field("picfront") String picfront,
                                                @Field("picback") String picback,
                                                @Field("picleft") String picleft,
-                                               @Field("picright") String picright);
+                                               @Field("picright") String picright,
+                                               @Field("token") String token);
+
+    //上传图片
     @Multipart
     @POST("/api/index")
     @Headers("HTTP_API: api/common/upload")
-    Observable<BaseModel<Object>> upLoadPic(@Part() List<MultipartBody.Part> partList);
+    Observable<BaseModel<ReturnImgUrlBean>> upLoadPic(@Part() List<MultipartBody.Part> partList);
 
 }
