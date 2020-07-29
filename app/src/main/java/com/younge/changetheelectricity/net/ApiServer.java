@@ -48,12 +48,32 @@ public interface ApiServer {
     Observable<BaseModel<Object>> loginFast(@Field("HTTP_API") String httpApi,@Field("platform") String platform,
                                                @Field("mobile") String mobile,@Field("pid") String pid);
 
+    //设备详情
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/device/api/index/show")
+    Observable<BaseModel<Object>> getDeviceDetail(@Field("HTTP_API") String httpApi,
+                                            @Field("lng") String lng,
+                                            @Field("lat") String lat,
+                                            @Field("macno") String macno,
+                                            @Field("token") String token);
+
+    //店铺详情
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/agent/api/index/seller_show")
+    Observable<BaseModel<Object>> getShopDetail(@Field("HTTP_API") String httpApi,
+                                                  @Field("lng") String lng,
+                                                  @Field("lat") String lat,
+                                                  @Field("macno") String macno,
+                                                  @Field("token") String token);
+
     //获取附近网点
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/device/api/index/index")
     Observable<BaseModel<Object>> getShopLocations(@Field("HTTP_API") String httpApi,
-                                            @Field("lng") String lng,@Field("lat") String lat);
+                                                   @Field("lng") String lng,@Field("lat") String lat);
 
     //获取个人资料
     @POST("/api/index")
@@ -98,5 +118,47 @@ public interface ApiServer {
                                                   @Field("type") String type,
                                                   @Field("page") String page,
                                                   @Field("size") String size);
+
+    //套餐详情
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/package/api/index/show")
+    Observable<BaseModel<PackageBean>> getPackageDetail(@Field("HTTP_API") String httpApi,
+                                                  @Field("id") String id);
+
+
+    //充值下单
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/recharge/api/recharge/submit")
+    Observable<BaseModel<PackageBean>> rechargeOrder(@Field("HTTP_API") String httpApi,
+                                                     @Field("type") String type,
+                                                     @Field("package_id") String package_id,
+                                                     @Field("paytype") String paytype,
+                                                     @Field("method") String method,
+                                                  @Field("token") String token);
+
+    //套餐下单
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/cms/api/archives/order")
+    Observable<BaseModel<PackageBean>> PackageOrder(@Field("HTTP_API") String httpApi,
+                                                     @Field("coupon_id") String coupon_id,
+                                                     @Field("type") String type,
+                                                     @Field("goodslist") String goodslist,
+                                                     @Field("paytype") String paytype,
+                                                     @Field("method") String method,
+                                                     @Field("token") String token);
+
+    //我的套餐
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/package/api/index/my")
+    Observable<BaseModel<PackageBean>> myPackageOrder(@Field("HTTP_API") String httpApi,
+                                                    @Field("type") String type,
+                                                    @Field("status") String status,
+                                                    @Field("page") String page,
+                                                    @Field("size") String size,
+                                                    @Field("token") String token);
 
 }

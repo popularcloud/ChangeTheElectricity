@@ -13,7 +13,7 @@ public class PackagePresenter extends BasePresenter<PackageListView> {
         super(baseView);
     }
 
-    public void getMyCarList(String type,String page) {
+    public void getPackageList(String type,String page) {
         addDisposable(ApiRetrofit.getInstance().getApiService().getPackage("vv/package/api/index/index",type,page,"10"), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {

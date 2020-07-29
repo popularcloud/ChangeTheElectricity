@@ -29,13 +29,14 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyCarView {
 
-    @BindView(R.id.rv_data)
-    RecyclerView rv_data;
+
     @BindView(R.id.tv_center_title)
     TextView tv_center_title;
     @BindView(R.id.tv_right)
     TextView tv_right;
 
+    @BindView(R.id.rv_data)
+    RecyclerView rv_data;
     @BindView(R.id.mBGARefreshLayout)
     BGARefreshLayout mBGARefreshLayout;
 
