@@ -16,6 +16,7 @@ import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.presenter.MyCarPresenter;
 import com.younge.changetheelectricity.mine.view.MyCarView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
+import com.younge.changetheelectricity.widget.CustomViewPager;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -27,14 +28,13 @@ import butterknife.OnClick;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
-public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyCarView {
+public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implements MyCarView {
 
-    @BindView(R.id.rv_data)
-    RecyclerView rv_data;
+    @BindView(R.id.cViewPager)
+    CustomViewPager cViewPager;
     @BindView(R.id.tv_center_title)
     TextView tv_center_title;
-    @BindView(R.id.tv_right)
-    TextView tv_right;
+
 
     @BindView(R.id.mBGARefreshLayout)
     BGARefreshLayout mBGARefreshLayout;
@@ -51,21 +51,13 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
 
     @Override
     protected int getContentViewId(Bundle savedInstanceState) {
-        return R.layout.activity_my_car;
+        return R.layout.activity_package_list;
     }
 
     @Override
     protected void init() {
 
         tv_center_title.setText("我的车辆");
-        tv_right.setVisibility(View.VISIBLE);
-        tv_right.setText("添加车辆");
-        tv_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MyCarActivity.this, BindCarActivity.class));
-            }
-        });
         initList();
     }
 
@@ -80,38 +72,6 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
     }
 
     private void initList(){
-
-        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
-        mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
-
-        mAdapter = new MyCarListAdapter(this,allList,R.layout.item_my_car);
-        rv_data.setLayoutManager(new LinearLayoutManager(this));
-        rv_data.setAdapter(mAdapter);
-
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View itemView, int viewType, int position) {
-
-            }
-        });
-
-
-        mBGARefreshLayout.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
-            @Override
-            public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-                page = 1;
-                mPresenter.getMyCarList(String.valueOf(page), String.valueOf(SharedPreferencesUtils.getParam(MyCarActivity.this,"token","")));
-            }
-
-            @Override
-            public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-                page++;
-                mPresenter.getMyCarList(String.valueOf(page), String.valueOf(SharedPreferencesUtils.getParam(MyCarActivity.this,"token","")));
-                return true;
-            }
-        });
-
-        mBGARefreshLayout.beginRefreshing();
 
 
     }

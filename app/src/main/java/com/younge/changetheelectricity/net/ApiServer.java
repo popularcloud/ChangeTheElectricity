@@ -2,6 +2,8 @@ package com.younge.changetheelectricity.net;
 
 
 import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.mine.bean.MyCarBean;
+import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 
@@ -64,9 +66,9 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/usercenter/api/car/car")
-    Observable<BaseModel<UserInfoBean>> getMyCar(@Field("HTTP_API") String httpApi,
-                                                        @Field("page") String page,
-                                                        @Field("token") String token);
+    Observable<BaseModel<MyCarBean>> getMyCar(@Field("HTTP_API") String httpApi,
+                                              @Field("page") String page,
+                                              @Field("token") String token);
 
     //车辆添加
     @POST("/api/index")
@@ -87,5 +89,14 @@ public interface ApiServer {
     @POST("/api/index")
     @Headers("HTTP_API: api/common/upload")
     Observable<BaseModel<ReturnImgUrlBean>> upLoadPic(@Part() List<MultipartBody.Part> partList);
+
+    //套餐列表
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/package/api/index/index")
+    Observable<BaseModel<PackageBean>> getPackage(@Field("HTTP_API") String httpApi,
+                                                  @Field("type") String type,
+                                                  @Field("page") String page,
+                                                  @Field("size") String size);
 
 }
