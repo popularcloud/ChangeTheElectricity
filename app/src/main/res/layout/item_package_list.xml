@@ -41,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray_99"
+                android:layout_marginLeft="@dimen/dp_15"
                 android:textSize="@dimen/sp_11"
                 android:text="15次/30天"/>
         </LinearLayout>

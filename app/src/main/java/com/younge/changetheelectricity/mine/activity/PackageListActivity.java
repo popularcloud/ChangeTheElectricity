@@ -42,15 +42,6 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
     @BindView(R.id.tv_center_title)
     TextView tv_center_title;
 
-
-    @BindView(R.id.mBGARefreshLayout)
-    BGARefreshLayout mBGARefreshLayout;
-
-    private MyCarListAdapter mAdapter;
-
-    private List<MyCarBean.ListBean> allList = new ArrayList<>();
-    private int page = 1;
-
     private List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
@@ -66,8 +57,8 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
     @Override
     protected void init() {
 
-        tv_center_title.setText("我的车辆");
-        initList();
+        tv_center_title.setText("骑行套餐");
+        initViewpager();
     }
 
     @Override
@@ -77,11 +68,6 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
 
     @Override
     protected void widgetListener() {
-
-    }
-
-    private void initList(){
-
 
     }
 
@@ -129,28 +115,10 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
     @Override
     public void onGetCarSuccess(BaseModel<MyCarBean> data) {
 
-        if(data != null && data.getData() != null && data.getData().getList() != null){
-            if(page == 1) {
-                mAdapter.replaceAll(data.getData().getList());
-            }else{
-                mAdapter.addAll(data.getData().getList());
-            }
-        }
-
-
-        if(page == 1) {
-           mBGARefreshLayout.endRefreshing();
-        }else{
-            mBGARefreshLayout.endLoadingMore();
-        }
     }
 
     @Override
     public void onGetDataFail() {
-        if(page == 1) {
-            mBGARefreshLayout.endRefreshing();
-        }else{
-            mBGARefreshLayout.endLoadingMore();
-        }
+
     }
 }

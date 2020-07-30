@@ -10,8 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseActivity;
+import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ConfirmOrderAdapter;
+import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
+import com.younge.changetheelectricity.mine.adapter.MyPackageListAdapter;
+import com.younge.changetheelectricity.mine.bean.PackageBean;
+import com.younge.changetheelectricity.mine.presenter.MyPackagePresenter;
+import com.younge.changetheelectricity.mine.view.PackageListView;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -21,8 +28,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
-public class MyPackageActivity extends BaseActivity {
+public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implements PackageListView {
 
     @BindView(R.id.rv_data)
     RecyclerView rv_data;
@@ -30,15 +38,28 @@ public class MyPackageActivity extends BaseActivity {
     TextView tv_center_title;
     @BindView(R.id.tv_right)
     TextView tv_right;
-    private ConfirmOrderAdapter mAdapter;
+    @BindView(R.id.mBGARefreshLayout)
+    BGARefreshLayout mBGARefreshLayout;
+    private MyPackageListAdapter mAdapter;
 
-    private List<BatteryDetailsBean> allList = new ArrayList<>();
+    private int page = 1;
+
+    private List<PackageBean.ListBean> allList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_package);
-        ButterKnife.bind(this);
+    protected MyPackagePresenter createPresenter() {
+        return new MyPackagePresenter(this);
+    }
+
+
+    @Override
+    protected int getContentViewId(Bundle savedInstanceState) {
+        return R.layout.activity_my_package;
+    }
+
+    @Override
+    protected void init() {
+
 
         tv_center_title.setText("我的套餐");
 
@@ -53,17 +74,19 @@ public class MyPackageActivity extends BaseActivity {
         initList();
     }
 
+    @Override
+    protected void initGetData() {
+
+    }
+
+    @Override
+    protected void widgetListener() {
+
+    }
+
     private void initList(){
 
-        allList.clear();
-
-        BatteryDetailsBean listBean1 = new BatteryDetailsBean();
-        BatteryDetailsBean listBean2 = new BatteryDetailsBean();
-        allList.add(listBean1);
-        allList.add(listBean2);
-
-
-        mAdapter = new ConfirmOrderAdapter(this,allList,R.layout.item_my_package);
+        mAdapter = new MyPackageListAdapter(this,allList,R.layout.item_my_package);
         rv_data.setLayoutManager(new LinearLayoutManager(this));
         rv_data.setAdapter(mAdapter);
 
@@ -75,12 +98,42 @@ public class MyPackageActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.rl_fanhui_left})
+    @OnClick({R.id.rl_fanhui_left,R.id.tv_submit})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.rl_fanhui_left:
                 finish();
                 break;
+            case R.id.tv_submit:
+                startActivity(new Intent(MyPackageActivity.this,PackageListActivity.class));
+                break;
+        }
+    }
+
+    @Override
+    public void onGetDataSuccess(BaseModel<PackageBean> data) {
+        if(data != null && data.getData() != null && data.getData().getList() != null){
+            if(page == 1) {
+                mAdapter.replaceAll(data.getData().getList());
+            }else{
+                mAdapter.addAll(data.getData().getList());
+            }
+        }
+
+
+        if(page == 1) {
+            mBGARefreshLayout.endRefreshing();
+        }else{
+            mBGARefreshLayout.endLoadingMore();
+        }
+    }
+
+    @Override
+    public void onGetDataFail() {
+        if(page == 1) {
+            mBGARefreshLayout.endRefreshing();
+        }else{
+            mBGARefreshLayout.endLoadingMore();
         }
     }
 }

@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +15,6 @@ import com.younge.changetheelectricity.mine.adapter.PackageListAdapter;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
 import com.younge.changetheelectricity.mine.view.PackageListView;
-import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -31,15 +28,6 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> implements PackageListView {
 
-    @BindView(R.id.imgRight)
-    ImageView imgRight;
-
-    @BindView(R.id.txt_name)
-    TextView txt_name;
-    @BindView(R.id.tv_status)
-    TextView tv_status;
-    @BindView(R.id.img_head)
-    ImageView img_head;
 
     @BindView(R.id.rv_data)
     RecyclerView rv_data;
@@ -56,7 +44,7 @@ public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> impl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine, null);
+        View view = inflater.inflate(R.layout.fragment_recharge_package, null);
         ButterKnife.bind(this, view);
 
         mPresenter = createPresenter();
@@ -109,7 +97,7 @@ public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> impl
 
     @Override
     protected PackagePresenter createPresenter() {
-        return mPresenter;
+        return new PackagePresenter(this);
     }
 
     @Override
