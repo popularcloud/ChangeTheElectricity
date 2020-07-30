@@ -60,10 +60,8 @@
         <activity android:name=".mine.activity.DepositHistoryActivity" />
         <activity android:name="module.login.activity.LoginActivity" />
         <activity android:name=".mine.activity.PackageListActivity" />
+
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="d35bef7a58b82cffc7b4e04a16533c3d">
+        </meta-data>
     </application>
-
-    <meta-data android:name="com.amap.api.v2.apikey" android:value="d35bef7a58b82cffc7b4e04a16533c3d">
-    </meta-data>
-
-
 </manifest>

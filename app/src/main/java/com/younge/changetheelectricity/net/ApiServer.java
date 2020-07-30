@@ -48,32 +48,34 @@ public interface ApiServer {
     Observable<BaseModel<Object>> loginFast(@Field("HTTP_API") String httpApi,@Field("platform") String platform,
                                                @Field("mobile") String mobile,@Field("pid") String pid);
 
-    //设备详情
-    @POST("/api/index")
-    @FormUrlEncoded
-    @Headers("HTTP_API: vv/device/api/index/show")
-    Observable<BaseModel<Object>> getDeviceDetail(@Field("HTTP_API") String httpApi,
-                                            @Field("lng") String lng,
-                                            @Field("lat") String lat,
-                                            @Field("macno") String macno,
-                                            @Field("token") String token);
-
-    //店铺详情
-    @POST("/api/index")
-    @FormUrlEncoded
-    @Headers("HTTP_API: vv/agent/api/index/seller_show")
-    Observable<BaseModel<Object>> getShopDetail(@Field("HTTP_API") String httpApi,
-                                                  @Field("lng") String lng,
-                                                  @Field("lat") String lat,
-                                                  @Field("macno") String macno,
-                                                  @Field("token") String token);
-
     //获取附近网点
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/device/api/index/index")
     Observable<BaseModel<Object>> getShopLocations(@Field("HTTP_API") String httpApi,
                                                    @Field("lng") String lng,@Field("lat") String lat);
+
+
+    //设备详情
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/device/api/index/show")
+    Observable<BaseModel<Object>> getDeviceDetail(@Field("HTTP_API") String httpApi,
+                                                  @Field("lng") String lng,
+                                                  @Field("lat") String lat,
+                                                  @Field("macno") String macno,
+                                                  @Field("token") String token);
+
+    //店铺详情
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/agent/api/index/seller_show")
+    Observable<BaseModel<Object>> getShopDetail(@Field("HTTP_API") String httpApi,
+                                                @Field("lng") String lng,
+                                                @Field("lat") String lat,
+                                                @Field("macno") String macno,
+                                                @Field("token") String token);
+
 
     //获取个人资料
     @POST("/api/index")
