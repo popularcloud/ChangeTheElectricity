@@ -56,7 +56,6 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
 
     @Override
     protected void init() {
-
         tv_center_title.setText("骑行套餐");
         initViewpager();
     }

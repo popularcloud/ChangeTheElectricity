@@ -38,11 +38,11 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
     @BindView(R.id.xbanner)
     XBanner xBanner;
 
-
     private String [] permissions = new String[]{
             Permission.CAMERA,
             Permission.READ_EXTERNAL_STORAGE,
             Permission.WRITE_EXTERNAL_STORAGE,
+            Permission.ACCESS_COARSE_LOCATION,
             Permission.READ_PHONE_STATE,
             Permission.READ_PHONE_NUMBERS};
 
