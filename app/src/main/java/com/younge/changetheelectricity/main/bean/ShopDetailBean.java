@@ -4,458 +4,406 @@ import java.util.List;
 
 public class ShopDetailBean {
     /**
-     * total : 1
-     * totalpage : 1
-     * list : [{"id":1,"type":3,"title":"test","macno":"5202019020500002","box":6,"charge_box":2,"area":"广东省/东莞市/南城街道","address":"高盛科技大厦308","lng":"113.726037","lat":"22.98662","remark":"","admin_id":3,"status":2,"clean":0,"activetime":0,"createtime":1593690628,"updatetime":0,"distance":0,"device_goods":[{"id":1,"type":3,"goods_type":0,"device_id":1,"device_box":1,"macno":"123456","macno2":"","status":1,"lock":1,"rfid":1,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":2,"type":3,"goods_type":0,"device_id":1,"device_box":2,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":3,"type":3,"goods_type":0,"device_id":1,"device_box":3,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":4,"type":3,"goods_type":0,"device_id":1,"device_box":4,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":5,"type":3,"goods_type":0,"device_id":1,"device_box":5,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":6,"type":3,"goods_type":0,"device_id":1,"device_box":6,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":7,"type":3,"goods_type":1,"device_id":1,"device_box":1,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":8,"type":3,"goods_type":1,"device_id":1,"device_box":2,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0}],"active_box":1,"active_charge_box":0}]
+     * id : 3
+     * type : 2
+     * group_id : 3
+     * toppid : 0
+     * pid : 0
+     * path :
+     * admin_id : 1
+     * username : 13800138001
+     * nickname : 商家1
+     * score : 0
+     * allscore : 0
+     * money : 0.00
+     * allmoney : 0.00
+     * givemoney : 0.00
+     * allgivemoney : 0.00
+     * user_id : 0
+     * level : 0
+     * avatar : http://winpower.wljueli.com/assets/img/avatar.png
+     * email :
+     * mobile : 13800138001
+     * percent : 10.00
+     * area : 广东省/东莞市/南城街道
+     * address :
+     * lng : 113.743811
+     * lat : 23.018534
+     * text : <p>无</p>
+     * images : ["http://winpower.wljueli.com/assets/img/avatar.png"]
+     * loginfailure : 0
+     * logintime : 0
+     * createtime : 1593688819
+     * updatetime : 1593688819
+     * token :
+     * status : normal
+     * bind_ids : 0
+     * clean1 : 0
+     * redmoney : 0.00
+     * allredmoney : 0.00
+     * hours :
+     * tel : 13800138001
+     * distance : 0
      */
 
-    private int total;
-    private int totalpage;
-    private List<ListBean> list;
+    private int id;
+    private int type;
+    private int group_id;
+    private int toppid;
+    private int pid;
+    private String path;
+    private int admin_id;
+    private String username;
+    private String nickname;
+    private int score;
+    private int allscore;
+    private String money;
+    private String allmoney;
+    private String givemoney;
+    private String allgivemoney;
+    private int user_id;
+    private int level;
+    private String avatar;
+    private String email;
+    private String mobile;
+    private String percent;
+    private String area;
+    private String address;
+    private String lng;
+    private String lat;
+    private String text;
+    private int loginfailure;
+    private int logintime;
+    private int createtime;
+    private int updatetime;
+    private String token;
+    private String status;
+    private String bind_ids;
+    private int clean1;
+    private String redmoney;
+    private String allredmoney;
+    private String hours;
+    private String tel;
+    private int distance;
+    private List<String> images;
 
-    public int getTotal() {
-        return total;
+    public int getId() {
+        return id;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getTotalpage() {
-        return totalpage;
+    public int getType() {
+        return type;
     }
 
-    public void setTotalpage(int totalpage) {
-        this.totalpage = totalpage;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public int getGroup_id() {
+        return group_id;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setGroup_id(int group_id) {
+        this.group_id = group_id;
     }
 
-    public static class ListBean {
-        /**
-         * id : 1
-         * type : 3
-         * title : test
-         * macno : 5202019020500002
-         * box : 6
-         * charge_box : 2
-         * area : 广东省/东莞市/南城街道
-         * address : 高盛科技大厦308
-         * lng : 113.726037
-         * lat : 22.98662
-         * remark :
-         * admin_id : 3
-         * status : 2
-         * clean : 0
-         * activetime : 0
-         * createtime : 1593690628
-         * updatetime : 0
-         * distance : 0
-         * device_goods : [{"id":1,"type":3,"goods_type":0,"device_id":1,"device_box":1,"macno":"123456","macno2":"","status":1,"lock":1,"rfid":1,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":2,"type":3,"goods_type":0,"device_id":1,"device_box":2,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":3,"type":3,"goods_type":0,"device_id":1,"device_box":3,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":4,"type":3,"goods_type":0,"device_id":1,"device_box":4,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":5,"type":3,"goods_type":0,"device_id":1,"device_box":5,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":6,"type":3,"goods_type":0,"device_id":1,"device_box":6,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":7,"type":3,"goods_type":1,"device_id":1,"device_box":1,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":8,"type":3,"goods_type":1,"device_id":1,"device_box":2,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0}]
-         * active_box : 1
-         * active_charge_box : 0
-         */
-
-        private int id;
-        private int type;
-        private String title;
-        private String macno;
-        private int box;
-        private int charge_box;
-        private String area;
-        private String address;
-        private String lng;
-        private String lat;
-        private String remark;
-        private int admin_id;
-        private int status;
-        private int clean;
-        private int activetime;
-        private int createtime;
-        private int updatetime;
-        private int distance;
-        private int active_box;
-        private int active_charge_box;
-        private List<DeviceGoodsBean> device_goods;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getMacno() {
-            return macno;
-        }
-
-        public void setMacno(String macno) {
-            this.macno = macno;
-        }
-
-        public int getBox() {
-            return box;
-        }
-
-        public void setBox(int box) {
-            this.box = box;
-        }
-
-        public int getCharge_box() {
-            return charge_box;
-        }
-
-        public void setCharge_box(int charge_box) {
-            this.charge_box = charge_box;
-        }
-
-        public String getArea() {
-            return area;
-        }
-
-        public void setArea(String area) {
-            this.area = area;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getLng() {
-            return lng;
-        }
-
-        public void setLng(String lng) {
-            this.lng = lng;
-        }
-
-        public String getLat() {
-            return lat;
-        }
-
-        public void setLat(String lat) {
-            this.lat = lat;
-        }
-
-        public String getRemark() {
-            return remark;
-        }
-
-        public void setRemark(String remark) {
-            this.remark = remark;
-        }
-
-        public int getAdmin_id() {
-            return admin_id;
-        }
-
-        public void setAdmin_id(int admin_id) {
-            this.admin_id = admin_id;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-
-        public int getClean() {
-            return clean;
-        }
-
-        public void setClean(int clean) {
-            this.clean = clean;
-        }
-
-        public int getActivetime() {
-            return activetime;
-        }
-
-        public void setActivetime(int activetime) {
-            this.activetime = activetime;
-        }
-
-        public int getCreatetime() {
-            return createtime;
-        }
-
-        public void setCreatetime(int createtime) {
-            this.createtime = createtime;
-        }
-
-        public int getUpdatetime() {
-            return updatetime;
-        }
-
-        public void setUpdatetime(int updatetime) {
-            this.updatetime = updatetime;
-        }
-
-        public int getDistance() {
-            return distance;
-        }
-
-        public void setDistance(int distance) {
-            this.distance = distance;
-        }
-
-        public int getActive_box() {
-            return active_box;
-        }
-
-        public void setActive_box(int active_box) {
-            this.active_box = active_box;
-        }
-
-        public int getActive_charge_box() {
-            return active_charge_box;
-        }
-
-        public void setActive_charge_box(int active_charge_box) {
-            this.active_charge_box = active_charge_box;
-        }
-
-        public List<DeviceGoodsBean> getDevice_goods() {
-            return device_goods;
-        }
-
-        public void setDevice_goods(List<DeviceGoodsBean> device_goods) {
-            this.device_goods = device_goods;
-        }
-
-        public static class DeviceGoodsBean {
-            /**
-             * id : 1
-             * type : 3
-             * goods_type : 0
-             * device_id : 1
-             * device_box : 1
-             * macno : 123456
-             * macno2 :
-             * status : 1
-             * lock : 1
-             * rfid : 1
-             * hall : 0
-             * battery : 0
-             * createtime : 1593690628
-             * updatetime : 0
-             * lockid : 0
-             * locktime : 0
-             * cleanbegin : 0
-             * cleanend : 0
-             * desc :
-             * charge_minute : 0
-             */
-
-            private int id;
-            private int type;
-            private int goods_type;
-            private int device_id;
-            private int device_box;
-            private String macno;
-            private String macno2;
-            private int status;
-            private int lock;
-            private int rfid;
-            private int hall;
-            private int battery;
-            private int createtime;
-            private int updatetime;
-            private int lockid;
-            private int locktime;
-            private int cleanbegin;
-            private int cleanend;
-            private String desc;
-            private int charge_minute;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public int getType() {
-                return type;
-            }
-
-            public void setType(int type) {
-                this.type = type;
-            }
-
-            public int getGoods_type() {
-                return goods_type;
-            }
-
-            public void setGoods_type(int goods_type) {
-                this.goods_type = goods_type;
-            }
-
-            public int getDevice_id() {
-                return device_id;
-            }
-
-            public void setDevice_id(int device_id) {
-                this.device_id = device_id;
-            }
-
-            public int getDevice_box() {
-                return device_box;
-            }
-
-            public void setDevice_box(int device_box) {
-                this.device_box = device_box;
-            }
-
-            public String getMacno() {
-                return macno;
-            }
-
-            public void setMacno(String macno) {
-                this.macno = macno;
-            }
-
-            public String getMacno2() {
-                return macno2;
-            }
-
-            public void setMacno2(String macno2) {
-                this.macno2 = macno2;
-            }
-
-            public int getStatus() {
-                return status;
-            }
-
-            public void setStatus(int status) {
-                this.status = status;
-            }
-
-            public int getLock() {
-                return lock;
-            }
-
-            public void setLock(int lock) {
-                this.lock = lock;
-            }
-
-            public int getRfid() {
-                return rfid;
-            }
-
-            public void setRfid(int rfid) {
-                this.rfid = rfid;
-            }
-
-            public int getHall() {
-                return hall;
-            }
-
-            public void setHall(int hall) {
-                this.hall = hall;
-            }
-
-            public int getBattery() {
-                return battery;
-            }
-
-            public void setBattery(int battery) {
-                this.battery = battery;
-            }
-
-            public int getCreatetime() {
-                return createtime;
-            }
-
-            public void setCreatetime(int createtime) {
-                this.createtime = createtime;
-            }
-
-            public int getUpdatetime() {
-                return updatetime;
-            }
-
-            public void setUpdatetime(int updatetime) {
-                this.updatetime = updatetime;
-            }
-
-            public int getLockid() {
-                return lockid;
-            }
-
-            public void setLockid(int lockid) {
-                this.lockid = lockid;
-            }
-
-            public int getLocktime() {
-                return locktime;
-            }
-
-            public void setLocktime(int locktime) {
-                this.locktime = locktime;
-            }
-
-            public int getCleanbegin() {
-                return cleanbegin;
-            }
-
-            public void setCleanbegin(int cleanbegin) {
-                this.cleanbegin = cleanbegin;
-            }
-
-            public int getCleanend() {
-                return cleanend;
-            }
-
-            public void setCleanend(int cleanend) {
-                this.cleanend = cleanend;
-            }
-
-            public String getDesc() {
-                return desc;
-            }
-
-            public void setDesc(String desc) {
-                this.desc = desc;
-            }
-
-            public int getCharge_minute() {
-                return charge_minute;
-            }
-
-            public void setCharge_minute(int charge_minute) {
-                this.charge_minute = charge_minute;
-            }
-        }
+    public int getToppid() {
+        return toppid;
+    }
+
+    public void setToppid(int toppid) {
+        this.toppid = toppid;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public int getAdmin_id() {
+        return admin_id;
+    }
+
+    public void setAdmin_id(int admin_id) {
+        this.admin_id = admin_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getAllscore() {
+        return allscore;
+    }
+
+    public void setAllscore(int allscore) {
+        this.allscore = allscore;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
+
+    public String getAllmoney() {
+        return allmoney;
+    }
+
+    public void setAllmoney(String allmoney) {
+        this.allmoney = allmoney;
+    }
+
+    public String getGivemoney() {
+        return givemoney;
+    }
+
+    public void setGivemoney(String givemoney) {
+        this.givemoney = givemoney;
+    }
+
+    public String getAllgivemoney() {
+        return allgivemoney;
+    }
+
+    public void setAllgivemoney(String allgivemoney) {
+        this.allgivemoney = allgivemoney;
+    }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getPercent() {
+        return percent;
+    }
+
+    public void setPercent(String percent) {
+        this.percent = percent;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public int getLoginfailure() {
+        return loginfailure;
+    }
+
+    public void setLoginfailure(int loginfailure) {
+        this.loginfailure = loginfailure;
+    }
+
+    public int getLogintime() {
+        return logintime;
+    }
+
+    public void setLogintime(int logintime) {
+        this.logintime = logintime;
+    }
+
+    public int getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(int createtime) {
+        this.createtime = createtime;
+    }
+
+    public int getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(int updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getBind_ids() {
+        return bind_ids;
+    }
+
+    public void setBind_ids(String bind_ids) {
+        this.bind_ids = bind_ids;
+    }
+
+    public int getClean1() {
+        return clean1;
+    }
+
+    public void setClean1(int clean1) {
+        this.clean1 = clean1;
+    }
+
+    public String getRedmoney() {
+        return redmoney;
+    }
+
+    public void setRedmoney(String redmoney) {
+        this.redmoney = redmoney;
+    }
+
+    public String getAllredmoney() {
+        return allredmoney;
+    }
+
+    public void setAllredmoney(String allredmoney) {
+        this.allredmoney = allredmoney;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }

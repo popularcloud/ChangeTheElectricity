@@ -1,24 +1,24 @@
-package com.younge.changetheelectricity.main.presenter;
+package com.younge.changetheelectricity.mine.presenter;
 
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
-import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
-import com.younge.changetheelectricity.main.view.MainView;
+import com.younge.changetheelectricity.mine.bean.MyCarBean;
+import com.younge.changetheelectricity.mine.view.MyCarView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
 
-public class MainPresenter extends BasePresenter<MainView> {
+public class MyBetteryPresenter extends BasePresenter<MyCarView> {
 
-    public MainPresenter(MainView baseView) {
+    public MyBetteryPresenter(MyCarView baseView) {
         super(baseView);
     }
 
-    public void getShopLocations(String lng,String lat){
-        addDisposable(ApiRetrofit.getInstance().getApiService().getShopLocations("vv/device/api/index/index",lng,lat), new BaseObserver(baseView) {
+    public void getMyCarList(String page,String token) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().getMyBattery("vv/usercenter/api/car/car",page,"10",token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onGetShopLocationSuccess((BaseModel<ShopDetailLocationBean>) o);
+                baseView.onGetCarSuccess((BaseModel<MyCarBean>) o);
             }
 
             @Override
@@ -34,6 +34,5 @@ public class MainPresenter extends BasePresenter<MainView> {
             }
         });
     }
-
 
 }

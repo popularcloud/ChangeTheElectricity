@@ -9,12 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.younge.changetheelectricity.R;
-import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
-import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
-import com.younge.changetheelectricity.changetheelectricity.adapter.ConfirmOrderAdapter;
-import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.mine.adapter.MyPackageListAdapter;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.presenter.MyPackagePresenter;
@@ -26,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 

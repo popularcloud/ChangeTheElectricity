@@ -1,4 +1,4 @@
-package com.younge.changetheelectricity.main.adapter;
+package com.younge.changetheelectricity.mine.adapter;
 
 import android.view.ViewGroup;
 
@@ -12,13 +12,15 @@ import com.younge.changetheelectricity.mine.bean.RecommendItemBean;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPagerAdapter extends FragmentPagerAdapter {
+public class MyPagerHasTitleAdapter extends FragmentPagerAdapter {
 
     private  List<Fragment> mFragments;
+    private ArrayList<RecommendItemBean> arrayList = new ArrayList<>();
 
-        public MyPagerAdapter(FragmentManager fm, List<Fragment> mFragments) {
+        public MyPagerHasTitleAdapter(FragmentManager fm, List<Fragment> mFragments, ArrayList<RecommendItemBean> arrayList) {
             super(fm);
             this.mFragments = mFragments;
+            this.arrayList = arrayList;
         }
 
         @Override
@@ -29,6 +31,11 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
         @Override
         public Fragment getItem(int position) {
             return mFragments.get(position);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            return super.instantiateItem(container, position);
         }
 
         @Override

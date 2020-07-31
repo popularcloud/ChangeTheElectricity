@@ -3,22 +3,22 @@ package com.younge.changetheelectricity.main.presenter;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
-import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
-import com.younge.changetheelectricity.main.view.MainView;
+import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
+import com.younge.changetheelectricity.main.view.DeviceDetailView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
 
-public class MainPresenter extends BasePresenter<MainView> {
+public class DeviceDetailPresenter extends BasePresenter<DeviceDetailView> {
 
-    public MainPresenter(MainView baseView) {
+    public DeviceDetailPresenter(DeviceDetailView baseView) {
         super(baseView);
     }
 
-    public void getShopLocations(String lng,String lat){
-        addDisposable(ApiRetrofit.getInstance().getApiService().getShopLocations("vv/device/api/index/index",lng,lat), new BaseObserver(baseView) {
+    public void getDeviceDetail(String lng,String lat,String macno,String token){
+        addDisposable(ApiRetrofit.getInstance().getApiService().getDeviceDetail("vv/device/api/index/show",lng,lat,macno,token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onGetShopLocationSuccess((BaseModel<ShopDetailLocationBean>) o);
+                baseView.onGetDeviceDetailSuccess((BaseModel<DeviceDetailBean>) o);
             }
 
             @Override

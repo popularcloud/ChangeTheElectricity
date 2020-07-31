@@ -12,6 +12,7 @@ import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
+import com.younge.changetheelectricity.mine.adapter.MyPagerHasTitleAdapter;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.RecommendItemBean;
 import com.younge.changetheelectricity.mine.fragment.ChangePackageFragment;
@@ -88,7 +89,7 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
         fragmentList.add(shopDetailFragment);
 
 
-        cViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager(),fragmentList));
+        cViewPager.setAdapter(new MyPagerHasTitleAdapter(getSupportFragmentManager(),fragmentList,arrayList));
         tabs.setViewPager(cViewPager);
         cViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

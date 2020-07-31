@@ -2,6 +2,8 @@ package com.younge.changetheelectricity.net;
 
 
 import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.main.bean.ShopDetailBean;
+import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
@@ -52,8 +54,8 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/device/api/index/index")
-    Observable<BaseModel<Object>> getShopLocations(@Field("HTTP_API") String httpApi,
-                                                   @Field("lng") String lng,@Field("lat") String lat);
+    Observable<BaseModel<ShopDetailLocationBean>> getShopLocations(@Field("HTTP_API") String httpApi,
+                                                                   @Field("lng") String lng, @Field("lat") String lat);
 
 
     //设备详情
@@ -70,11 +72,11 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/agent/api/index/seller_show")
-    Observable<BaseModel<Object>> getShopDetail(@Field("HTTP_API") String httpApi,
-                                                @Field("lng") String lng,
-                                                @Field("lat") String lat,
-                                                @Field("macno") String macno,
-                                                @Field("token") String token);
+    Observable<BaseModel<ShopDetailBean>> getShopDetail(@Field("HTTP_API") String httpApi,
+                                                        @Field("lng") String lng,
+                                                        @Field("lat") String lat,
+                                                        @Field("macno") String macno,
+                                                        @Field("token") String token);
 
 
     //获取个人资料
@@ -159,6 +161,16 @@ public interface ApiServer {
     Observable<BaseModel<PackageBean>> myPackageOrder(@Field("HTTP_API") String httpApi,
                                                     @Field("type") String type,
                                                     @Field("status") String status,
+                                                    @Field("page") String page,
+                                                    @Field("size") String size,
+                                                    @Field("token") String token);
+
+
+    //我的套餐
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/battery")
+    Observable<BaseModel<PackageBean>> getMyBattery(@Field("HTTP_API") String httpApi,
                                                     @Field("page") String page,
                                                     @Field("size") String size,
                                                     @Field("token") String token);
