@@ -5,6 +5,7 @@ import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
 import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
+import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.bean.RechargePackageBean;
 import com.younge.changetheelectricity.mine.view.RechargeCenterView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
@@ -60,7 +61,7 @@ public class RechargeCenterPresenter extends BasePresenter<RechargeCenterView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onPayOrderByWeChatSuccess((BaseModel<MyWxBean>) o);
+                baseView.onPayOrderByWeChatSuccess((BaseModel<PayByWechatBean>) o);
             }
 
             @Override

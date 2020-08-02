@@ -1,15 +1,11 @@
 package com.younge.changetheelectricity.mine.activity;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,10 +15,9 @@ import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.mine.adapter.RechargePackageAdapter;
 import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
-import com.younge.changetheelectricity.mine.bean.RechargePackageBean;
+import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.presenter.RechargeCenterPresenter;
 import com.younge.changetheelectricity.mine.view.RechargeCenterView;
-import com.younge.changetheelectricity.util.DateUtil;
 import com.younge.changetheelectricity.util.PayServant;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
@@ -37,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -191,13 +185,13 @@ public class RechargeCenterActivity extends MyBaseActivity<RechargeCenterPresent
     }
 
     @Override
-    public void onPayOrderByWeChatSuccess(BaseModel<MyWxBean> data) {
-        if(data != null) {
-            MyWxBean wx = data.getData();
+    public void onPayOrderByWeChatSuccess(BaseModel<PayByWechatBean> data) {
+        if(data != null && data.getData() != null) {
+            PayByWechatBean.PayparamsBean wx = data.getData().getPayparams();
             PayServant.getInstance().weChatPay2(
                     RechargeCenterActivity.this, wx.getAppid(),
                     wx.getPartnerid(), wx.getPrepayid(), wx.getNoncestr(),
-                    wx.getTimestamp(), wx.getPackageX(), wx.getPaySign());
+                    wx.getTimestamp(), wx.getPackageX(), wx.getSign());
         }
     }
 
