@@ -22,7 +22,7 @@ public class ConfirmOrderAdapter extends SuperAdapter<PackageBean.ListBean> {
     public void onBind(SuperViewHolder holder, int viewType, int layoutPosition, PackageBean.ListBean item) {
 
         holder.setText(R.id.tv_title,item.getTitle());
-        holder.setText(R.id.tv_price,"￥"+item.getText().getMoney());
+        holder.setText(R.id.tv_money,"￥"+item.getText().getMoney());
         holder.setText(R.id.tv_sum,"x 1");
     }
 }

@@ -1,6 +1,7 @@
 package com.younge.changetheelectricity.changetheelectricity.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,14 +15,21 @@ import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ConfirmOrderAdapter;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
+import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
 import com.younge.changetheelectricity.mine.presenter.PayPresenter;
 import com.younge.changetheelectricity.mine.view.PayView;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
+import com.younge.changetheelectricity.widget.PayTypeDialog;
 
 import org.byteam.superadapter.OnItemClickListener;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,9 +43,14 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
     TextView tv_center_title;
     @BindView(R.id.tv_submit)
     TextView tv_submit;
+    @BindView(R.id.tv_price)
+    TextView tv_price;
     private ConfirmOrderAdapter mAdapter;
 
     private List<PackageBean.ListBean> allList = new ArrayList<>();
+    private PayTypeDialog payTypeDialog;
+    private Double money;
+    private PackageBean.ListBean packageDetail;
 
     @Override
     protected PayPresenter createPresenter() {
@@ -53,7 +66,7 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
     protected void init() {
         tv_center_title.setText("确认订单");
 
-        PackageBean.ListBean packageDetail = (PackageBean.ListBean) getIntent().getSerializableExtra("packageDetail");
+        packageDetail = (PackageBean.ListBean) getIntent().getSerializableExtra("packageDetail");
 
         initList(packageDetail);
     }
@@ -84,13 +97,47 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
 
             }
         });
+
+        caculateMoney();
     }
 
     @OnClick({R.id.tv_submit,R.id.rl_fanhui_left})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_submit:
-               // startActivity(new Intent(this, ConfirmOrderActivity.class));
+                payTypeDialog = new PayTypeDialog(ConfirmOrderActivity.this, String.valueOf(money),new PayTypeDialog.CallBack() {
+                    @Override
+                    public void onSubmit(final int payType, String passWord) {
+
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject.put("id",packageDetail.getId());
+                            jsonObject.put("num","1");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        Log.e("json数据打印","========="+jsonObject.toString());
+                        switch (payType){  //1钱包 2.支付宝 3.微信
+                            case 1:
+                                mPresenter.rechargeByWallet(String.valueOf(packageDetail.getType()),jsonObject.toString(), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                break;
+                            case 2:
+                                mPresenter.rechargeByAli(String.valueOf(packageDetail.getType()),jsonObject.toString(), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                break;
+                            case 3:
+                                mPresenter.rechargeByWechat(String.valueOf(packageDetail.getType()),jsonObject.toString(), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                break;
+                        }
+
+                    }
+
+                    @Override
+                    public void onColse() {
+
+                    }
+                });
+                payTypeDialog.show();
                 break;
             case R.id.rl_fanhui_left:
                 finish();
@@ -98,8 +145,29 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
         }
     }
 
+    public void caculateMoney(){
+        money = 0d;
+        if(allList != null){
+            for(int i = 0;i < allList.size();i++){
+                money = money + Double.parseDouble(allList.get(i).getText().getMoney());
+            }
+        }
+        tv_price.setText("￥"+money+"元");
+
+    }
+
     @Override
-    public void onGetPaySuccess(BaseModel<Object> data) {
+    public void onPayOrderByWallet(BaseModel<Object> data) {
+
+    }
+
+    @Override
+    public void onPayOrderByAliSuccess(BaseModel<Object> data) {
+
+    }
+
+    @Override
+    public void onPayOrderByWeChatSuccess(BaseModel<PayByWechatBean> data) {
 
     }
 

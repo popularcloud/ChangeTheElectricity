@@ -27,7 +27,6 @@ public class ShopDetailFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_shop_details, null);
         unbinder = ButterKnife.bind(this, v);
-
         return v;
     }
 }

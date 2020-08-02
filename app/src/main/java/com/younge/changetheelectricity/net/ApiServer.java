@@ -161,13 +161,37 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/cms/api/archives/order")
-    Observable<BaseModel<PackageBean>> PackageOrder(@Field("HTTP_API") String httpApi,
+    Observable<BaseModel<PayByWechatBean>> PackageOrderByWechat(@Field("HTTP_API") String httpApi,
                                                      @Field("coupon_id") String coupon_id,
                                                      @Field("type") String type,
                                                      @Field("goodslist") String goodslist,
                                                      @Field("paytype") String paytype,
                                                      @Field("method") String method,
                                                      @Field("token") String token);
+
+    //套餐下单
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/cms/api/archives/order")
+    Observable<BaseModel<Object>> PackageOrderByAli(@Field("HTTP_API") String httpApi,
+                                                       @Field("coupon_id") String coupon_id,
+                                                       @Field("type") String type,
+                                                       @Field("goodslist") String goodslist,
+                                                       @Field("paytype") String paytype,
+                                                       @Field("method") String method,
+                                                       @Field("token") String token);
+
+    //套餐下单
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/cms/api/archives/order")
+    Observable<BaseModel<Object>> PackageOrderByWallet(@Field("HTTP_API") String httpApi,
+                                                       @Field("coupon_id") String coupon_id,
+                                                       @Field("type") String type,
+                                                       @Field("goodslist") String goodslist,
+                                                       @Field("paytype") String paytype,
+                                                       @Field("method") String method,
+                                                       @Field("token") String token);
 
     //我的套餐
     @POST("/api/index")

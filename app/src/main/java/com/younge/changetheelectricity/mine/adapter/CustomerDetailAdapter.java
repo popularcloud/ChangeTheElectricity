@@ -23,7 +23,7 @@ public class CustomerDetailAdapter extends SuperAdapter<DepositHistoryBean.ListB
 
 
         holder.setText(R.id.tv_title,item.getMemo());
-        holder.setText(R.id.tv_price,"￥"+item.getMoney());
+        holder.setText(R.id.tv_money,"￥"+item.getMoney());
         holder.setText(R.id.tv_time,String.valueOf(item.getCreatetime()));
         holder.setText(R.id.tv_payType,item.getPaytype());
 

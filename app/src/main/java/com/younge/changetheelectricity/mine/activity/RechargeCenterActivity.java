@@ -177,6 +177,7 @@ public class RechargeCenterActivity extends MyBaseActivity<RechargeCenterPresent
                                 ToastUtil.makeText(RechargeCenterActivity.this, msg);
                                 if (success) {
                                     setResult(RESULT_OK);
+                                    finish();
                                 }
                                 finish();
                             }

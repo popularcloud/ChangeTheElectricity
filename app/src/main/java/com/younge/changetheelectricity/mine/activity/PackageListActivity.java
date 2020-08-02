@@ -51,7 +51,7 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
 
     @Override
     protected void init() {
-        tv_center_title.setText("套餐");
+        tv_center_title.setText("骑行套餐");
         initViewpager();
     }
 
@@ -77,16 +77,16 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
     private void initViewpager() {
 
         arrayList.clear();
-        arrayList.add(new RecommendItemBean("骑行套餐"));
+        arrayList.add(new RecommendItemBean("换电套餐"));
         arrayList.add(new RecommendItemBean("充电套餐"));
 
         fragmentList.clear();
 
-        RechargePackageFragment batteryDetailsFragment01 = new RechargePackageFragment();
         ChangePackageFragment shopDetailFragment = new ChangePackageFragment();
+        RechargePackageFragment batteryDetailsFragment01 = new RechargePackageFragment();
 
-        fragmentList.add(batteryDetailsFragment01);
         fragmentList.add(shopDetailFragment);
+        fragmentList.add(batteryDetailsFragment01);
 
 
         cViewPager.setAdapter(new MyPagerHasTitleAdapter(getSupportFragmentManager(),fragmentList,arrayList));

@@ -1,5 +1,6 @@
 package com.younge.changetheelectricity.mine.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
+import com.younge.changetheelectricity.changetheelectricity.activity.ConfirmOrderActivity;
 import com.younge.changetheelectricity.mine.adapter.PackageListAdapter;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
@@ -66,7 +68,9 @@ public class RechargePackageFragment extends MyBaseFragment<PackagePresenter> im
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
-
+                Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                intent.putExtra("packageDetail",mAdapter.getItem(position));
+                startActivity(intent);
             }
         });
 
@@ -74,13 +78,13 @@ public class RechargePackageFragment extends MyBaseFragment<PackagePresenter> im
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
                 page = 1;
-                mPresenter.getPackageList("0",String.valueOf(page));
+                mPresenter.getPackageList("2",String.valueOf(page));
             }
 
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 page++;
-                mPresenter.getPackageList("0",String.valueOf(page));
+                mPresenter.getPackageList("2",String.valueOf(page));
                 return true;
             }
         });

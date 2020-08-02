@@ -28,8 +28,8 @@ public class PackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
         holder.setText(R.id.tv_price,"￥"+item.getText().getMoney());
         holder.setText(R.id.tv_desc,item.getText().getUse()+"次/"+item.getText().getDay()+"天");
 
-       /* ImageView imageView = holder.itemView.findViewById(R.id.iv_header);
-        ImageLoaderUtil.getInstance().displayFromNetDCircular(mContext,item.getPicfront(),imageView,R.mipmap.cte_logo);*/
+        ImageView imageView = holder.itemView.findViewById(R.id.iv_header);
+        ImageLoaderUtil.getInstance().displayFromNetDCircular(mContext,item.getImage(),imageView,R.mipmap.cte_logo);
 
     }
 }

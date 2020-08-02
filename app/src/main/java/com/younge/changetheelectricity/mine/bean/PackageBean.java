@@ -3,7 +3,7 @@ package com.younge.changetheelectricity.mine.bean;
 import java.io.Serializable;
 import java.util.List;
 
-public class PackageBean {
+public class PackageBean{
 
     /**
      * total : 1
@@ -173,7 +173,7 @@ public class PackageBean {
             isChecked = checked;
         }
 
-        public static class TextBean {
+        public static class TextBean implements Serializable{
             /**
              * use : 1
              * hour : 1
