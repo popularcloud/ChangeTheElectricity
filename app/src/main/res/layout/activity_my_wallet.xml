@@ -10,18 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_150"
         android:padding="@dimen/dp_30"
-        android:background="@drawable/ic_my_bg">
+        android:background="@mipmap/ic_wallet_bg">
         <TextView
             android:id="@+id/tv_money_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_15"
+            android:textSize="@dimen/sp_14"
             android:textColor="@color/white"
             android:text="账户余额(元)"/>
         <TextView
+            android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sp_28"
+            android:textSize="@dimen/sp_32"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/dp_30"
             android:layout_below="@+id/tv_money_txt"
@@ -61,7 +62,7 @@
                 android:layout_alignBaseline="@+id/txtSign"
                 android:layout_below="@+id/txtOrderCount"
                 android:layout_gravity="center_vertical"
-                android:drawableLeft="@mipmap/ic_mine_order"
+                android:drawableLeft="@mipmap/ic_wallet_money"
                 android:gravity="center_vertical"
                 android:drawablePadding="8dp"
                 android:text="押金"
@@ -91,7 +92,7 @@
                 android:layout_alignBaseline="@+id/txtSign"
                 android:layout_below="@+id/txtOrderCount"
                 android:layout_gravity="center_vertical"
-                android:drawableLeft="@mipmap/ic_mine_order"
+                android:drawableLeft="@mipmap/ic_wallet_detail"
                 android:gravity="center_vertical"
                 android:drawablePadding="8dp"
                 android:text="明细"

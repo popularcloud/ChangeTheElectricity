@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/my_content_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,10 +8,22 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
     <include layout="@layout/include_title_bar" />
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_data"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+
+    <com.gxz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:textColor="@color/black_66"
+        android:background="@color/white"
+        android:textSize="16sp"
+        app:pstsDividerColor="@android:color/transparent"
+        app:pstsIndicatorColor="@color/accent_material_light"
+        app:pstsShouldExpand="true"
+        app:pstsTextSelectedColor="@color/accent_material_light"
+        app:pstsUnderlineColor="@color/colorAccent" />
+    <com.younge.changetheelectricity.widget.CustomViewPager
+        android:id="@+id/cViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

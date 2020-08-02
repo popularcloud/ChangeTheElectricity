@@ -3,22 +3,22 @@ package com.younge.changetheelectricity.mine.presenter;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
-import com.younge.changetheelectricity.mine.bean.MyCarBean;
-import com.younge.changetheelectricity.mine.view.MyCarView;
+import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
+import com.younge.changetheelectricity.mine.view.MyBatteryView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
 
-public class MyBetteryPresenter extends BasePresenter<MyCarView> {
+public class MyBatteryPresenter extends BasePresenter<MyBatteryView> {
 
-    public MyBetteryPresenter(MyCarView baseView) {
+    public MyBatteryPresenter(MyBatteryView baseView) {
         super(baseView);
     }
 
-    public void getMyCarList(String page,String token) {
-        addDisposable(ApiRetrofit.getInstance().getApiService().getMyBattery("vv/usercenter/api/car/car",page,"10",token), new BaseObserver(baseView) {
+    public void getMyBattery(String page,String token) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().getMyBattery("vv/usercenter/api/car/battery",page,"10",token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onGetCarSuccess((BaseModel<MyCarBean>) o);
+                baseView.onGetCarSuccess((BaseModel<MyBatteryBean>) o);
             }
 
             @Override

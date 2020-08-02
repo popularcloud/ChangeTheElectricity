@@ -62,7 +62,7 @@ public class UseHistoryActivity extends BaseActivity {
         allList.add(listBean2);
 
 
-        mAdapter = new ConfirmOrderAdapter(this,allList,R.layout.item_use_history);
+       // mAdapter = new ConfirmOrderAdapter(this,allList,R.layout.item_use_history);
         rv_data.setLayoutManager(new LinearLayoutManager(this));
         rv_data.setAdapter(mAdapter);
 

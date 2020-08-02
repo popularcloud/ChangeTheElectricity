@@ -46,6 +46,8 @@
         <activity android:name=".changetheelectricity.activity.ConfirmOrderActivity" />
         <!-- 绑定电池 -->
         <activity android:name=".mine.activity.BindBatteryActivity" />
+        <activity android:name=".mine.activity.BatterySNActivity" />
+
         <!-- 实名认证 -->
         <activity android:name=".mine.activity.RealNameAuthentication01Activity" />
         <!-- 实名认证 -->

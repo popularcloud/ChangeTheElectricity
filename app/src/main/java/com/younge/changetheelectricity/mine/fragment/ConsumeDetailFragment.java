@@ -1,6 +1,5 @@
 package com.younge.changetheelectricity.mine.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
-import com.younge.changetheelectricity.changetheelectricity.activity.ConfirmOrderActivity;
-import com.younge.changetheelectricity.mine.activity.MyWalletActivity;
-import com.younge.changetheelectricity.mine.adapter.PackageListAdapter;
-import com.younge.changetheelectricity.mine.bean.PackageBean;
-import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
-import com.younge.changetheelectricity.mine.view.PackageListView;
+import com.younge.changetheelectricity.mine.adapter.CustomerDetailAdapter;
+import com.younge.changetheelectricity.mine.bean.DepositHistoryBean;
+import com.younge.changetheelectricity.mine.presenter.DepositHistoryPresenter;
+import com.younge.changetheelectricity.mine.view.DepositHistoryView;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -29,7 +27,7 @@ import butterknife.ButterKnife;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
-public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> implements PackageListView {
+public class ConsumeDetailFragment extends MyBaseFragment<DepositHistoryPresenter> implements DepositHistoryView {
 
 
     @BindView(R.id.rv_data)
@@ -37,17 +35,17 @@ public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> impl
     @BindView(R.id.mBGARefreshLayout)
     BGARefreshLayout mBGARefreshLayout;
 
-    private PackageListAdapter mAdapter;
+    private CustomerDetailAdapter mAdapter;
 
 
-    private List<PackageBean.ListBean> allList = new ArrayList<>();
+    private List<DepositHistoryBean.ListBean> allList = new ArrayList<>();
 
     private int page = 1;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recharge_package, null);
+        View view = inflater.inflate(R.layout.fragment_customer_detail, null);
         ButterKnife.bind(this, view);
 
         mPresenter = createPresenter();
@@ -62,16 +60,14 @@ public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> impl
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getActivity(), false);
         mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
 
-        mAdapter = new PackageListAdapter(getActivity(),allList,R.layout.item_package_list);
+        mAdapter = new CustomerDetailAdapter(getActivity(),allList,R.layout.item_deposit_history);
         rv_data.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_data.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
-                Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
-                intent.putExtra("packageDetail",mAdapter.getItem(position));
-                startActivity(intent);
+
             }
         });
 
@@ -80,13 +76,13 @@ public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> impl
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
                 page = 1;
-                mPresenter.getPackageList("1",String.valueOf(page));
+                mPresenter.getBatteryInfo("7",String.valueOf(page),"10", (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
             }
 
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 page++;
-                mPresenter.getPackageList("1",String.valueOf(page));
+                mPresenter.getBatteryInfo("7",String.valueOf(page),"10", (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
                 return true;
             }
         });
@@ -101,12 +97,12 @@ public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> impl
     }
 
     @Override
-    protected PackagePresenter createPresenter() {
-        return new PackagePresenter(this);
+    protected DepositHistoryPresenter createPresenter() {
+        return new DepositHistoryPresenter(this);
     }
 
     @Override
-    public void onGetDataSuccess(BaseModel<PackageBean> data) {
+    public void onGetDepositHistorySuccess(BaseModel<DepositHistoryBean> data) {
         if(data != null && data.getData() != null && data.getData().getList() != null){
             if(page == 1) {
                 mAdapter.replaceAll(data.getData().getList());

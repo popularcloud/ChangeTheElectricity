@@ -15,7 +15,7 @@ import java.util.List;
 public class MyPagerHasTitleAdapter extends FragmentPagerAdapter {
 
     private  List<Fragment> mFragments;
-    private ArrayList<RecommendItemBean> arrayList = new ArrayList<>();
+    private ArrayList<RecommendItemBean> arrayList;
 
         public MyPagerHasTitleAdapter(FragmentManager fm, List<Fragment> mFragments, ArrayList<RecommendItemBean> arrayList) {
             super(fm);
@@ -32,6 +32,11 @@ public class MyPagerHasTitleAdapter extends FragmentPagerAdapter {
         public Fragment getItem(int position) {
             return mFragments.get(position);
         }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return arrayList.get(position).getRecommendName();
+    }
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {

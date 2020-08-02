@@ -22,6 +22,7 @@
             android:textColor="@color/black"
             android:text="电池SN码"/>
         <EditText
+            android:id="@+id/et_sn"
             android:layout_width="match_parent"
             android:textSize="@dimen/sp_15"
             android:layout_height="wrap_content"

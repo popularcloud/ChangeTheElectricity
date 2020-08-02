@@ -27,6 +27,7 @@
                 android:textColor="@color/black_33"
                 android:text="电池型号"/>
             <TextView
+                android:id="@+id/tv_type"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="@dimen/sp_15"
@@ -49,6 +50,7 @@
                 android:textColor="@color/black_33"
                 android:text="电池编码"/>
             <TextView
+                android:id="@+id/tv_num"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="@dimen/sp_15"
@@ -69,8 +71,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:textColor="@color/black_33"
-                android:text="2222222"/>
+                android:text="电池SN码"/>
             <TextView
+                android:id="@+id/tv_sn_num"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="@dimen/sp_15"
@@ -93,6 +96,7 @@
                 android:textColor="@color/black_33"
                 android:text="电池电量"/>
             <TextView
+                android:id="@+id/tv_remain"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:textSize="@dimen/sp_15"

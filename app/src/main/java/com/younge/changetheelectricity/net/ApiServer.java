@@ -2,8 +2,10 @@ package com.younge.changetheelectricity.net;
 
 
 import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
+import com.younge.changetheelectricity.mine.bean.DepositHistoryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
@@ -166,7 +168,7 @@ public interface ApiServer {
                                                     @Field("token") String token);
 
 
-    //我的套餐
+    //我的电池
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/usercenter/api/car/battery")
@@ -174,5 +176,26 @@ public interface ApiServer {
                                                     @Field("page") String page,
                                                     @Field("size") String size,
                                                     @Field("token") String token);
+
+
+    //我的套餐
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/battery_search")
+    Observable<BaseModel<BatteryInfoBean>> getBatteryInfo(@Field("HTTP_API") String httpApi,
+                                                          @Field("sn") String sn,
+                                                          @Field("token") String token);
+
+
+
+    //充值明细
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/recharge/api/recharge/moneylog")
+    Observable<BaseModel<DepositHistoryBean>> getDepositHistory(@Field("HTTP_API") String httpApi,
+                                                                @Field("type") String type,
+                                                                @Field("page") String page,
+                                                                @Field("size") String size,
+                                                                @Field("token") String token);
 
 }

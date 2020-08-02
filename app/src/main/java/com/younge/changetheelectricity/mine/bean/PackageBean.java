@@ -1,5 +1,6 @@
 package com.younge.changetheelectricity.mine.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class PackageBean {
@@ -38,7 +39,7 @@ public class PackageBean {
         this.list = list;
     }
 
-    public static class ListBean {
+    public static class ListBean implements Serializable {
         /**
          * id : 3
          * type : 2

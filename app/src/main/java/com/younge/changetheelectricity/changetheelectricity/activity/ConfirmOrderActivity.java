@@ -9,8 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseActivity;
+import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ConfirmOrderAdapter;
+import com.younge.changetheelectricity.mine.bean.PackageBean;
+import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
+import com.younge.changetheelectricity.mine.presenter.PayPresenter;
+import com.younge.changetheelectricity.mine.view.PayView;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -21,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ConfirmOrderActivity extends BaseActivity {
+public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implements PayView {
 
     @BindView(R.id.rv_data)
     RecyclerView rv_data;
@@ -31,27 +37,42 @@ public class ConfirmOrderActivity extends BaseActivity {
     TextView tv_submit;
     private ConfirmOrderAdapter mAdapter;
 
-    private List<BatteryDetailsBean> allList = new ArrayList<>();
+    private List<PackageBean.ListBean> allList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirm_order);
-        ButterKnife.bind(this);
-
-        tv_center_title.setText("确认订单");
-        initList();
+    protected PayPresenter createPresenter() {
+        return new PayPresenter(this);
     }
 
-    private void initList(){
+    @Override
+    protected int getContentViewId(Bundle savedInstanceState) {
+        return R.layout.activity_confirm_order;
+    }
+
+    @Override
+    protected void init() {
+        tv_center_title.setText("确认订单");
+
+        PackageBean.ListBean packageDetail = (PackageBean.ListBean) getIntent().getSerializableExtra("packageDetail");
+
+        initList(packageDetail);
+    }
+
+    @Override
+    protected void initGetData() {
+
+    }
+
+    @Override
+    protected void widgetListener() {
+
+    }
+
+    private void initList(PackageBean.ListBean packageDetail){
 
         allList.clear();
 
-        BatteryDetailsBean listBean1 = new BatteryDetailsBean();
-        BatteryDetailsBean listBean2 = new BatteryDetailsBean();
-        allList.add(listBean1);
-        allList.add(listBean2);
-
+        allList.add(packageDetail);
 
         mAdapter = new ConfirmOrderAdapter(this,allList,R.layout.item_comfirm_order);
         rv_data.setLayoutManager(new LinearLayoutManager(this));
@@ -75,5 +96,15 @@ public class ConfirmOrderActivity extends BaseActivity {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onGetPaySuccess(BaseModel<Object> data) {
+
+    }
+
+    @Override
+    public void onGetDataFail() {
+
     }
 }

@@ -79,7 +79,9 @@ public class MineFragment extends MyBaseFragment<MinePresenter> implements MineV
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.ll_wallet:
-                startActivity(new Intent(getActivity(), MyWalletActivity.class));
+                Intent intent = new Intent(getActivity(), MyWalletActivity.class);
+                intent.putExtra("money",userinfoBean.getMoney());
+                startActivity(intent);
                 break;
             case R.id.tv_status:
                 startActivity(new Intent(getActivity(), RealNameAuthentication01Activity.class));

@@ -16,15 +16,19 @@ public class MyWalletActivity extends BaseActivity {
 
     @BindView(R.id.tv_center_title)
     TextView tv_center_title;
+    @BindView(R.id.tv_money)
+    TextView tv_money;
 
-
+    String money;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wallet);
         ButterKnife.bind(this);
-
         tv_center_title.setText("我的钱包");
+
+        money = getIntent().getStringExtra("money");
+        tv_money.setText(money);
 
     }
 

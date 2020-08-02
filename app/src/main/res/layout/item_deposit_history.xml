@@ -16,12 +16,14 @@
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="租车押金"
                     android:textColor="@color/black_33"
                     android:textSize="@dimen/sp_18" />
                 <TextView
+                    android:id="@+id/tv_money"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -39,12 +41,14 @@
                 android:layout_marginTop="@dimen/dp_15"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_15"
                     android:text="2020-01-02 08:22"
                     android:textColor="@color/gray_99" />
                 <TextView
+                    android:id="@+id/tv_payType"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"

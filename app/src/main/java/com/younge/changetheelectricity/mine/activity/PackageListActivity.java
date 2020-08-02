@@ -11,7 +11,6 @@ import com.gxz.PagerSlidingTabStrip;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
-import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.mine.adapter.MyPagerHasTitleAdapter;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.RecommendItemBean;
@@ -52,7 +51,7 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
 
     @Override
     protected void init() {
-        tv_center_title.setText("骑行套餐");
+        tv_center_title.setText("套餐");
         initViewpager();
     }
 
@@ -77,6 +76,7 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
 
     private void initViewpager() {
 
+        arrayList.clear();
         arrayList.add(new RecommendItemBean("骑行套餐"));
         arrayList.add(new RecommendItemBean("充电套餐"));
 
