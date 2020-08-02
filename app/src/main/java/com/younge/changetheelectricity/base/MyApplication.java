@@ -6,6 +6,8 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 public class MyApplication extends Application {
 
@@ -13,6 +15,11 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //注册微信
+        IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, "wx197fcf39e65d69a9", true);
+        mWxApi.registerApp("wx197fcf39e65d69a9");
+
         initLogger();
     }
 

@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.younge.changetheelectricity.R;
-import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
@@ -17,13 +14,11 @@ import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
 import com.younge.changetheelectricity.mine.presenter.GetBetteryInfoPresenter;
 import com.younge.changetheelectricity.mine.view.GetBatteryInfoView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
-import com.younge.changetheelectricity.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class BindBatteryActivity extends MyBaseActivity<GetBetteryInfoPresenter> implements GetBatteryInfoView {

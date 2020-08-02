@@ -7,6 +7,7 @@ import com.younge.changetheelectricity.main.bean.ShopDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.mine.bean.DepositHistoryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
+import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
@@ -137,12 +138,23 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/recharge/api/recharge/submit")
-    Observable<BaseModel<PackageBean>> rechargeOrder(@Field("HTTP_API") String httpApi,
-                                                     @Field("type") String type,
-                                                     @Field("package_id") String package_id,
-                                                     @Field("paytype") String paytype,
-                                                     @Field("method") String method,
-                                                  @Field("token") String token);
+    Observable<BaseModel<MyWxBean>> rechargeOrderByWechat(@Field("HTTP_API") String httpApi,
+                                                          @Field("type") String type,
+                                                          @Field("package_id") String package_id,
+                                                          @Field("paytype") String paytype,
+                                                          @Field("method") String method,
+                                                          @Field("token") String token);
+
+    //充值下单
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/recharge/api/recharge/submit")
+    Observable<BaseModel<Object>> rechargeOrderByAli(@Field("HTTP_API") String httpApi,
+                                                             @Field("type") String type,
+                                                             @Field("package_id") String package_id,
+                                                             @Field("paytype") String paytype,
+                                                             @Field("method") String method,
+                                                             @Field("token") String token);
 
     //套餐下单
     @POST("/api/index")

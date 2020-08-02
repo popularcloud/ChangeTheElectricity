@@ -32,7 +32,7 @@ public class MyWalletActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_fanhui_left,R.id.ll_wallet,R.id.ll_detail})
+    @OnClick({R.id.rl_fanhui_left,R.id.ll_wallet,R.id.ll_detail,R.id.tv_to_recharge})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.rl_fanhui_left:
@@ -43,6 +43,9 @@ public class MyWalletActivity extends BaseActivity {
                 break;
             case R.id.ll_detail:
                 startActivity(new Intent(MyWalletActivity.this, DepositHistoryActivity.class));
+                break;
+            case R.id.tv_to_recharge:
+                startActivity(new Intent(MyWalletActivity.this, RechargeCenterActivity.class));
                 break;
         }
     }

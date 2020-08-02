@@ -67,6 +67,7 @@ public class PackageBean {
         private int admin_id;
         private int weigh;
         private String status;
+        private boolean isChecked;
 
         public int getId() {
             return id;
@@ -162,6 +163,14 @@ public class PackageBean {
 
         public void setStatus(String status) {
             this.status = status;
+        }
+
+        public boolean isChecked() {
+            return isChecked;
+        }
+
+        public void setChecked(boolean checked) {
+            isChecked = checked;
         }
 
         public static class TextBean {

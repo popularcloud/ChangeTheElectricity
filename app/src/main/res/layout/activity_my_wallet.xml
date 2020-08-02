@@ -28,6 +28,7 @@
             android:layout_below="@+id/tv_money_txt"
             android:text="500.00"/>
         <TextView
+            android:id="@+id/tv_to_recharge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_15"
