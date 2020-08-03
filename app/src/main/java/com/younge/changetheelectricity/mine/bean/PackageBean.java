@@ -63,6 +63,7 @@ public class PackageBean{
         private String remark;
         private int createtime;
         private int updatetime;
+        private int endtime;
         private String bind_ids;
         private int admin_id;
         private int weigh;
@@ -171,6 +172,14 @@ public class PackageBean{
 
         public void setChecked(boolean checked) {
             isChecked = checked;
+        }
+
+        public int getEndtime() {
+            return endtime;
+        }
+
+        public void setEndtime(int endtime) {
+            this.endtime = endtime;
         }
 
         public static class TextBean implements Serializable{

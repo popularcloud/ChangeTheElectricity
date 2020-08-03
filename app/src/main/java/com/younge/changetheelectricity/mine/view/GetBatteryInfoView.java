@@ -9,5 +9,9 @@ public interface GetBatteryInfoView extends BaseView {
 
     void onGetBatteryInfoSuccess(BaseModel<BatteryInfoBean> data);
 
+    void onAddBatterySuccess(BaseModel<Object> data);
+
+    void onAddBatteryFail();
+
     void onGetDataFail();
 }

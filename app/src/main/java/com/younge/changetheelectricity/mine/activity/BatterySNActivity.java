@@ -57,6 +57,8 @@ public class BatterySNActivity extends BaseActivity {
                 intent.putExtra("sn",sn);
                 startActivity(intent);
 
+                finish();
+
                 break;
         }
     }

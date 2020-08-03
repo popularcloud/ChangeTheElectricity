@@ -8,18 +8,23 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.JsonArray;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ConfirmOrderAdapter;
+import com.younge.changetheelectricity.mine.activity.RechargeCenterActivity;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
 import com.younge.changetheelectricity.mine.presenter.PayPresenter;
 import com.younge.changetheelectricity.mine.view.PayView;
+import com.younge.changetheelectricity.util.PayServant;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
+import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.util.callback.AliPayCallBack;
 import com.younge.changetheelectricity.widget.PayTypeDialog;
 
 import org.byteam.superadapter.OnItemClickListener;
@@ -109,24 +114,26 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
                     @Override
                     public void onSubmit(final int payType, String passWord) {
 
+                        JsonArray jsonArray = new JsonArray();
                         JSONObject jsonObject = new JSONObject();
                         try {
                             jsonObject.put("id",packageDetail.getId());
                             jsonObject.put("num","1");
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        Log.e("json数据打印","========="+jsonObject.toString());
+                        Log.e("json数据打印","========="+jsonObject.toString()+packageDetail.getType());
                         switch (payType){  //1钱包 2.支付宝 3.微信
                             case 1:
-                                mPresenter.rechargeByWallet(String.valueOf(packageDetail.getType()),jsonObject.toString(), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                mPresenter.rechargeByWallet(String.valueOf(packageDetail.getType()),"["+jsonObject.toString()+"]", (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
                                 break;
                             case 2:
-                                mPresenter.rechargeByAli(String.valueOf(packageDetail.getType()),jsonObject.toString(), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                mPresenter.rechargeByAli(String.valueOf(packageDetail.getType()),"["+jsonObject.toString()+"]", (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
                                 break;
                             case 3:
-                                mPresenter.rechargeByWechat(String.valueOf(packageDetail.getType()),jsonObject.toString(), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                mPresenter.rechargeByWechat(String.valueOf(packageDetail.getType()),"["+jsonObject.toString()+"]", (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
                                 break;
                         }
 
@@ -158,21 +165,40 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
 
     @Override
     public void onPayOrderByWallet(BaseModel<Object> data) {
-
+        ToastUtil.makeText(this,"购买成功！");
+        finish();
     }
 
     @Override
     public void onPayOrderByAliSuccess(BaseModel<Object> data) {
-
+        if(data != null){
+            PayServant.getInstance().aliPay(String.valueOf(data.getData()), ConfirmOrderActivity.this, new AliPayCallBack() {
+                @Override
+                public void OnAliPayResult(boolean success, boolean isWaiting, String msg) {
+                    ToastUtil.makeText(ConfirmOrderActivity.this, msg);
+                    if (success) {
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                    finish();
+                }
+            });
+        }
     }
 
     @Override
     public void onPayOrderByWeChatSuccess(BaseModel<PayByWechatBean> data) {
-
+        if(data != null && data.getData() != null) {
+            PayByWechatBean.PayparamsBean wx = data.getData().getPayparams();
+            PayServant.getInstance().weChatPay2(
+                    ConfirmOrderActivity.this, wx.getAppid(),
+                    wx.getPartnerid(), wx.getPrepayid(), wx.getNoncestr(),
+                    wx.getTimestamp(), wx.getPackageX(), wx.getSign());
+        }
     }
 
     @Override
     public void onGetDataFail() {
-
+        ToastUtil.makeText(this,"购买失败！");
     }
 }

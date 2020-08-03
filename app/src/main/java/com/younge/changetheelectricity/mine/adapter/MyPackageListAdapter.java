@@ -1,9 +1,12 @@
 package com.younge.changetheelectricity.mine.adapter;
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
+import com.younge.changetheelectricity.util.DateUtil;
+import com.younge.changetheelectricity.util.ImageLoaderUtil;
 
 import org.byteam.superadapter.SuperAdapter;
 import org.byteam.superadapter.SuperViewHolder;
@@ -22,11 +25,20 @@ public class MyPackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
 
 
         holder.setText(R.id.tv_title,item.getTitle());
+        holder.setText(R.id.tv_time, DateUtil.timeStamp2Date(String.valueOf(item.getEndtime()),"YYYY-MM-dd")+"到期");
        // holder.setText(R.id.tv_price,"￥"+item.getText().getMoney());
-        holder.setText(R.id.tv_desc,item.getText().getUse()+"次/"+item.getText().getDay()+"天");
+        switch (item.getText().getUse()){
+            case "0":
+                holder.setText(R.id.tv_desc,"无限次");
+                break;
+            default:
+                holder.setText(R.id.tv_desc,item.getText().getUse()+"次");
+                break;
 
-       /* ImageView imageView = holder.itemView.findViewById(R.id.iv_header);
-        ImageLoaderUtil.getInstance().displayFromNetDCircular(mContext,item.getPicfront(),imageView,R.mipmap.cte_logo);*/
+        }
+
+        ImageView imageView = holder.itemView.findViewById(R.id.iv_header);
+        ImageLoaderUtil.getInstance().displayFromNetDCircular(mContext,item.getImage(),imageView,R.mipmap.cte_logo);
 
     }
 }

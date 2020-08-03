@@ -6,6 +6,7 @@ import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.mine.bean.DepositHistoryBean;
+import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
@@ -79,8 +80,7 @@ public interface ApiServer {
     Observable<BaseModel<ShopDetailBean>> getShopDetail(@Field("HTTP_API") String httpApi,
                                                         @Field("lng") String lng,
                                                         @Field("lat") String lat,
-                                                        @Field("macno") String macno,
-                                                        @Field("token") String token);
+                                                        @Field("id") String macno);
 
 
     //获取个人资料
@@ -209,13 +209,13 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/usercenter/api/car/battery")
-    Observable<BaseModel<PackageBean>> getMyBattery(@Field("HTTP_API") String httpApi,
-                                                    @Field("page") String page,
-                                                    @Field("size") String size,
-                                                    @Field("token") String token);
+    Observable<BaseModel<MyBatteryBean>> getMyBattery(@Field("HTTP_API") String httpApi,
+                                                      @Field("page") String page,
+                                                      @Field("size") String size,
+                                                      @Field("token") String token);
 
 
-    //我的套餐
+    //根据sn获取电池信息
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/usercenter/api/car/battery_search")
@@ -223,6 +223,14 @@ public interface ApiServer {
                                                           @Field("sn") String sn,
                                                           @Field("token") String token);
 
+
+    //电池添加/编辑
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/battery_edit")
+    Observable<BaseModel<BatteryInfoBean>> addBattery(@Field("HTTP_API") String httpApi,
+                                                          @Field("sn") String sn,
+                                                          @Field("token") String token);
 
 
     //充值明细

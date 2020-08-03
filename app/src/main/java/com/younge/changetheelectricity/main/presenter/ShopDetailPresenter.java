@@ -13,8 +13,8 @@ public class ShopDetailPresenter extends BasePresenter<ShopDetailView> {
         super(baseView);
     }
 
-    public void getShopLocations(String lng,String lat,String macno,String token){
-        addDisposable(ApiRetrofit.getInstance().getApiService().getShopDetail("vv/agent/api/index/seller_show",lng,lat,macno,token), new BaseObserver(baseView) {
+    public void getShopDetail(String lng,String lat,String id){
+        addDisposable(ApiRetrofit.getInstance().getApiService().getShopDetail("vv/agent/api/index/seller_show",lng,lat,id), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();

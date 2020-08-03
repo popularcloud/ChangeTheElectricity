@@ -82,6 +82,10 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     private MyLocationStyle myLocationStyle;
 
+    List<ShopDetailLocationBean.ListBean> listBeans;
+
+    private ShopDetailLocationBean.ListBean presentShop;
+
     //初始化地图控制器对象
     AMap aMap = null;
 
@@ -235,12 +239,12 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
         if(data != null && data.getData() != null && data.getData().getList() != null){
 
-            List<ShopDetailLocationBean.ListBean> listBeans =  data.getData().getList();
+            listBeans =  data.getData().getList();
             for(int i = 0;i < listBeans.size();i++){
                 MarkerOptions markerOption = new MarkerOptions();
                 LatLng latLng = new LatLng(Double.parseDouble(listBeans.get(i).getLat()),Double.parseDouble(listBeans.get(i).getLng()));
                 markerOption.position(latLng);
-                markerOption.title(listBeans.get(i).getTitle()).snippet(listBeans.get(i).getAddress());
+                markerOption.title(listBeans.get(i).getTitle()).snippet(String.valueOf(i));
 
                 markerOption.draggable(true);//设置Marker可拖动
                 markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
@@ -265,14 +269,27 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 ll_select_show.setVisibility(View.GONE);
                 ll_no_select_show.setVisibility(View.GONE);
 
-                tv_shop_name.setText(marker.getTitle());
-                tv_shop_address.setText(marker.getSnippet());
+                presentShop = listBeans.get(Integer.parseInt(marker.getSnippet()));
+
+                tv_shop_name.setText(presentShop.getTitle());
+                tv_shop_address.setText(presentShop.getAddress());
+
+                updateChildFragmentData(String.valueOf(presentShop.getAdmin_id()), presentShop.getMacno());
                 return true;
             }
         };
 // 绑定 Marker 被点击事件
         aMap.setOnMarkerClickListener(markerClickListener);
 
+    }
+
+
+    private void updateChildFragmentData(String shopId,String macno){
+
+
+        if(fragmentList != null && fragmentList.size() == 2){
+            ((ShopDetailFragment)fragmentList.get(0)).getShopData(shopId);
+        }
     }
 
     @Override

@@ -70,6 +70,14 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(mBGARefreshLayout != null){
+            mBGARefreshLayout.beginRefreshing();
+        }
+    }
+
+    @Override
     protected void initGetData() {
 
     }
@@ -113,7 +121,6 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
             }
         });
 
-        mBGARefreshLayout.beginRefreshing();
     }
 
     @OnClick({R.id.rl_fanhui_left})

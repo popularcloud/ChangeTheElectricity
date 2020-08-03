@@ -4,14 +4,8 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
 import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
-import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
-import com.younge.changetheelectricity.mine.view.BindCarView;
 import com.younge.changetheelectricity.mine.view.GetBatteryInfoView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
-
-import java.util.List;
-
-import okhttp3.MultipartBody;
 
 public class GetBetteryInfoPresenter extends BasePresenter<GetBatteryInfoView> {
 
@@ -33,6 +27,28 @@ public class GetBetteryInfoPresenter extends BasePresenter<GetBatteryInfoView> {
                 if (baseView != null) {
                     if("连接错误".equals(msg)){
                         baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
+    public void addBattery(String sn,String token) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().addBattery("vv/usercenter/api/car/battery_edit",sn,token), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.onAddBatterySuccess((BaseModel<Object>) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onAddBatteryFail();
                     }else {
                         baseView.showError(msg);
                     }

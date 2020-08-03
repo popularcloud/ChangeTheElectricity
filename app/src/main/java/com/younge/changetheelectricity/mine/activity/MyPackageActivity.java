@@ -15,6 +15,7 @@ import com.younge.changetheelectricity.mine.adapter.MyPackageListAdapter;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.presenter.MyPackagePresenter;
 import com.younge.changetheelectricity.mine.view.PackageListView;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -91,6 +92,7 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
             }
         });
+        mPresenter.getMyPackageList("1", (String) SharedPreferencesUtils.getParam(MyPackageActivity.this,"token",""));
     }
 
     @OnClick({R.id.rl_fanhui_left,R.id.tv_submit})

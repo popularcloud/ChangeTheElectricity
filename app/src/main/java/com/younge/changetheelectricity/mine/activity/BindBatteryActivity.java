@@ -14,6 +14,7 @@ import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
 import com.younge.changetheelectricity.mine.presenter.GetBetteryInfoPresenter;
 import com.younge.changetheelectricity.mine.view.GetBatteryInfoView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
+import com.younge.changetheelectricity.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,8 +86,8 @@ public class BindBatteryActivity extends MyBaseActivity<GetBetteryInfoPresenter>
                 finish();
                 break;
             case R.id.tv_submit:
-
-                startActivity(new Intent(BindBatteryActivity.this, MyBatteryActivity.class));
+                mPresenter.addBattery(sn,(String) SharedPreferencesUtils.getParam(BindBatteryActivity.this,"token",""));
+                //startActivity(new Intent(BindBatteryActivity.this, MyBatteryActivity.class));
                 break;
         }
     }
@@ -95,16 +96,37 @@ public class BindBatteryActivity extends MyBaseActivity<GetBetteryInfoPresenter>
     public void onGetBatteryInfoSuccess(BaseModel<BatteryInfoBean> data) {
 
         if(data != null && data.getData() != null){
-
             tv_remain.setText(String.valueOf(data.getData().getBattery()));
             tv_sn_num.setText(data.getData().getSn());
             tv_num.setText(data.getData().getSerial());
             tv_type.setText(data.getData().getVoltage());
+        }else{
+            ToastUtil.makeText(BindBatteryActivity.this,"电池SN码不存在");
+            finish();
         }
     }
 
     @Override
-    public void onGetDataFail() {
+    public void onAddBatterySuccess(BaseModel<Object> data) {
+        ToastUtil.makeText(BindBatteryActivity.this,"绑定成功！");
+        finish();
+    }
 
+    @Override
+    public void onAddBatteryFail() {
+        ToastUtil.makeText(BindBatteryActivity.this,"绑定失败！请稍后重试");
+    }
+
+    @Override
+    public void onGetDataFail() {
+        ToastUtil.makeText(BindBatteryActivity.this,"电池SN码不存在");
+        finish();
+    }
+
+
+    @Override
+    public void showError(String msg) {
+        super.showError(msg);
+        ToastUtil.makeText(BindBatteryActivity.this,msg);
     }
 }

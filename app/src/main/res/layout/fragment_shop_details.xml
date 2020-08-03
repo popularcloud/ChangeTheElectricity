@@ -7,8 +7,9 @@
     android:background="@color/white"
     tools:context=".changetheelectricity.fragment.BatteryDetailsFragment">
     <ImageView
+        android:id="@+id/iv_header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp__80"
+        android:layout_height="@dimen/dp_150"
         android:src="@color/white"
         android:background="@color/white"/>
     <LinearLayout
@@ -24,13 +25,14 @@
             android:textSize="@dimen/sp_16"
             android:text="电柜编码："/>
         <TextView
+            android:id="@+id/tv_num"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/black_33"
             android:textSize="@dimen/sp_16"
             android:gravity="right"
-            android:text="123456"/>
+            android:text=""/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -52,13 +54,14 @@
             android:textSize="@dimen/sp_16"
             android:text="可换数量："/>
         <TextView
+            android:id="@+id/tv_count"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/black_33"
             android:textSize="@dimen/sp_16"
             android:gravity="right"
-            android:text="48v 20Ah/1个"/>
+            android:text=""/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -80,13 +83,14 @@
             android:textSize="@dimen/sp_16"
             android:text="营业时间："/>
         <TextView
+            android:id="@+id/tv_use_time"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/black_33"
             android:textSize="@dimen/sp_16"
             android:gravity="right"
-            android:text="周一到周日 00：00 - 24：00"/>
+            android:text=""/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -108,12 +112,13 @@
             android:textSize="@dimen/sp_16"
             android:text="联系电话："/>
         <TextView
+            android:id="@+id/tv_phone"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textColor="@color/black_33"
             android:textSize="@dimen/sp_16"
             android:gravity="right"
-            android:text="0769-647363848"/>
+            android:text=""/>
     </LinearLayout>
 </LinearLayout>

@@ -126,7 +126,7 @@ public class RechargeCenterActivity extends MyBaseActivity<RechargeCenterPresent
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       // EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick({R.id.rl_fanhui_left,R.id.ll_alipay,R.id.ll_wechat,R.id.tv_submit})
