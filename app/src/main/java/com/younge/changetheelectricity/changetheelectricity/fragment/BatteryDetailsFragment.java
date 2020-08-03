@@ -11,8 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseFragment;
+import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.base.MyBaseFragment;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
+import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
+import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
+import com.younge.changetheelectricity.main.view.DeviceDetailView;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 
 import org.byteam.superadapter.OnItemClickListener;
@@ -24,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class BatteryDetailsFragment extends BaseFragment {
+public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter> implements DeviceDetailView {
 
     @BindView(R.id.rv_data)
     RecyclerView rv_data;
@@ -49,7 +55,7 @@ public class BatteryDetailsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_battery_details, null);
         unbinder = ButterKnife.bind(this, v);
-
+        mPresenter = createPresenter();
         initList();
         return v;
     }
@@ -79,5 +85,24 @@ public class BatteryDetailsFragment extends BaseFragment {
                 rv_data.setVisibility(View.GONE);
             }
         });
+    }
+
+    public void getBatteryDetailData(String macno){
+        mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+    }
+
+    @Override
+    protected DeviceDetailPresenter createPresenter() {
+        return new DeviceDetailPresenter(this);
+    }
+
+    @Override
+    public void onGetDeviceDetailSuccess(BaseModel<DeviceDetailBean> data) {
+
+    }
+
+    @Override
+    public void onGetDataFail() {
+
     }
 }

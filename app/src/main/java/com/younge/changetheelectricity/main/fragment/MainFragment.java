@@ -133,7 +133,6 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         fragmentList.add(batteryDetailsFragment01);
         fragmentList.add(shopDetailFragment);
 
-
         cvp_data.setAdapter(new MyPagerAdapter(getChildFragmentManager(),fragmentList));
 
         cvp_data.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -285,10 +284,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
 
     private void updateChildFragmentData(String shopId,String macno){
-
-
         if(fragmentList != null && fragmentList.size() == 2){
             ((ShopDetailFragment)fragmentList.get(0)).getShopData(shopId);
+            ((BatteryDetailsFragment)fragmentList.get(0)).getBatteryDetailData(macno);
         }
     }
 
