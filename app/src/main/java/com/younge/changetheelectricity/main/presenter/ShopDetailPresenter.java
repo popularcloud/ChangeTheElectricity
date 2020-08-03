@@ -9,12 +9,14 @@ import com.younge.changetheelectricity.net.ApiRetrofit;
 
 public class ShopDetailPresenter extends BasePresenter<ShopDetailView> {
 
+
+
     public ShopDetailPresenter(ShopDetailView baseView) {
         super(baseView);
     }
 
-    public void getShopDetail(String lng,String lat,String id){
-        addDisposable(ApiRetrofit.getInstance().getApiService().getShopDetail("vv/agent/api/index/seller_show",lng,lat,id), new BaseObserver(baseView) {
+    public void getShopDetail(String lng,String lat,String macno,String id){
+        addDisposable(ApiRetrofit.getInstance().getApiService().getShopDetail("vv/agent/api/index/seller_show",lng,lat,macno,id), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();

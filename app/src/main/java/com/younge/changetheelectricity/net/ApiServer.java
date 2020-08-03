@@ -3,6 +3,7 @@ package com.younge.changetheelectricity.net;
 
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
+import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.mine.bean.DepositHistoryBean;
@@ -67,11 +68,11 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/device/api/index/show")
-    Observable<BaseModel<Object>> getDeviceDetail(@Field("HTTP_API") String httpApi,
-                                                  @Field("lng") String lng,
-                                                  @Field("lat") String lat,
-                                                  @Field("macno") String macno,
-                                                  @Field("token") String token);
+    Observable<BaseModel<DeviceDetailBean>> getDeviceDetail(@Field("HTTP_API") String httpApi,
+                                                            @Field("lng") String lng,
+                                                            @Field("lat") String lat,
+                                                            @Field("macno") String macno,
+                                                            @Field("token") String token);
 
     //店铺详情
     @POST("/api/index")
@@ -80,7 +81,8 @@ public interface ApiServer {
     Observable<BaseModel<ShopDetailBean>> getShopDetail(@Field("HTTP_API") String httpApi,
                                                         @Field("lng") String lng,
                                                         @Field("lat") String lat,
-                                                        @Field("id") String macno);
+                                                        @Field("macno") String macno,
+                                                        @Field("id") String admin_id);
 
 
     //获取个人资料

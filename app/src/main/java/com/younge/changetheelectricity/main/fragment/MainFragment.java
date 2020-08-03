@@ -105,8 +105,6 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     private void initMapView() {
 
-        Logger.e("获取到了定位信息","初始化地图定位");
-
         if (aMap == null) {
             aMap = mMapView.getMap();
         }
@@ -188,7 +186,12 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_scan:
-                getActivity().startActivity(new Intent(getActivity(), BatteryDetailActivity.class));
+                if(presentShop != null){
+                    Intent intent = new Intent(getActivity(), BatteryDetailActivity.class);
+                    intent.putExtra("macno",presentShop.getMacno());
+                    getActivity().startActivity(intent);
+                }
+
                 break;
             case R.id.tv_changeElectricity: //充电
                 ((MainActivity)getActivity()).changeTag(2);
@@ -285,7 +288,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     private void updateChildFragmentData(String shopId,String macno){
         if(fragmentList != null && fragmentList.size() == 2){
-            ((ShopDetailFragment)fragmentList.get(0)).getShopData(shopId);
+            ((ShopDetailFragment)fragmentList.get(1)).getShopData(shopId,macno);
             ((BatteryDetailsFragment)fragmentList.get(0)).getBatteryDetailData(macno);
         }
     }

@@ -3,6 +3,8 @@ package com.younge.changetheelectricity.main.bean;
 import java.util.List;
 
 public class ShopDetailBean {
+
+
     /**
      * id : 3
      * type : 2
@@ -44,6 +46,7 @@ public class ShopDetailBean {
      * hours :
      * tel : 13800138001
      * distance : 0
+     * device_goods_stats : [{"title":"0.00V 0.00Ah","num":"2"},{"title":"2.00V 0.00Ah","num":"2"}]
      */
 
     private int id;
@@ -86,6 +89,7 @@ public class ShopDetailBean {
     private String tel;
     private int distance;
     private List<String> images;
+    private List<DeviceGoodsStatsBean> device_goods_stats;
 
     public int getId() {
         return id;
@@ -405,5 +409,39 @@ public class ShopDetailBean {
 
     public void setImages(List<String> images) {
         this.images = images;
+    }
+
+    public List<DeviceGoodsStatsBean> getDevice_goods_stats() {
+        return device_goods_stats;
+    }
+
+    public void setDevice_goods_stats(List<DeviceGoodsStatsBean> device_goods_stats) {
+        this.device_goods_stats = device_goods_stats;
+    }
+
+    public static class DeviceGoodsStatsBean {
+        /**
+         * title : 0.00V 0.00Ah
+         * num : 2
+         */
+
+        private String title;
+        private String num;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getNum() {
+            return num;
+        }
+
+        public void setNum(String num) {
+            this.num = num;
+        }
     }
 }

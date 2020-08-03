@@ -3,31 +3,39 @@ package com.younge.changetheelectricity.main.bean;
 import java.util.List;
 
 public class DeviceDetailBean {
+
     /**
      * id : 1
      * type : 3
      * title : test
      * macno : 5202019020500002
-     * box : 6
+     * box : 2
      * charge_box : 2
      * area : 广东省/东莞市/南城街道
      * address : 高盛科技大厦308
      * lng : 113.726037
      * lat : 22.98662
-     * remark :
+     * remark : 水浸报警
      * admin_id : 3
      * status : 2
      * clean : 0
      * activetime : 0
      * createtime : 1593690628
-     * updatetime : 0
+     * updatetime : 1596355151
+     * temp : 35
+     * voltage : 2
+     * current : 3
+     * power : 4
+     * kwh : 5.0
+     * sysnum0 : 12345678
+     * sysnum1 : 12345678
      * distance : 0
      * seller : {"id":3,"nickname":"商家1"}
      * appointment : {"appointment_minute":"10","appointment_count":"5","my_count":0,"my_order":null}
      * charge : {"my_order":null}
-     * device_goods : [{"id":1,"type":3,"goods_type":0,"device_id":1,"device_box":1,"macno":"123456","macno2":"","status":1,"lock":1,"rfid":1,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":2,"type":3,"goods_type":0,"device_id":1,"device_box":2,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":3,"type":3,"goods_type":0,"device_id":1,"device_box":3,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":4,"type":3,"goods_type":0,"device_id":1,"device_box":4,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":5,"type":3,"goods_type":0,"device_id":1,"device_box":5,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":6,"type":3,"goods_type":0,"device_id":1,"device_box":6,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":7,"type":3,"goods_type":1,"device_id":1,"device_box":1,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0},{"id":8,"type":3,"goods_type":1,"device_id":1,"device_box":2,"macno":"","macno2":"","status":0,"lock":0,"rfid":0,"hall":0,"battery":0,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"","charge_minute":0}]
-     * active_box : 1
-     * active_charge_box : 0
+     * device_goods : [{"id":1,"type":3,"goods_type":0,"device_id":1,"device_box":1,"macno":"123456","macno2":"","status":1,"lock":1,"rfid":0,"hall":0,"battery":50,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常; 灭火装置未启动; 充电机通信异常","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"2.00","volume":"90.00","charge_minute":0},{"id":2,"type":3,"goods_type":0,"device_id":1,"device_box":2,"macno":"123456","macno2":"","status":1,"lock":1,"rfid":0,"hall":0,"battery":50,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常; 灭火装置未启动; 充电机通信异常","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"2.00","volume":"90.00","charge_minute":0},{"id":7,"type":3,"goods_type":1,"device_id":1,"device_box":1,"macno":"","macno2":"","status":1,"lock":0,"rfid":0,"hall":0,"battery":2,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常","sysnum":12345678,"mode":1,"use":2,"temp":0,"voltage":"0.00","volume":"0.00","charge_minute":0},{"id":8,"type":3,"goods_type":1,"device_id":1,"device_box":2,"macno":"","macno2":"","status":1,"lock":0,"rfid":0,"hall":0,"battery":2,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常","sysnum":12345678,"mode":1,"use":2,"temp":0,"voltage":"0.00","volume":"0.00","charge_minute":0}]
+     * active_box : 2
+     * active_charge_box : 2
      */
 
     private int id;
@@ -47,6 +55,13 @@ public class DeviceDetailBean {
     private int activetime;
     private int createtime;
     private int updatetime;
+    private int temp;
+    private int voltage;
+    private int current;
+    private int power;
+    private String kwh;
+    private int sysnum0;
+    private int sysnum1;
     private int distance;
     private SellerBean seller;
     private AppointmentBean appointment;
@@ -189,6 +204,62 @@ public class DeviceDetailBean {
 
     public void setUpdatetime(int updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public int getTemp() {
+        return temp;
+    }
+
+    public void setTemp(int temp) {
+        this.temp = temp;
+    }
+
+    public int getVoltage() {
+        return voltage;
+    }
+
+    public void setVoltage(int voltage) {
+        this.voltage = voltage;
+    }
+
+    public int getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(int current) {
+        this.current = current;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
+    public String getKwh() {
+        return kwh;
+    }
+
+    public void setKwh(String kwh) {
+        this.kwh = kwh;
+    }
+
+    public int getSysnum0() {
+        return sysnum0;
+    }
+
+    public void setSysnum0(int sysnum0) {
+        this.sysnum0 = sysnum0;
+    }
+
+    public int getSysnum1() {
+        return sysnum1;
+    }
+
+    public void setSysnum1(int sysnum1) {
+        this.sysnum1 = sysnum1;
     }
 
     public int getDistance() {
@@ -346,16 +417,22 @@ public class DeviceDetailBean {
          * macno2 :
          * status : 1
          * lock : 1
-         * rfid : 1
+         * rfid : 0
          * hall : 0
-         * battery : 0
+         * battery : 50
          * createtime : 1593690628
          * updatetime : 0
          * lockid : 0
          * locktime : 0
          * cleanbegin : 0
          * cleanend : 0
-         * desc :
+         * desc : 通信异常; 灭火装置未启动; 充电机通信异常
+         * sysnum : 0
+         * mode : 0
+         * use : 0
+         * temp : 35
+         * voltage : 2.00
+         * volume : 90.00
          * charge_minute : 0
          */
 
@@ -378,6 +455,12 @@ public class DeviceDetailBean {
         private int cleanbegin;
         private int cleanend;
         private String desc;
+        private int sysnum;
+        private int mode;
+        private int use;
+        private int temp;
+        private String voltage;
+        private String volume;
         private int charge_minute;
 
         public int getId() {
@@ -530,6 +613,54 @@ public class DeviceDetailBean {
 
         public void setDesc(String desc) {
             this.desc = desc;
+        }
+
+        public int getSysnum() {
+            return sysnum;
+        }
+
+        public void setSysnum(int sysnum) {
+            this.sysnum = sysnum;
+        }
+
+        public int getMode() {
+            return mode;
+        }
+
+        public void setMode(int mode) {
+            this.mode = mode;
+        }
+
+        public int getUse() {
+            return use;
+        }
+
+        public void setUse(int use) {
+            this.use = use;
+        }
+
+        public int getTemp() {
+            return temp;
+        }
+
+        public void setTemp(int temp) {
+            this.temp = temp;
+        }
+
+        public String getVoltage() {
+            return voltage;
+        }
+
+        public void setVoltage(String voltage) {
+            this.voltage = voltage;
+        }
+
+        public String getVolume() {
+            return volume;
+        }
+
+        public void setVolume(String volume) {
+            this.volume = volume;
         }
 
         public int getCharge_minute() {
