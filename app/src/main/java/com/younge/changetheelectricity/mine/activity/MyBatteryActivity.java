@@ -91,7 +91,6 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
 
         allList.clear();
 
-
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
         mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
 
