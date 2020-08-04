@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.younge.changetheelectricity.R;
-import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
-import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
@@ -25,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter> implements DeviceDetailView {

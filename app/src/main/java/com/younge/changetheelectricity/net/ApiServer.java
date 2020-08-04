@@ -245,4 +245,17 @@ public interface ApiServer {
                                                                 @Field("size") String size,
                                                                 @Field("token") String token);
 
+    //下单
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/order/api/index/submit")
+    Observable<BaseModel<DepositHistoryBean>> submitOrder(@Field("HTTP_API") String httpApi,
+                                                                @Field("macno") String macno,
+                                                                @Field("device_box") String device_box,
+                                                                @Field("goods_type") String goods_type,
+                                                                @Field("order_type") String order_type,
+                                                                @Field("package_id") String package_id,
+                                                                @Field("package_user_id") String package_user_id,
+                                                                @Field("token") String token);
+
 }

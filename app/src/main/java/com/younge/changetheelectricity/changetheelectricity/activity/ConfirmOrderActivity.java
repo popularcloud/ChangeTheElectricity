@@ -113,8 +113,6 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
                 payTypeDialog = new PayTypeDialog(ConfirmOrderActivity.this, String.valueOf(money),new PayTypeDialog.CallBack() {
                     @Override
                     public void onSubmit(final int payType, String passWord) {
-
-                        JsonArray jsonArray = new JsonArray();
                         JSONObject jsonObject = new JSONObject();
                         try {
                             jsonObject.put("id",packageDetail.getId());
