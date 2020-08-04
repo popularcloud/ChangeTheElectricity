@@ -24,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 
 public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implements PackageListView {
@@ -82,6 +83,10 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
     private void initList(){
 
+
+        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
+        mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
+
         mAdapter = new MyPackageListAdapter(this,allList,R.layout.item_my_package);
         rv_data.setLayoutManager(new LinearLayoutManager(this));
         rv_data.setAdapter(mAdapter);
@@ -92,7 +97,24 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
             }
         });
-        mPresenter.getMyPackageList("1", (String) SharedPreferencesUtils.getParam(MyPackageActivity.this,"token",""));
+
+        mBGARefreshLayout.setDelegate(new BGARefreshLayout.BGARefreshLayoutDelegate() {
+            @Override
+            public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+                page = 1;
+                mPresenter.getMyPackageList("",String.valueOf(page),(String) SharedPreferencesUtils.getParam(MyPackageActivity.this,"token",""));
+            }
+
+            @Override
+            public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+                page++;
+                mPresenter.getMyPackageList("",String.valueOf(page),(String) SharedPreferencesUtils.getParam(MyPackageActivity.this,"token",""));
+                return true;
+            }
+        });
+
+        mBGARefreshLayout.beginRefreshing();
+
     }
 
     @OnClick({R.id.rl_fanhui_left,R.id.tv_submit})

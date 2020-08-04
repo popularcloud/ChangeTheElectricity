@@ -12,6 +12,7 @@
         android:textColor="@color/gray_99"
         android:text="1"/>
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_14"
@@ -20,6 +21,7 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:text="40v 20Ah"/>
     <TextView
+        android:id="@+id/tv_has"
         android:layout_width="@dimen/dp_80"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_14"
@@ -33,6 +35,7 @@
         android:layout_weight="1"
         android:layout_height="1px" />
     <TextView
+        android:id="@+id/tv_order"
         android:layout_width="@dimen/dp_80"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_14"

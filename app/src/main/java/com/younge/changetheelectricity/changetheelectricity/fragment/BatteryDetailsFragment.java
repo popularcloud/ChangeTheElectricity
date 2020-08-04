@@ -5,15 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.younge.changetheelectricity.R;
-import com.younge.changetheelectricity.base.BaseFragment;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
-import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
@@ -36,10 +35,17 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     RecyclerView rv_data;
     @BindView(R.id.ll_order_battery)
     LinearLayout ll_order_battery;
+
+    @BindView(R.id.tv_num)
+    TextView tv_num;
+    @BindView(R.id.tv_battery_account)
+    TextView tv_battery_account;
     private BatteryDetailsAdapter mAdapter;
 
+    private String macno;
 
-    private List<BatteryDetailsBean> allList = new ArrayList<>();
+
+    private List<DeviceDetailBean.DeviceGoodsBean> allList = new ArrayList<>();
 
     private Unbinder unbinder;
     public BatteryDetailsFragment() {
@@ -60,19 +66,18 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
         return v;
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser && getContext() != null){
+            mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+        }
+    }
+
     private void initList(){
 
         allList.clear();
-
-        BatteryDetailsBean listBean1 = new BatteryDetailsBean();
-        BatteryDetailsBean listBean2 = new BatteryDetailsBean();
-        BatteryDetailsBean listBean3 = new BatteryDetailsBean();
-        BatteryDetailsBean listBean4 = new BatteryDetailsBean();
-        allList.add(listBean1);
-        allList.add(listBean2);
-        allList.add(listBean3);
-        allList.add(listBean4);
-
         mAdapter = new BatteryDetailsAdapter(getContext(),allList,R.layout.item_battery_details);
         rv_data.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_data.setAdapter(mAdapter);
@@ -88,6 +93,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     }
 
     public void getBatteryDetailData(String macno){
+       this.macno = macno;
         mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
     }
 
@@ -98,6 +104,20 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
 
     @Override
     public void onGetDeviceDetailSuccess(BaseModel<DeviceDetailBean> data) {
+
+        if(data != null && data.getData() != null && data.getData().getDevice_goods() != null){
+            tv_battery_account.setText("电池数量："+ data.getData().getBox());
+            tv_num.setText("电柜编号："+macno);
+
+            List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
+            allList.clear();
+            for(int i = 0;i < deviceGoodsBeans.size(); i ++){
+                if(deviceGoodsBeans.get(i).getGoods_type() == 0){     //0为电池  1为充电口
+                    allList.add(deviceGoodsBeans.get(i));
+                }
+            }
+            mAdapter.replaceAll(allList);
+        }
 
     }
 

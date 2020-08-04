@@ -12,6 +12,7 @@
         android:orientation="horizontal"
         android:background="@color/white">
         <TextView
+            android:id="@+id/tv_battery_account"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:paddingTop="@dimen/dp_15"
@@ -22,6 +23,7 @@
             android:textSize="@dimen/sp_12"
             android:text="电池数量3个"/>
         <TextView
+            android:id="@+id/tv_num"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:paddingTop="@dimen/dp_15"
