@@ -120,6 +120,20 @@ public interface ApiServer {
     @Headers("HTTP_API: api/common/upload")
     Observable<BaseModel<ReturnImgUrlBean>> upLoadPic(@Part() List<MultipartBody.Part> partList);
 
+
+    //实名认证
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/user/edit")
+    Observable<BaseModel<UserInfoBean>> realNameAuthentication(@Field("HTTP_API") String httpApi,
+                                               @Field("realname") String realname,
+                                               @Field("idcard") String idcard,
+                                               @Field("idcardfront") String idcardfront,
+                                               @Field("idcardback") String idcardback,
+                                               @Field("idcardhand") String idcardhand,
+                                               @Field("token") String token);
+
+
     //套餐列表
     @POST("/api/index")
     @FormUrlEncoded
