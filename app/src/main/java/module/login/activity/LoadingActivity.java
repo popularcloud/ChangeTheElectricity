@@ -94,7 +94,7 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
 
 
     private void gotoMain(){
-        Observable.timer(5, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
+        Observable.timer(2, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
 

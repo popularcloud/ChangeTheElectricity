@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ChargeDetailsAdapter extends SuperAdapter<PackageBean.ListBean> {
 
-    private int selPosition = 0;
+    private int selPosition = -1;
 
     public ChargeDetailsAdapter(Context context, List<PackageBean.ListBean> mDatas, int layoutId) {
        super(context,mDatas,layoutId);

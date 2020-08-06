@@ -36,7 +36,6 @@
         <View style="@style/line_f0Style"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
             android:layout_marginTop="@dimen/dp_15"/>
         <RelativeLayout
             android:id="@+id/rl_qb"
@@ -56,6 +55,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/iv_qb"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
                 android:text="余额支付"
                 android:textSize="14sp"
                 android:layout_marginLeft="15dp"
@@ -63,9 +65,7 @@
         </RelativeLayout>
         <View style="@style/line_f0Style"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="@dimen/dp_15"/>
+            android:layout_marginRight="15dp" />
         <RelativeLayout
             android:id="@+id/rl_wechat"
             android:layout_width="match_parent"
@@ -83,6 +83,9 @@
                 android:id="@+id/tv_weixin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/iv_weixin"
                 android:text="微信支付"
                 android:textSize="14sp"
@@ -91,9 +94,7 @@
         </RelativeLayout>
         <View style="@style/line_f0Style"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="@dimen/dp_15"/>
+            android:layout_marginRight="15dp" />
         <RelativeLayout
             android:id="@+id/rl_alipay"
             android:layout_width="match_parent"
@@ -115,6 +116,9 @@
                 android:layout_toRightOf="@+id/iv_alipay"
                 android:text="支付宝支付"
                 android:textSize="14sp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/black"/>
         </RelativeLayout>

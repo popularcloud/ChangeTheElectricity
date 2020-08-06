@@ -125,7 +125,7 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/usercenter/api/user/edit")
-    Observable<BaseModel<UserInfoBean>> realNameAuthentication(@Field("HTTP_API") String httpApi,
+    Observable<BaseModel<Object>> realNameAuthentication(@Field("HTTP_API") String httpApi,
                                                @Field("realname") String realname,
                                                @Field("idcard") String idcard,
                                                @Field("idcardfront") String idcardfront,

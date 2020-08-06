@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ChargeDetailsTwoAdapter extends SuperAdapter<DeviceDetailBean.DeviceGoodsBean> {
 
-    private int selPosition = 0;
+    private int selPosition = -1;
 
     public ChargeDetailsTwoAdapter(Context context, List<DeviceDetailBean.DeviceGoodsBean> mDatas, int layoutId) {
        super(context,mDatas,layoutId);

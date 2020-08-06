@@ -8,17 +8,12 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.JsonArray;
 import com.younge.changetheelectricity.R;
-import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
-import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ConfirmOrderAdapter;
-import com.younge.changetheelectricity.mine.activity.RechargeCenterActivity;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
-import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
 import com.younge.changetheelectricity.mine.presenter.PayPresenter;
 import com.younge.changetheelectricity.mine.view.PayView;
 import com.younge.changetheelectricity.util.PayServant;
@@ -32,12 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implements PayView {
@@ -122,7 +114,7 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
                             e.printStackTrace();
                         }
 
-                        Log.e("json数据打印","========="+jsonObject.toString()+packageDetail.getType());
+                        Log.e("json数据打印","========="+jsonObject.toString()+packageDetail.getType()+"支付方式："+payType);
                         switch (payType){  //1钱包 2.支付宝 3.微信
                             case 1:
                                 mPresenter.rechargeByWallet(String.valueOf(packageDetail.getType()),"["+jsonObject.toString()+"]", (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));

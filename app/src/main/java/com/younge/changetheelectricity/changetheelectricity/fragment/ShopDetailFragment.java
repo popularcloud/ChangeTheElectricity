@@ -101,9 +101,10 @@ public class ShopDetailFragment extends MyBaseFragment<ShopDetailPresenter> impl
             tv_phone.setText(data.getData().getTel());
             tv_use_time.setText(data.getData().getHours());
 
-            //if(data.getData().getImages() != null){
-                ImageLoaderUtil.getInstance().displayFromLocal(mContext,iv_header,R.mipmap.cte_logo);
-            //}
+            if(data.getData().getImages() != null){
+                ImageLoaderUtil.getInstance().displayFromNetDCircular(getContext(),data.getData().getImages().get(0),iv_header,R.mipmap.cte_logo);
+               // ImageLoaderUtil.getInstance().displayFromNetDCircularT(this,userInfoDetail.getAvatar(),img_head,R.mipmap.default_portrait_100);
+            }
 
         }
     }

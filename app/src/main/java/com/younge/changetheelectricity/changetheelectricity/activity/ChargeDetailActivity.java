@@ -3,6 +3,7 @@ package com.younge.changetheelectricity.changetheelectricity.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -141,6 +142,8 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
                     ToastUtil.makeText(ChargeDetailActivity.this,"请选择充电口");
                     return;
                 }
+
+                Log.e("提交数据","=========macno"+macno+"======selectCargeBox"+selectChargeBox+"======selectPackageId"+selectPackageId);
                 mPresenter.submitOrder(macno,selectChargeBox,"1","0","",selectPackageId, (String) SharedPreferencesUtils.getParam(ChargeDetailActivity.this,"token",""));
                 break;
             case R.id.rl_fanhui_left:
