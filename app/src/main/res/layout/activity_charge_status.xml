@@ -7,13 +7,28 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
     <include layout="@layout/include_title_bar" />
-   <ImageView
-       android:id="@+id/iv_header"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="@dimen/dp_80"
-       android:layout_gravity="center_horizontal"
-       android:src="@mipmap/cte_logo"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/iv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/cte_logo"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/black_33"
+            android:text="00:00:00"/>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_msg"
         android:layout_width="match_parent"
@@ -22,7 +37,7 @@
         android:gravity="center"
         android:textColor="@color/black_33"
         android:textSize="@dimen/sp_16"
-        android:text="换电成功，3秒后跳到主页面"></TextView>
+        android:text="5号插座已通电，请插入充电"></TextView>
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"

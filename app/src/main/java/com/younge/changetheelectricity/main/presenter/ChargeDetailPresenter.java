@@ -3,6 +3,7 @@ package com.younge.changetheelectricity.main.presenter;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
+import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.view.ChargeDetailView;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
@@ -96,7 +97,7 @@ public class ChargeDetailPresenter extends BasePresenter<ChargeDetailView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onSubmitOrderSuccess((BaseModel<Object>) o);
+                baseView.onSubmitOrderSuccess((BaseModel<OrderResultBean>) o);
             }
 
             @Override

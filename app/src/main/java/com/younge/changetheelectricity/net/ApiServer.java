@@ -2,6 +2,8 @@ package com.younge.changetheelectricity.net;
 
 
 import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBean;
+import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
 import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailBean;
@@ -263,13 +265,30 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/order/api/index/submit")
-    Observable<BaseModel<DepositHistoryBean>> submitOrder(@Field("HTTP_API") String httpApi,
-                                                                @Field("macno") String macno,
-                                                                @Field("device_box") String device_box,
-                                                                @Field("goods_type") String goods_type,
-                                                                @Field("order_type") String order_type,
-                                                                @Field("package_id") String package_id,
-                                                                @Field("package_user_id") String package_user_id,
-                                                                @Field("token") String token);
+    Observable<BaseModel<OrderResultBean>> submitOrder(@Field("HTTP_API") String httpApi,
+                                                       @Field("macno") String macno,
+                                                       @Field("device_box") String device_box,
+                                                       @Field("goods_type") String goods_type,
+                                                       @Field("order_type") String order_type,
+                                                       @Field("package_id") String package_id,
+                                                       @Field("package_user_id") String package_user_id,
+                                                       @Field("token") String token);
+
+
+    //执行结果
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/order/api/index/start")
+    Observable<BaseModel<ChargeStatusBean>> start(@Field("HTTP_API") String httpApi,
+                                                           @Field("act") String act,
+                                                           @Field("token") String token);
+
+    //执行结果
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/order/api/index/timer")
+    Observable<BaseModel<ChargeStatusBean>> getOrderStatus(@Field("HTTP_API") String httpApi,
+                                                           @Field("order_id") String order_id,
+                                                           @Field("token") String token);
 
 }

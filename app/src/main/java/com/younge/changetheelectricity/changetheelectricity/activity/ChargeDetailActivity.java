@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
+import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ChargeDetailsAdapter;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ChargeDetailsTwoAdapter;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
@@ -191,8 +192,14 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
     }
 
     @Override
-    public void onSubmitOrderSuccess(BaseModel<Object> data) {
+    public void onSubmitOrderSuccess(BaseModel<OrderResultBean> data) {
+        if(data != null && data.getData() != null) {
 
+            Intent intent = new Intent(ChargeDetailActivity.this, CharegeStatuActivity.class);
+            intent.putExtra("orderId", data.getData().getOrder_id());
+            intent.putExtra("boxId", selectChargeBox);
+            startActivity(intent);
+        }
     }
 
     @Override
