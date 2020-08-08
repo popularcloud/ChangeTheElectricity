@@ -46,7 +46,7 @@ public class PersonalInfoActivity extends BaseActivity {
         if(userInfoDetail != null){
             txt_name.setText(userInfoDetail.getUsername());
             tv_phone.setText(userInfoDetail.getMobile());
-            tv_status.setText("1".equals(userInfoDetail.getVerification())?"已认证":"未认证");
+            tv_status.setText(userInfoDetail.getVerification()==1?"已认证":"未认证");
             ImageLoaderUtil.getInstance().displayFromNetDCircularT(this,userInfoDetail.getAvatar(),img_head,R.mipmap.default_portrait_100);
 
         }

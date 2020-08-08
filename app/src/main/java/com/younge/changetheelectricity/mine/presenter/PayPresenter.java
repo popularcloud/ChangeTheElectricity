@@ -68,7 +68,7 @@ public class PayPresenter extends BasePresenter<PayView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onPayOrderByAliSuccess((BaseModel<Object>) o);
+                baseView.onPayOrderByWallet((BaseModel<Object>) o);
             }
 
             @Override

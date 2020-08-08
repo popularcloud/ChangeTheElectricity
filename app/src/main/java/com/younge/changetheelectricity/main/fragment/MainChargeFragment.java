@@ -45,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements MainView,AMap.OnMyLocationChangeListener{
+public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements MainView{
 
     @BindView(R.id.map)
     MapView mMapView;
@@ -94,6 +94,9 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
     //初始化地图控制器对象
     AMap aMap = null;
 
+    private double presentLongitude;
+    private double presentLatitude;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,8 +120,19 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
             aMap = mMapView.getMap();
         }
 
+
+        aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                presentLongitude = location.getLongitude();
+                presentLatitude = location.getLatitude();
+                Logger.e("获取到了定位信息"+"========经度:"+ presentLongitude + "=========维度："+presentLatitude);
+                mPresenter.getShopLocations(String.valueOf(presentLongitude),String.valueOf(presentLatitude));
+            }
+        });
+
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
-        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW) ;//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
+        myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE) ;//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
         myLocationStyle.interval(10000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         // myLocationStyle.showMyLocation(true);
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
@@ -126,7 +140,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 
         //mPresenter.getShopLocations(String.valueOf(location.getLongitude()),String.valueOf(location.getLatitude()));
-        mPresenter.getShopLocations("","");
+        //mPresenter.getShopLocations("","");
     }
 
     private void initViewpager() {
@@ -196,7 +210,11 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_scan:
-                getActivity().startActivity(new Intent(getActivity(), ChargeDetailActivity.class));
+                if(presentShop != null){
+                    Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
+                    intent.putExtra("macno",presentShop.getMacno());
+                    getActivity().startActivity(intent);
+                }
                 break;
             case R.id.tv_changeElectricity: //充电
                 ((MainActivity)getActivity()).changeTag(2);
@@ -239,11 +257,6 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                 tv_shop_detail_txt.setTextColor(getContext().getResources().getColor(R.color.blue_yq));
                 break;
         }
-    }
-
-    @Override
-    public void onMyLocationChange(Location location) {
-
     }
 
     @Override

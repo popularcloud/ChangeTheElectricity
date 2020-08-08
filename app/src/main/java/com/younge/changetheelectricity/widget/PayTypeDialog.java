@@ -113,7 +113,6 @@ public class PayTypeDialog extends Dialog implements View.OnClickListener{
 				//changeLayout(0);
 				payType = 2;
 				callBack.onSubmit(payType,null);
-
 				break;
 
 		}
