@@ -18,6 +18,7 @@ import com.younge.changetheelectricity.mine.activity.MyPackageActivity;
 import com.younge.changetheelectricity.mine.activity.MyWalletActivity;
 import com.younge.changetheelectricity.mine.activity.PersonalInfoActivity;
 import com.younge.changetheelectricity.mine.activity.RealNameAuthentication01Activity;
+import com.younge.changetheelectricity.mine.activity.SettingActivity;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 import com.younge.changetheelectricity.mine.presenter.MinePresenter;
 import com.younge.changetheelectricity.mine.view.MineView;
@@ -58,7 +59,7 @@ public class MineFragment extends MyBaseFragment<MinePresenter> implements MineV
         imgRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), SettingActivity.class));
             }
         });
 

@@ -38,8 +38,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_data"
         android:visibility="visible"
-        android:paddingLeft="@dimen/dp_30"
-        android:paddingRight="@dimen/dp_30"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout

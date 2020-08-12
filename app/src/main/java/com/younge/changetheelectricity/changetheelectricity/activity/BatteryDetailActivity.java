@@ -1,6 +1,7 @@
 package com.younge.changetheelectricity.changetheelectricity.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
+import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
+import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
+import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
@@ -83,7 +87,12 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
 
         allList.clear();
 
-        mAdapter = new BatteryDetailsAdapter(this,allList,R.layout.item_battery_details);
+        mAdapter = new BatteryDetailsAdapter(this, allList, R.layout.item_battery_details, new OnItemBtnClickCallBack() {
+            @Override
+            public void OnItemBtnclick(int pisition, int btn) {
+
+            }
+        });
         rv_data.setLayoutManager(new LinearLayoutManager(this));
         rv_data.setAdapter(mAdapter);
 
@@ -101,7 +110,7 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_submit:
-                startActivity(new Intent(this, OperateStatuActivity.class));
+                mPresenter.submitOrder(macno,"","0","","","", (String) SharedPreferencesUtils.getParam(BatteryDetailActivity.this,"token",""));
                 break;
             case R.id.rl_fanhui_left:
                 finish();
@@ -127,6 +136,20 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
             }
             mAdapter.replaceAll(allList);
         }
+    }
+
+    @Override
+    public void onOrderSuccess(BaseModel<OrderResultBean> data) {
+        if(data != null && data.getData() != null) {
+            Intent intent = new Intent(BatteryDetailActivity.this, OperateStatuActivity.class);
+            intent.putExtra("orderId", data.getData().getOrder_id());
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onStartSuccess(BaseModel<StartResultBean> data) {
+
     }
 
     @Override

@@ -275,7 +275,7 @@ public interface ApiServer {
                                                        @Field("token") String token);
 
 
-    //执行结果
+    //开门/通电/预约开始
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/order/api/index/start")

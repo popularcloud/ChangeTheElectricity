@@ -39,7 +39,7 @@ public class ApiRetrofit {
                 .retryOnConnectionFailure(true);//错误重联
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())//添加json转换框架(正常转换框架)
+                .addConverterFactory(ResponseConverterFactory.create())//添加json转换框架(正常转换框架)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClientBuilder.build())
                 .build();

@@ -10,34 +10,34 @@ public class DeviceDetailBean {
      * type : 3
      * title : test
      * macno : 5202019020500002
-     * box : 2
-     * charge_box : 2
+     * box : 6
+     * charge_box : 4
      * area : 广东省/东莞市/南城街道
      * address : 高盛科技大厦308
      * lng : 113.726037
      * lat : 22.98662
-     * remark : 水浸报警
+     * remark :
      * admin_id : 3
      * status : 2
      * clean : 0
      * activetime : 0
      * createtime : 1593690628
-     * updatetime : 1596636543
+     * updatetime : 1596985358
      * temp : 35
-     * voltage : 2
-     * current : 3
-     * power : 4
-     * kwh : 5.0
-     * sysnum0 : 12345678
-     * sysnum1 : 12345678
+     * voltage : 0
+     * current : 0
+     * power : 0
+     * kwh : 0.0
+     * sysnum0 : 0
+     * sysnum1 : 0
      * distance : 0
      * seller : {"id":3,"nickname":"商家1"}
-     * appointment : {"appointment_minute":"10","appointment_count":"5","my_count":0,"my_order":null}
+     * appointment : {"appointment_minute":"10","appointment_count":"5","my_count":2,"my_order":{"id":20,"expiretime":1596986009,"start_box":2,"stop_box":1,"stop_macno":"77777"}}
      * charge : {"my_order":null}
      * battery : {"my_order":null}
-     * device_goods : [{"id":1,"type":3,"goods_type":0,"device_id":1,"device_box":1,"macno":"123456","macno2":"","status":1,"lock":1,"rfid":0,"hall":0,"battery":{"id":1,"serial":"123456","no":"123456","sn":"123456","createtime":1593779787,"updatetime":1593779787,"user_id":0,"battery":50,"temp":35,"voltage":"2.00","volume":"90.00","lng":"","lat":"","admin_id":0,"remark":"通信异常; 灭火装置未启动; 充电机通信异常","status":1,"volume_default":"24.00"},"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常; 灭火装置未启动; 充电机通信异常","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"2.00","volume":"90.00","volume_default":"24.00","charge_minute":0},{"id":2,"type":3,"goods_type":0,"device_id":1,"device_box":2,"macno":"123456","macno2":"","status":1,"lock":1,"rfid":0,"hall":0,"battery":{"id":1,"serial":"123456","no":"123456","sn":"123456","createtime":1593779787,"updatetime":1593779787,"user_id":0,"battery":50,"temp":35,"voltage":"2.00","volume":"90.00","lng":"","lat":"","admin_id":0,"remark":"通信异常; 灭火装置未启动; 充电机通信异常","status":1,"volume_default":"24.00"},"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常; 灭火装置未启动; 充电机通信异常","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"2.00","volume":"90.00","volume_default":"24.00","charge_minute":0},{"id":7,"type":3,"goods_type":1,"device_id":1,"device_box":1,"macno":"","macno2":"","status":1,"lock":0,"rfid":0,"hall":0,"battery":null,"createtime":1593690628,"updatetime":1596561991,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常","sysnum":12345678,"mode":1,"use":2,"temp":0,"voltage":"0.00","volume":"0.00","volume_default":"0.00","charge_minute":0},{"id":8,"type":3,"goods_type":1,"device_id":1,"device_box":2,"macno":"","macno2":"","status":1,"lock":0,"rfid":0,"hall":0,"battery":null,"createtime":1593690628,"updatetime":1596562203,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常","sysnum":12345678,"mode":1,"use":2,"temp":0,"voltage":"0.00","volume":"0.00","volume_default":"0.00","charge_minute":0}]
-     * active_box : 2
-     * active_charge_box : 2
+     * device_goods : [{"id":1,"type":3,"goods_type":0,"device_id":1,"device_box":1,"macno":"77777","macno2":"","status":1,"lock":1,"rfid":0,"hall":0,"battery":null,"createtime":1593690628,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"灭火装置未启动; 非法的电池SN","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"0.00","volume":"100.00","volume_default":"0.00","charge_minute":0},{"id":2,"type":3,"goods_type":0,"device_id":1,"device_box":2,"macno":"","macno2":"","status":2,"lock":1,"rfid":0,"hall":0,"battery":null,"createtime":1593690628,"updatetime":1596985409,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"灭火装置未启动","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"0.00","volume":"100.00","volume_default":"0.00","charge_minute":0},{"id":9,"type":3,"goods_type":0,"device_id":1,"device_box":3,"macno":"","macno2":"","status":0,"lock":1,"rfid":0,"hall":0,"battery":null,"createtime":1596637948,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"灭火装置未启动","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"0.00","volume":"100.00","volume_default":"0.00","charge_minute":0},{"id":10,"type":3,"goods_type":0,"device_id":1,"device_box":4,"macno":"","macno2":"","status":0,"lock":1,"rfid":0,"hall":0,"battery":null,"createtime":1596637948,"updatetime":1596980402,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"灭火装置未启动","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"0.00","volume":"100.00","volume_default":"0.00","charge_minute":0},{"id":11,"type":3,"goods_type":0,"device_id":1,"device_box":5,"macno":"","macno2":"","status":0,"lock":1,"rfid":0,"hall":0,"battery":null,"createtime":1596637948,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"灭火装置未启动","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"0.00","volume":"100.00","volume_default":"0.00","charge_minute":0},{"id":12,"type":3,"goods_type":0,"device_id":1,"device_box":6,"macno":"","macno2":"","status":0,"lock":1,"rfid":0,"hall":0,"battery":null,"createtime":1596637948,"updatetime":0,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"灭火装置未启动","sysnum":0,"mode":0,"use":0,"temp":35,"voltage":"0.00","volume":"100.00","volume_default":"0.00","charge_minute":0},{"id":7,"type":3,"goods_type":1,"device_id":1,"device_box":1,"macno":"","macno2":"","status":2,"lock":0,"rfid":0,"hall":0,"battery":null,"createtime":1593690628,"updatetime":1596983051,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常","sysnum":0,"mode":0,"use":0,"temp":0,"voltage":"0.00","volume":"0.00","volume_default":"0.00","charge_minute":0},{"id":8,"type":3,"goods_type":1,"device_id":1,"device_box":2,"macno":"","macno2":"","status":1,"lock":0,"rfid":0,"hall":0,"battery":null,"createtime":1593690628,"updatetime":1596726576,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常","sysnum":0,"mode":0,"use":0,"temp":0,"voltage":"0.00","volume":"0.00","volume_default":"0.00","charge_minute":0},{"id":13,"type":3,"goods_type":1,"device_id":1,"device_box":3,"macno":"","macno2":"","status":1,"lock":0,"rfid":0,"hall":0,"battery":null,"createtime":1596637948,"updatetime":1596724499,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常","sysnum":0,"mode":0,"use":0,"temp":0,"voltage":"0.00","volume":"0.00","volume_default":"0.00","charge_minute":0},{"id":14,"type":3,"goods_type":1,"device_id":1,"device_box":4,"macno":"","macno2":"","status":1,"lock":0,"rfid":0,"hall":0,"battery":null,"createtime":1596637948,"updatetime":1596897221,"lockid":0,"locktime":0,"cleanbegin":0,"cleanend":0,"desc":"通信异常","sysnum":0,"mode":0,"use":0,"temp":0,"voltage":"0.00","volume":"0.00","volume_default":"0.00","charge_minute":0}]
+     * active_box : 1
+     * active_charge_box : 3
      */
 
     private int id;
@@ -359,14 +359,14 @@ public class DeviceDetailBean {
         /**
          * appointment_minute : 10
          * appointment_count : 5
-         * my_count : 0
-         * my_order : null
+         * my_count : 2
+         * my_order : {"id":20,"expiretime":1596986009,"start_box":2,"stop_box":1,"stop_macno":"77777"}
          */
 
         private String appointment_minute;
         private String appointment_count;
         private int my_count;
-        private Object my_order;
+        private MyOrderBean my_order;
 
         public String getAppointment_minute() {
             return appointment_minute;
@@ -392,12 +392,68 @@ public class DeviceDetailBean {
             this.my_count = my_count;
         }
 
-        public Object getMy_order() {
+        public MyOrderBean getMy_order() {
             return my_order;
         }
 
-        public void setMy_order(Object my_order) {
+        public void setMy_order(MyOrderBean my_order) {
             this.my_order = my_order;
+        }
+
+        public static class MyOrderBean {
+            /**
+             * id : 20
+             * expiretime : 1596986009
+             * start_box : 2
+             * stop_box : 1
+             * stop_macno : 77777
+             */
+
+            private int id;
+            private int expiretime;
+            private int start_box;
+            private int stop_box;
+            private String stop_macno;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public int getExpiretime() {
+                return expiretime;
+            }
+
+            public void setExpiretime(int expiretime) {
+                this.expiretime = expiretime;
+            }
+
+            public int getStart_box() {
+                return start_box;
+            }
+
+            public void setStart_box(int start_box) {
+                this.start_box = start_box;
+            }
+
+            public int getStop_box() {
+                return stop_box;
+            }
+
+            public void setStop_box(int stop_box) {
+                this.stop_box = stop_box;
+            }
+
+            public String getStop_macno() {
+                return stop_macno;
+            }
+
+            public void setStop_macno(String stop_macno) {
+                this.stop_macno = stop_macno;
+            }
         }
     }
 
@@ -440,27 +496,27 @@ public class DeviceDetailBean {
          * goods_type : 0
          * device_id : 1
          * device_box : 1
-         * macno : 123456
+         * macno : 77777
          * macno2 :
          * status : 1
          * lock : 1
          * rfid : 0
          * hall : 0
-         * battery : {"id":1,"serial":"123456","no":"123456","sn":"123456","createtime":1593779787,"updatetime":1593779787,"user_id":0,"battery":50,"temp":35,"voltage":"2.00","volume":"90.00","lng":"","lat":"","admin_id":0,"remark":"通信异常; 灭火装置未启动; 充电机通信异常","status":1,"volume_default":"24.00"}
+         * battery : null
          * createtime : 1593690628
          * updatetime : 0
          * lockid : 0
          * locktime : 0
          * cleanbegin : 0
          * cleanend : 0
-         * desc : 通信异常; 灭火装置未启动; 充电机通信异常
+         * desc : 灭火装置未启动; 非法的电池SN
          * sysnum : 0
          * mode : 0
          * use : 0
          * temp : 35
-         * voltage : 2.00
-         * volume : 90.00
-         * volume_default : 24.00
+         * voltage : 0.00
+         * volume : 100.00
+         * volume_default : 0.00
          * charge_minute : 0
          */
 
@@ -475,7 +531,7 @@ public class DeviceDetailBean {
         private int lock;
         private int rfid;
         private int hall;
-        private BatteryBeanX battery;
+        private Object battery;
         private int createtime;
         private int updatetime;
         private int lockid;
@@ -580,11 +636,11 @@ public class DeviceDetailBean {
             this.hall = hall;
         }
 
-        public BatteryBeanX getBattery() {
+        public Object getBattery() {
             return battery;
         }
 
-        public void setBattery(BatteryBeanX battery) {
+        public void setBattery(Object battery) {
             this.battery = battery;
         }
 
@@ -706,182 +762,6 @@ public class DeviceDetailBean {
 
         public void setCharge_minute(int charge_minute) {
             this.charge_minute = charge_minute;
-        }
-
-        public static class BatteryBeanX {
-            /**
-             * id : 1
-             * serial : 123456
-             * no : 123456
-             * sn : 123456
-             * createtime : 1593779787
-             * updatetime : 1593779787
-             * user_id : 0
-             * battery : 50
-             * temp : 35
-             * voltage : 2.00
-             * volume : 90.00
-             * lng :
-             * lat :
-             * admin_id : 0
-             * remark : 通信异常; 灭火装置未启动; 充电机通信异常
-             * status : 1
-             * volume_default : 24.00
-             */
-
-            private int id;
-            private String serial;
-            private String no;
-            private String sn;
-            private int createtime;
-            private int updatetime;
-            private int user_id;
-            private int battery;
-            private int temp;
-            private String voltage;
-            private String volume;
-            private String lng;
-            private String lat;
-            private int admin_id;
-            private String remark;
-            private int status;
-            private String volume_default;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getSerial() {
-                return serial;
-            }
-
-            public void setSerial(String serial) {
-                this.serial = serial;
-            }
-
-            public String getNo() {
-                return no;
-            }
-
-            public void setNo(String no) {
-                this.no = no;
-            }
-
-            public String getSn() {
-                return sn;
-            }
-
-            public void setSn(String sn) {
-                this.sn = sn;
-            }
-
-            public int getCreatetime() {
-                return createtime;
-            }
-
-            public void setCreatetime(int createtime) {
-                this.createtime = createtime;
-            }
-
-            public int getUpdatetime() {
-                return updatetime;
-            }
-
-            public void setUpdatetime(int updatetime) {
-                this.updatetime = updatetime;
-            }
-
-            public int getUser_id() {
-                return user_id;
-            }
-
-            public void setUser_id(int user_id) {
-                this.user_id = user_id;
-            }
-
-            public int getBattery() {
-                return battery;
-            }
-
-            public void setBattery(int battery) {
-                this.battery = battery;
-            }
-
-            public int getTemp() {
-                return temp;
-            }
-
-            public void setTemp(int temp) {
-                this.temp = temp;
-            }
-
-            public String getVoltage() {
-                return voltage;
-            }
-
-            public void setVoltage(String voltage) {
-                this.voltage = voltage;
-            }
-
-            public String getVolume() {
-                return volume;
-            }
-
-            public void setVolume(String volume) {
-                this.volume = volume;
-            }
-
-            public String getLng() {
-                return lng;
-            }
-
-            public void setLng(String lng) {
-                this.lng = lng;
-            }
-
-            public String getLat() {
-                return lat;
-            }
-
-            public void setLat(String lat) {
-                this.lat = lat;
-            }
-
-            public int getAdmin_id() {
-                return admin_id;
-            }
-
-            public void setAdmin_id(int admin_id) {
-                this.admin_id = admin_id;
-            }
-
-            public String getRemark() {
-                return remark;
-            }
-
-            public void setRemark(String remark) {
-                this.remark = remark;
-            }
-
-            public int getStatus() {
-                return status;
-            }
-
-            public void setStatus(int status) {
-                this.status = status;
-            }
-
-            public String getVolume_default() {
-                return volume_default;
-            }
-
-            public void setVolume_default(String volume_default) {
-                this.volume_default = volume_default;
-            }
         }
     }
 }

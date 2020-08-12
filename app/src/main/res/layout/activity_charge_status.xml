@@ -53,6 +53,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16"
         android:gravity="center"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:background="@drawable/btn_blue_bg"
         android:text="确定" />
@@ -66,6 +67,7 @@
         android:padding="@dimen/dp_10"
         android:textColor="@color/black_66"
         android:textSize="@dimen/sp_16"
+        android:visibility="gone"
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:background="@drawable/btn_gray_bg_line"

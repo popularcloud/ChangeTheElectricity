@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
+import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
+import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
+import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
 import com.younge.changetheelectricity.main.view.DeviceDetailView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
-
-import org.byteam.superadapter.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,18 +79,25 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     private void initList(){
 
         allList.clear();
-        mAdapter = new BatteryDetailsAdapter(getContext(),allList,R.layout.item_battery_details);
+        mAdapter = new BatteryDetailsAdapter(getContext(), allList, R.layout.item_battery_details, new OnItemBtnClickCallBack() {
+            @Override
+            public void OnItemBtnclick(int pisition, int btn) {
+
+                DeviceDetailBean.DeviceGoodsBean deviceGoodsBean = mAdapter.getItem(pisition);
+                mPresenter.submitOrder(macno,String.valueOf(deviceGoodsBean.getDevice_box()),"0","1","","", (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+            }
+        });
         rv_data.setLayoutManager(new LinearLayoutManager(getContext()));
         rv_data.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+        /*mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
                 ToastUtil.makeText(getContext(),"预约成功");
                 ll_order_battery.setVisibility(View.VISIBLE);
                 rv_data.setVisibility(View.GONE);
             }
-        });
+        });*/
     }
 
     public void getBatteryDetailData(String macno){
@@ -106,23 +114,52 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     public void onGetDeviceDetailSuccess(BaseModel<DeviceDetailBean> data) {
 
         if(data != null && data.getData() != null && data.getData().getDevice_goods() != null){
-            tv_battery_account.setText("电池数量："+ data.getData().getBox());
-            tv_num.setText("电柜编号："+macno);
 
-            List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
-            allList.clear();
-            for(int i = 0;i < deviceGoodsBeans.size(); i ++){
-                if(deviceGoodsBeans.get(i).getGoods_type() == 0){     //0为电池  1为充电口
-                    allList.add(deviceGoodsBeans.get(i));
+            DeviceDetailBean.AppointmentBean appointmentBean = data.getData().getAppointment();
+            if(appointmentBean != null && appointmentBean.getMy_order() != null){
+                ll_order_battery.setVisibility(View.VISIBLE);
+                rv_data.setVisibility(View.GONE);
+
+            }else{
+                ll_order_battery.setVisibility(View.GONE);
+                rv_data.setVisibility(View.VISIBLE);
+                tv_battery_account.setText("电池数量："+ data.getData().getBox());
+                tv_num.setText("电柜编号："+macno);
+
+                List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
+                allList.clear();
+                for(int i = 0;i < deviceGoodsBeans.size(); i ++){
+                    if(deviceGoodsBeans.get(i).getGoods_type() == 0){     //0为电池  1为充电口
+                        allList.add(deviceGoodsBeans.get(i));
+                    }
                 }
+                mAdapter.replaceAll(allList);
             }
-            mAdapter.replaceAll(allList);
+
         }
 
     }
 
     @Override
-    public void onGetDataFail() {
+    public void onOrderSuccess(BaseModel<OrderResultBean> data) {
+        ToastUtil.makeText(getContext(),"预约成功");
+        ll_order_battery.setVisibility(View.VISIBLE);
+        rv_data.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void onStartSuccess(BaseModel<StartResultBean> data) {
+
+    }
+
+    @Override
+    public void onGetDataFail() {
+        ToastUtil.makeText(getContext(),"连接错误，请稍后重试");
+    }
+
+    @Override
+    public void showError(String msg) {
+        super.showError(msg);
+        ToastUtil.makeText(getContext(),msg);
     }
 }

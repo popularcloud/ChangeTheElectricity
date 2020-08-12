@@ -1,7 +1,5 @@
 package com.younge.changetheelectricity.base;
 
-import com.google.gson.JsonParseException;
-
 import org.json.JSONException;
 
 import java.io.InterruptedIOException;
@@ -87,8 +85,7 @@ public abstract class BaseObserver<T> extends DisposableObserver<BaseModel<T>> {
         } else if (e instanceof InterruptedIOException) {
             //  连接超时
             onException(CONNECT_TIMEOUT, "");
-        } else if (e instanceof JsonParseException
-                || e instanceof JSONException
+        } else if (e instanceof JSONException
                 || e instanceof ParseException) {
             e.printStackTrace();
         } else {
@@ -99,7 +96,6 @@ public abstract class BaseObserver<T> extends DisposableObserver<BaseModel<T>> {
             }
         }
     }
-
 
     private void onException(int unknownError, String message) {
         switch (unknownError) {

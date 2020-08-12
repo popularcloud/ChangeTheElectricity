@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
+import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
+import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.MainChargeDetailsAdapter;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
@@ -108,6 +110,16 @@ public class ChargeDetailsFragment extends MyBaseFragment<DeviceDetailPresenter>
             }
             mAdapter.replaceAll(allList);
         }
+    }
+
+    @Override
+    public void onOrderSuccess(BaseModel<OrderResultBean> data) {
+
+    }
+
+    @Override
+    public void onStartSuccess(BaseModel<StartResultBean> data) {
+
     }
 
     @Override
