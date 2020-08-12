@@ -34,6 +34,7 @@ import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 
 import java.util.ArrayList;
@@ -309,10 +310,12 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
 
     private void updateChildFragmentData(String shopId,String macno){
-        if(fragmentList != null && fragmentList.size() == 2){
+   /*     if(fragmentList != null && fragmentList.size() == 2){
             ((ShopDetailFragment)fragmentList.get(1)).getShopData(shopId,macno);
             ((BatteryDetailsFragment)fragmentList.get(0)).getBatteryDetailData(macno);
-        }
+        }*/
+        SharedPreferencesUtils.setParam(getActivity(),"presentMacno",macno);
+        SharedPreferencesUtils.setParam(getActivity(),"presentShopId",shopId);
     }
 
     @Override

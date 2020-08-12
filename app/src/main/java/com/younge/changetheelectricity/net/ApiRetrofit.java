@@ -40,6 +40,7 @@ public class ApiRetrofit {
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(ResponseConverterFactory.create())//添加json转换框架(正常转换框架)
+                //.addConverterFactory(GsonConverterFactory.create())//添加json转换框架(正常转换框架)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClientBuilder.build())
                 .build();

@@ -1,6 +1,7 @@
 package com.younge.changetheelectricity.changetheelectricity.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.younge.changetheelectricity.main.bean.ShopDetailBean;
 import com.younge.changetheelectricity.main.presenter.ShopDetailPresenter;
 import com.younge.changetheelectricity.main.view.ShopDetailView;
 import com.younge.changetheelectricity.util.ImageLoaderUtil;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
 import java.util.List;
 
@@ -54,7 +56,6 @@ public class ShopDetailFragment extends MyBaseFragment<ShopDetailPresenter> impl
         View v = inflater.inflate(R.layout.fragment_shop_details, null);
         unbinder = ButterKnife.bind(this, v);
         mPresenter = createPresenter();
-
         initData();
         return v;
     }
@@ -65,6 +66,18 @@ public class ShopDetailFragment extends MyBaseFragment<ShopDetailPresenter> impl
         super.setUserVisibleHint(isVisibleToUser);
 
         if(isVisibleToUser && getContext() != null){
+            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
+            shopId = (String) SharedPreferencesUtils.getParam(getContext(),"presentShopId","");
+            mPresenter.getShopDetail("","",macno,shopId);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getContext() != null){
+            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
+            shopId = (String) SharedPreferencesUtils.getParam(getContext(),"presentShopId","");
             mPresenter.getShopDetail("","",macno,shopId);
         }
     }

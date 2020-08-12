@@ -121,7 +121,16 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
     @Override
     public void onGetDeviceDetailSuccess(BaseModel<DeviceDetailBean> data) {
 
-        if(data != null && data.getData() != null && data.getData().getDevice_goods() != null){
+
+        DeviceDetailBean.AppointmentBean appointmentBean = data.getData().getAppointment();
+        if(appointmentBean != null && appointmentBean.getMy_order() != null){
+            //ll_order_battery.setVisibility(View.VISIBLE);
+            rv_data.setVisibility(View.GONE);
+
+        }else{
+            //ll_order_battery.setVisibility(View.GONE);
+            rv_data.setVisibility(View.VISIBLE);
+
             tv_battery_account.setText("电池数量："+ data.getData().getBox());
             tv_num.setText("电柜编号："+macno);
             tv_title.setText(data.getData().getTitle());
@@ -135,6 +144,11 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
                 }
             }
             mAdapter.replaceAll(allList);
+        }
+
+
+        if(data != null && data.getData() != null && data.getData().getDevice_goods() != null){
+
         }
     }
 

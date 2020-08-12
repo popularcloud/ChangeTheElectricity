@@ -1,6 +1,7 @@
 package com.younge.changetheelectricity.changetheelectricity.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,15 @@ public class ChargeDetailsFragment extends MyBaseFragment<DeviceDetailPresenter>
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser && getContext() != null){
+        if(isVisibleToUser && getContext() != null  && !TextUtils.isEmpty(macno)){
+            mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getContext() != null  && !TextUtils.isEmpty(macno)){
             mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
         }
     }

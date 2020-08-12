@@ -1,6 +1,7 @@
 package com.younge.changetheelectricity.changetheelectricity.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,16 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser && getContext() != null){
+            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
+            mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(getContext() != null){
+            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
             mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
         }
     }
@@ -100,10 +111,10 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
         });*/
     }
 
-    public void getBatteryDetailData(String macno){
+/*    public void getBatteryDetailData(String macno){
        this.macno = macno;
         mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
-    }
+    }*/
 
     @Override
     protected DeviceDetailPresenter createPresenter() {

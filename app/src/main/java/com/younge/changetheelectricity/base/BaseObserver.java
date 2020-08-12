@@ -1,5 +1,7 @@
 package com.younge.changetheelectricity.base;
 
+import com.younge.changetheelectricity.net.ResultException;
+
 import org.json.JSONException;
 
 import java.io.InterruptedIOException;
@@ -88,6 +90,8 @@ public abstract class BaseObserver<T> extends DisposableObserver<BaseModel<T>> {
         } else if (e instanceof JSONException
                 || e instanceof ParseException) {
             e.printStackTrace();
+        } else if (e instanceof ResultException) {
+            onError(((ResultException)e).getMsg());
         } else {
             if (e != null) {
                 onError(e.toString());
