@@ -9,16 +9,22 @@
     <include layout="@layout/include_title_bar" />
 
     <TextView
+        android:id="@+id/tv_battery_num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray_99"
         android:textSize="@dimen/sp_16"
         android:padding="@dimen/dp_15"
         android:text="当前电池（3242343243223）"/>
-    <androidx.recyclerview.widget.RecyclerView
+    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+        android:id="@+id/mBGARefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_data"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
+    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
 </LinearLayout>

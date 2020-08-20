@@ -1,15 +1,23 @@
 package com.younge.changetheelectricity.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseActivity;
+import com.younge.changetheelectricity.base.MyConstants;
+import com.younge.changetheelectricity.changetheelectricity.activity.BatteryDetailActivity;
+import com.younge.changetheelectricity.changetheelectricity.activity.ChargeDetailActivity;
 import com.younge.changetheelectricity.main.adapter.FragmentsPagerAdapter;
 import com.younge.changetheelectricity.main.fragment.HuodongFragment;
 import com.younge.changetheelectricity.main.fragment.MainChargeFragment;
@@ -18,6 +26,8 @@ import com.younge.changetheelectricity.main.fragment.MineFragment;
 import com.younge.changetheelectricity.main.fragment.ServiceFragment;
 import com.younge.changetheelectricity.main.fragment.ShopFragment;
 import com.younge.changetheelectricity.widget.CustomViewPager;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
 
 import java.util.HashMap;
 
@@ -125,6 +135,62 @@ public class MainActivity extends BaseActivity {
             case R.id.radio_mine:
                 cViewPager.setCurrentItem(5, false);
                 break;
+        }
+    }
+
+    public void startScanActivity(int reqeustCode){
+        Intent intent = new Intent(this, CaptureActivity.class);
+        startActivityForResult(intent,reqeustCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+
+            // 扫描二维码/条码回传
+            if (requestCode == MyConstants.REQUEST_CODE_SCAN_CHANGE) {
+                if (data != null) {
+
+                    String content = data.getStringExtra(Constant.CODED_CONTENT);
+                    // result.setText("扫描结果为：" + content);
+                   // Toast.makeText(this, "解析结果:" + content, Toast.LENGTH_LONG).show();
+                    Log.e("msg","解析结果:" + content);
+
+                    int indexStr = content.indexOf("macno=");
+
+                    String macno = content.substring(indexStr+6);
+
+                    Log.e("msg","macno:" + macno);
+
+                    if(!TextUtils.isEmpty(macno)){
+                        Intent intent = new Intent(MainActivity.this, BatteryDetailActivity.class);
+                        intent.putExtra("macno",macno);
+                        startActivity(intent);
+                    }
+                }
+            }if (requestCode == MyConstants.REQUEST_CODE_SCAN_CHARGE) {
+                if (data != null) {
+
+                    String content = data.getStringExtra(Constant.CODED_CONTENT);
+                    // result.setText("扫描结果为：" + content);
+                   // Toast.makeText(this, "解析结果:" + content, Toast.LENGTH_LONG).show();
+                    Log.e("msg","解析结果:" + content);
+
+                    int indexStr = content.indexOf("macno=");
+
+                    String macno = content.substring(indexStr+6);
+
+                    Log.e("msg","macno:" + macno);
+
+                    if(!TextUtils.isEmpty(macno)){
+                        Intent intent = new Intent(MainActivity.this, ChargeDetailActivity.class);
+                        intent.putExtra("macno",macno);
+                        startActivity(intent);
+                    }
+                }
+            }
         }
     }
 }

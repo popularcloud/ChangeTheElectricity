@@ -8,7 +8,6 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 public class MyApplication extends Application {
 
@@ -22,7 +21,7 @@ public class MyApplication extends Application {
         mWxApi.registerApp("wx197fcf39e65d69a9");
 
         //初始化二维码扫描
-        ZXingLibrary.initDisplayOpinion(this);
+       // ZXingLibrary.initDisplayOpinion(this);
 
         initLogger();
     }

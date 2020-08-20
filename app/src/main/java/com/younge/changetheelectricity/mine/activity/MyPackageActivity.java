@@ -155,4 +155,12 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
             mBGARefreshLayout.endLoadingMore();
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mBGARefreshLayout != null){
+            mBGARefreshLayout.beginRefreshing();
+        }
+    }
 }

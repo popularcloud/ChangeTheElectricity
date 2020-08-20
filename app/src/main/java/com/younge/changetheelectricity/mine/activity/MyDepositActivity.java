@@ -55,8 +55,8 @@ public class MyDepositActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_submit:
-                ToastUtil.makeText(this,"绑定成功！");
-                startActivity(new Intent(MyDepositActivity.this, MyCarActivity.class));
+                ToastUtil.makeText(this,"敬请期待！");
+                //startActivity(new Intent(MyDepositActivity.this, MyCarActivity.class));
                 break;
         }
     }

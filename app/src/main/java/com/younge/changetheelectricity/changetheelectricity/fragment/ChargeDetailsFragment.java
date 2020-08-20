@@ -43,6 +43,7 @@ public class ChargeDetailsFragment extends MyBaseFragment<DeviceDetailPresenter>
     private List<DeviceDetailBean.DeviceGoodsBean> allList = new ArrayList<>();
 
     private Unbinder unbinder;
+
     public ChargeDetailsFragment() {
     }
 
@@ -83,7 +84,8 @@ public class ChargeDetailsFragment extends MyBaseFragment<DeviceDetailPresenter>
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser && getContext() != null  && !TextUtils.isEmpty(macno)){
+        if(isVisibleToUser && getContext() != null){
+            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
             mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
         }
     }
@@ -91,15 +93,16 @@ public class ChargeDetailsFragment extends MyBaseFragment<DeviceDetailPresenter>
     @Override
     public void onResume() {
         super.onResume();
-        if(getContext() != null  && !TextUtils.isEmpty(macno)){
+        if(getContext() != null){
+            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
             mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
         }
     }
 
-    public void getBatteryDetailData(String macno){
+   /* public void getBatteryDetailData(String macno){
         this.macno = macno;
         mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
-    }
+    }*/
 
     @Override
     protected DeviceDetailPresenter createPresenter() {

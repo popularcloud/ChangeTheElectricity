@@ -153,4 +153,12 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
             mBGARefreshLayout.endLoadingMore();
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mBGARefreshLayout != null){
+            mBGARefreshLayout.beginRefreshing();
+        }
+    }
 }

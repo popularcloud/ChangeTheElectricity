@@ -1,7 +1,6 @@
 package com.younge.changetheelectricity.changetheelectricity.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +41,10 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     TextView tv_num;
     @BindView(R.id.tv_battery_account)
     TextView tv_battery_account;
+
+    @BindView(R.id.tv_title01)
+    TextView tv_title01;
+
     private BatteryDetailsAdapter mAdapter;
 
     private String macno;
@@ -92,9 +95,9 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
         allList.clear();
         mAdapter = new BatteryDetailsAdapter(getContext(), allList, R.layout.item_battery_details, new OnItemBtnClickCallBack() {
             @Override
-            public void OnItemBtnclick(int pisition, int btn) {
+            public void OnItemBtnclick(int position, int btn) {
 
-                DeviceDetailBean.DeviceGoodsBean deviceGoodsBean = mAdapter.getItem(pisition);
+                DeviceDetailBean.DeviceGoodsBean deviceGoodsBean = mAdapter.getItem(position);
                 mPresenter.submitOrder(macno,String.valueOf(deviceGoodsBean.getDevice_box()),"0","1","","", (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
             }
         });
@@ -130,6 +133,9 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
             if(appointmentBean != null && appointmentBean.getMy_order() != null){
                 ll_order_battery.setVisibility(View.VISIBLE);
                 rv_data.setVisibility(View.GONE);
+
+
+                tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStart_box()+"号电池");
 
             }else{
                 ll_order_battery.setVisibility(View.GONE);

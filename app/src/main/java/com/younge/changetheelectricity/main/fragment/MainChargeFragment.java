@@ -26,6 +26,7 @@ import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseFragment;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
+import com.younge.changetheelectricity.base.MyConstants;
 import com.younge.changetheelectricity.changetheelectricity.activity.BatteryDetailActivity;
 import com.younge.changetheelectricity.changetheelectricity.activity.ChargeDetailActivity;
 import com.younge.changetheelectricity.changetheelectricity.fragment.BatteryDetailsFragment;
@@ -36,6 +37,7 @@ import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 
 import java.util.ArrayList;
@@ -133,7 +135,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
         myLocationStyle = new MyLocationStyle();//初始化定位蓝点样式类myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）如果不设置myLocationType，默认也会执行此种模式。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW) ;//连续定位、且将视角移动到地图中心点，定位蓝点跟随设备移动。（1秒1次定位）
-        myLocationStyle.interval(300000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
+        myLocationStyle.interval(10000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         // myLocationStyle.showMyLocation(true);
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
         //aMap.getUiSettings().setMyLocationButtonEnabled(true); //设置默认定位按钮是否显示，非必需设置。
@@ -210,11 +212,12 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_scan:
-                if(presentShop != null){
+               /* if(presentShop != null){
                     Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
                     intent.putExtra("macno",presentShop.getMacno());
                     getActivity().startActivity(intent);
-                }
+                }*/
+                ((MainActivity)getActivity()).startScanActivity(MyConstants.REQUEST_CODE_SCAN_CHARGE);
                 break;
             case R.id.tv_changeElectricity: //充电
                 ((MainActivity)getActivity()).changeTag(2);
@@ -308,10 +311,13 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
 
     private void updateChildFragmentData(String shopId,String macno){
-        if(fragmentList != null && fragmentList.size() == 2){
+       /* if(fragmentList != null && fragmentList.size() == 2){
             ((ShopDetailFragment)fragmentList.get(1)).getShopData(shopId,macno);
             ((ChargeDetailsFragment)fragmentList.get(0)).getBatteryDetailData(macno);
-        }
+        }*/
+
+        SharedPreferencesUtils.setParam(getActivity(),"presentMacno",macno);
+        SharedPreferencesUtils.setParam(getActivity(),"presentShopId",shopId);
     }
 
     @Override

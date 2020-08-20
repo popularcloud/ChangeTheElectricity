@@ -184,6 +184,9 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
                     ConfirmOrderActivity.this, wx.getAppid(),
                     wx.getPartnerid(), wx.getPrepayid(), wx.getNoncestr(),
                     wx.getTimestamp(), wx.getPackageX(), wx.getSign());
+
+            payTypeDialog.dismiss();
+            finish();
         }
     }
 

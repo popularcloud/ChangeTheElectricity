@@ -4,6 +4,7 @@ package com.younge.changetheelectricity.net;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
+import com.younge.changetheelectricity.changetheelectricity.Bean.UserHistoryBean;
 import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailBean;
@@ -106,7 +107,7 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/usercenter/api/car/car_edit")
-    Observable<BaseModel<UserInfoBean>> addCar(@Field("HTTP_API") String httpApi,
+    Observable<BaseModel<Object>> addCar(@Field("HTTP_API") String httpApi,
                                                  @Field("carvin") String carvin,
                                                  @Field("serial") String serial,
                                                @Field("carno") String carno,
@@ -290,5 +291,16 @@ public interface ApiServer {
     Observable<BaseModel<ChargeStatusBean>> getOrderStatus(@Field("HTTP_API") String httpApi,
                                                            @Field("order_id") String order_id,
                                                            @Field("token") String token);
+
+    //
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/package/api/index/log")
+    Observable<BaseModel<UserHistoryBean>> getUserHistory(@Field("HTTP_API") String httpApi,
+                                                          @Field("type") String type,
+                                                          @Field("package_user_id") String package_user_id,
+                                                          @Field("page") String page,
+                                                          @Field("size") String size,
+                                                          @Field("token") String token);
 
 }

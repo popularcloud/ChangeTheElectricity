@@ -20,9 +20,12 @@ import com.younge.changetheelectricity.changetheelectricity.adapter.ChargeDetail
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.presenter.ChargeDetailPresenter;
 import com.younge.changetheelectricity.main.view.ChargeDetailView;
+import com.younge.changetheelectricity.mine.activity.MyPackageActivity;
+import com.younge.changetheelectricity.mine.activity.PackageListActivity;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.CustomDialog;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -62,6 +65,8 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
 
     private String selectChargeBox;
 
+    private CustomDialog customDialog;
+
 
 
     @Override
@@ -80,6 +85,24 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
 
         macno = getIntent().getStringExtra("macno");
 
+        customDialog = new CustomDialog(this);
+        customDialog.setTitle("温馨提示");
+        customDialog.setMessage("您还未购买充电套餐，请先去购买充电套餐");
+        customDialog.setButton1Text("是");
+        customDialog.setButton2Text("否");
+        customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+            @Override
+            public void onClick(CustomDialog dialog, int id, Object object) {
+                customDialog.dismiss();
+            }
+        });
+        customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+            @Override
+            public void onClick(CustomDialog dialog, int id, Object object) {
+                startActivity(new Intent(ChargeDetailActivity.this, PackageListActivity.class));
+            }
+        });
+
         initList();
     }
 
@@ -89,6 +112,9 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
         mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(ChargeDetailActivity.this,"token",""));
 
         mPresenter.getMyPackageList("2","1",(String) SharedPreferencesUtils.getParam(ChargeDetailActivity.this,"token",""));
+
+
+
     }
 
     @Override
@@ -135,6 +161,12 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
             case R.id.tv_submit:
                 //startActivity(new Intent(this, ConfirmOrderActivity.class));
 
+                if(mAdapter.getData() == null || mAdapter.getData().size() < 1){
+                    if(customDialog != null){
+                        customDialog.show();
+                    }
+                    return;
+                }
                 if(TextUtils.isEmpty(selectPackageId)){
                     ToastUtil.makeText(ChargeDetailActivity.this,"请选择套餐");
                     return;
@@ -188,6 +220,11 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
             mAdapter.replaceAll(data.getData().getList());
         }else{
             //mPresenter.getMyPackageList("2","1",(String) SharedPreferencesUtils.getParam(ChargeDetailActivity.this,"token",""));
+
+
+            if(customDialog != null){
+                customDialog.show();
+            }
         }
     }
 
