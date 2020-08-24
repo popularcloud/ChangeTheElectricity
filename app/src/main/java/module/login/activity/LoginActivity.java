@@ -2,11 +2,18 @@ package module.login.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
-import android.util.Log;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
@@ -16,7 +23,6 @@ import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +31,6 @@ import butterknife.OnClick;
 import module.login.bean.LoginBean;
 import module.login.presenter.LoginPresenter;
 import module.login.view.LoginView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 public class LoginActivity extends MyBaseActivity<LoginPresenter> implements LoginView {
 
@@ -37,6 +40,8 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
     EditText et_code;
     @BindView(R.id.cb_agree)
     CheckBox cb_agree;
+    @BindView(R.id.tv_code)
+    TextView tv_code;
 
     private BatteryDetailsAdapter mAdapter;
 
@@ -62,6 +67,34 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
     @Override
     protected void init() {
 
+
+        SpannableString spanString = new SpannableString("《用户服务协议》");
+        spanString.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+                intent.putExtra("url","http://gxyc.jxcqs.com/shownode.aspx?nid=32");
+                intent.putExtra("title","用户协议");
+                startActivity(intent);
+            }
+        }, 0, spanString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        SpannableString spanStringTwo = new SpannableString("《隐私政策法律法规》");
+        spanStringTwo.setSpan(new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+                intent.putExtra("url","http://gxyc.jxcqs.com/shownode.aspx?nid=33");
+                intent.putExtra("title","隐私协议");
+                startActivity(intent);
+            }
+        }, 0, spanStringTwo.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        cb_agree.setText("已同意");
+        cb_agree.append(spanString);
+        cb_agree.append("及");
+        cb_agree.append(spanStringTwo);
+        cb_agree.append("并同意动力风/智能充换电网络获取本机号码");
+        cb_agree.setMovementMethod(LinkMovementMethod.getInstance());//开始响应点击事件
     }
 
 
@@ -73,6 +106,24 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
     protected void widgetListener() {
 
     }
+
+
+
+    private int count = 60;
+    Handler handle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (count == 0) {
+                count = 60;
+                tv_code.setEnabled(true);
+                tv_code.setText("获取验证码");
+                return;
+            }
+            tv_code.setText(count-- + "s");
+            tv_code.setEnabled(false);
+            handle.sendEmptyMessageDelayed(0, 1000);
+        }
+    };
 
 
     @OnClick({R.id.tv_code,R.id.tv_login})
@@ -124,6 +175,7 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
 
     @Override
     public void ongetCodeSuccess(BaseModel<Object> data) {
+        handle.sendEmptyMessageDelayed(0, 1000);
         ToastUtil.makeText(LoginActivity.this,"验证码已发送");
     }
 

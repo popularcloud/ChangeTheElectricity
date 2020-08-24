@@ -34,6 +34,7 @@ import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
+import com.younge.changetheelectricity.util.NavigationUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 import com.yzq.zxinglibrary.android.CaptureActivity;
@@ -77,6 +78,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     TextView tv_shop_name;
     @BindView(R.id.tv_shop_address)
     TextView tv_shop_address;
+
+    @BindView(R.id.tv_nav)
+    TextView tv_nav;
 
     private boolean isShow = false;
     private boolean isShop = false;
@@ -219,10 +223,10 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
                 break;
             case R.id.tv_changeElectricity: //充电
-                ((MainActivity)getActivity()).changeTag(2);
+                ((MainActivity)getActivity()).changeTag(0);
                 break;
             case R.id.tv_chargeElectricity: //换电
-                ((MainActivity)getActivity()).changeTag(3);
+                ((MainActivity)getActivity()).changeTag(1);
                 break;
             case R.id.iv_shop:
                 isShow = false;
@@ -258,6 +262,11 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 tv_battery_detail_txt.setTextColor(getContext().getResources().getColor(R.color.gray_99));
                 tv_shop_detail_txt.setTextColor(getContext().getResources().getColor(R.color.blue_yq));
                 break;
+            case R.id.tv_nav: //
+                if(presentShop != null){
+                    NavigationUtil.getInstance().openBaiduMap(String.valueOf(presentLatitude),String.valueOf(presentLongitude),presentShop.getAddress(),getActivity());
+                }
+               break;
         }
     }
 

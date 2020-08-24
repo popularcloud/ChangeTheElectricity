@@ -2,6 +2,7 @@ package com.younge.changetheelectricity.mine.view;
 
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseView;
+import com.younge.changetheelectricity.changetheelectricity.Bean.AlipayBean;
 import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
@@ -19,7 +20,7 @@ public interface RechargeCenterView extends BaseView {
 
     void onGetDataSuccess(BaseModel<PackageBean> data);
 
-    void onPayOrderByAliSuccess(BaseModel<Object> data);
+    void onPayOrderByAliSuccess(BaseModel<AlipayBean> data);
 
     void onPayOrderByWeChatSuccess(BaseModel<PayByWechatBean> data);
 

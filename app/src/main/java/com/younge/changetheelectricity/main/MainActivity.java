@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
     private void initFragment(){
 
         fragmentHashMap = new HashMap<>();
-        fragmentHashMap.put(0, new ServiceFragment());
+       /* fragmentHashMap.put(0, new ServiceFragment());
         fragmentHashMap.put(1, new ShopFragment());
         fragmentHashMap.put(2, new MainFragment());
         fragmentHashMap.put(3, new MainChargeFragment());
@@ -86,11 +86,20 @@ public class MainActivity extends BaseActivity {
         rButtonHashMap.put(2, radioNews);
         rButtonHashMap.put(3, radio_charge_battery);
         rButtonHashMap.put(4, radioOrder);
-        rButtonHashMap.put(5, radioMine);
+        rButtonHashMap.put(5, radioMine);*/
+
+        fragmentHashMap.put(0, new MainFragment());
+        fragmentHashMap.put(1, new MainChargeFragment());
+        fragmentHashMap.put(2,new MineFragment());
+
+        rButtonHashMap = new HashMap<>();
+        rButtonHashMap.put(0, radioNews);
+        rButtonHashMap.put(1, radio_charge_battery);
+        rButtonHashMap.put(2, radioMine);
 
         //是否滑动
         cViewPager.setPagingEnabled(false);
-        cViewPager.setOffscreenPageLimit(5);
+        cViewPager.setOffscreenPageLimit(3);
         cViewPager.setAdapter(new FragmentsPagerAdapter(getSupportFragmentManager(), fragmentHashMap));
         cViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -120,20 +129,11 @@ public class MainActivity extends BaseActivity {
     @OnClick({R.id.radio_home, R.id.radio_order, R.id.radio_news, R.id.radio_mine,R.id.radio_mba})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.radio_home:
+            case R.id.radio_news:
                 cViewPager.setCurrentItem(0, false);
                 break;
-            case R.id.radio_mba:
-                cViewPager.setCurrentItem(1, false);
-                break;
-            case R.id.radio_news:
-                cViewPager.setCurrentItem(2, false);
-                break;
-            case R.id.radio_order:
-                cViewPager.setCurrentItem(4, false);
-                break;
             case R.id.radio_mine:
-                cViewPager.setCurrentItem(5, false);
+                cViewPager.setCurrentItem(2, false);
                 break;
         }
     }

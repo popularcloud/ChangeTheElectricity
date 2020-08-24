@@ -10,7 +10,6 @@ public class UserInfoBean {
      */
 
     private UserinfoBean userinfo;
-    private List<?> thirdlist;
 
     public UserinfoBean getUserinfo() {
         return userinfo;
@@ -18,14 +17,6 @@ public class UserInfoBean {
 
     public void setUserinfo(UserinfoBean userinfo) {
         this.userinfo = userinfo;
-    }
-
-    public List<?> getThirdlist() {
-        return thirdlist;
-    }
-
-    public void setThirdlist(List<?> thirdlist) {
-        this.thirdlist = thirdlist;
     }
 
     public static class UserinfoBean {

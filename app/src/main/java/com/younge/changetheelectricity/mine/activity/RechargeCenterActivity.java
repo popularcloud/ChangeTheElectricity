@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
+import com.younge.changetheelectricity.changetheelectricity.Bean.AlipayBean;
 import com.younge.changetheelectricity.mine.adapter.RechargePackageAdapter;
 import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
@@ -169,9 +170,9 @@ public class RechargeCenterActivity extends MyBaseActivity<RechargeCenterPresent
     }
 
     @Override
-    public void onPayOrderByAliSuccess(BaseModel<Object> data) {
+    public void onPayOrderByAliSuccess(BaseModel<AlipayBean> data) {
         if(data != null){
-                        PayServant.getInstance().aliPay(String.valueOf(data.getData()), RechargeCenterActivity.this, new AliPayCallBack() {
+                        PayServant.getInstance().aliPay(String.valueOf(data.getData().getPayparams()), RechargeCenterActivity.this, new AliPayCallBack() {
                             @Override
                             public void OnAliPayResult(boolean success, boolean isWaiting, String msg) {
                                 ToastUtil.makeText(RechargeCenterActivity.this, msg);

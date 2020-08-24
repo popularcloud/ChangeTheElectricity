@@ -35,4 +35,26 @@ public class MyCarPresenter extends BasePresenter<MyCarView> {
         });
     }
 
+    public void delCar(String carId,String token) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().delCar("vv/usercenter/api/car/car_del",carId,token), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.onDelSuccess((BaseModel) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
 }

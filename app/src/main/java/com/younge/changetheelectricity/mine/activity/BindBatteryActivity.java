@@ -107,7 +107,7 @@ public class BindBatteryActivity extends MyBaseActivity<GetBetteryInfoPresenter>
     }
 
     @Override
-    public void onAddBatterySuccess(BaseModel<Object> data) {
+    public void onAddBatterySuccess(BaseModel data) {
         ToastUtil.makeText(BindBatteryActivity.this,"绑定成功！");
         finish();
     }

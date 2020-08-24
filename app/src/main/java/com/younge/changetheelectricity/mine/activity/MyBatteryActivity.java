@@ -2,20 +2,28 @@ package com.younge.changetheelectricity.mine.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
+import com.younge.changetheelectricity.base.MyConstants;
+import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.adapter.MyBatteryListAdapter;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.presenter.MyBatteryPresenter;
 import com.younge.changetheelectricity.mine.view.MyBatteryView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
+import com.younge.changetheelectricity.util.ToastUtil;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.common.Constant;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -63,7 +71,10 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyBatteryActivity.this, BatterySNActivity.class));
+               // startActivity(new Intent(MyBatteryActivity.this, BatterySNActivity.class));
+
+                Intent intent = new Intent(MyBatteryActivity.this, CaptureActivity.class);
+                startActivityForResult(intent, MyConstants.REQUEST_CODE_BIND_BATTERY);
             }
         });
         initList();
@@ -72,7 +83,7 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
     @Override
     protected void onResume() {
         super.onResume();
-        if(mBGARefreshLayout != null){
+        if (mBGARefreshLayout != null) {
             mBGARefreshLayout.beginRefreshing();
         }
     }
@@ -87,14 +98,22 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
 
     }
 
-    private void initList(){
+    private void initList() {
 
         allList.clear();
 
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
         mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
 
-        mAdapter = new MyBatteryListAdapter(this,allList,R.layout.item_my_battery);
+        mAdapter = new MyBatteryListAdapter(this, allList, R.layout.item_my_battery, new OnItemBtnClickCallBack() {
+            @Override
+            public void OnItemBtnclick(int pisition, int btn) {
+
+                if(btn == 1){ //删除
+                    mPresenter.delBattery(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
+                }
+            }
+        });
         rv_data.setLayoutManager(new LinearLayoutManager(this));
         rv_data.setAdapter(mAdapter);
 
@@ -109,13 +128,13 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
             @Override
             public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
                 page = 1;
-                mPresenter.getMyBattery(String.valueOf(page), String.valueOf(SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token","")));
+                mPresenter.getMyBattery(String.valueOf(page), String.valueOf(SharedPreferencesUtils.getParam(MyBatteryActivity.this, "token", "")));
             }
 
             @Override
             public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
                 page++;
-                mPresenter.getMyBattery(String.valueOf(page), String.valueOf(SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token","")));
+                mPresenter.getMyBattery(String.valueOf(page), String.valueOf(SharedPreferencesUtils.getParam(MyBatteryActivity.this, "token", "")));
                 return true;
             }
         });
@@ -123,8 +142,8 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
     }
 
     @OnClick({R.id.rl_fanhui_left})
-    public void onBtnClick(View view){
-        switch (view.getId()){
+    public void onBtnClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_fanhui_left:
                 finish();
                 break;
@@ -133,28 +152,70 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
 
     @Override
     public void onGetCarSuccess(BaseModel<MyBatteryBean> data) {
-        if(data != null && data.getData() != null && data.getData().getList() != null){
-            if(page == 1) {
+        if (data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0) {
+            mBGARefreshLayout.setVisibility(View.VISIBLE);
+            SharedPreferencesUtils.setParam(MyBatteryActivity.this,"presentBattery",data.getData().getList().get(0).getSn());
+            if (page == 1) {
                 mAdapter.replaceAll(data.getData().getList());
-            }else{
+            } else {
                 mAdapter.addAll(data.getData().getList());
             }
+        }else{
+            mBGARefreshLayout.setVisibility(View.INVISIBLE);
         }
 
 
-        if(page == 1) {
+        if (page == 1) {
             mBGARefreshLayout.endRefreshing();
-        }else{
+        } else {
             mBGARefreshLayout.endLoadingMore();
         }
     }
 
     @Override
+    public void onDelSuccess(BaseModel data) {
+        ToastUtil.makeText(this,"删除成功！");
+        mBGARefreshLayout.beginRefreshing();
+    }
+
+    @Override
     public void onGetDataFail() {
-        if(page == 1) {
+        if (page == 1) {
             mBGARefreshLayout.endRefreshing();
-        }else{
+        } else {
             mBGARefreshLayout.endLoadingMore();
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // 扫描二维码/条码回传
+            if (requestCode == MyConstants.REQUEST_CODE_BIND_BATTERY) {
+                if (data != null) {
+
+                    String content = data.getStringExtra(Constant.CODED_CONTENT);
+                    // result.setText("扫描结果为：" + content);
+                    // Toast.makeText(this, "解析结果:" + content, Toast.LENGTH_LONG).show();
+                    Log.e("msg", "解析结果:" + content);
+
+                    int indexStr = content.indexOf("sn=");
+
+                    String sn = content.substring(indexStr + 3);
+
+                    Log.e("msg", "sn:" + sn);
+
+                    if (!TextUtils.isEmpty(sn)) {
+                        Intent intent = new Intent(MyBatteryActivity.this,BindBatteryActivity.class);
+                        intent.putExtra("sn",sn);
+                        startActivity(intent);
+                    }
+                }
+            }
+        }
+    }
+
 }

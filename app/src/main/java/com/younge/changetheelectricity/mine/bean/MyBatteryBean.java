@@ -64,6 +64,15 @@ public class MyBatteryBean {
         private int battery;
         private int createtime;
         private int updatetime;
+        private String car_carvin;
+
+        public String getCar_carvin() {
+            return car_carvin;
+        }
+
+        public void setCar_carvin(String car_carvin) {
+            this.car_carvin = car_carvin;
+        }
 
         public int getId() {
             return id;

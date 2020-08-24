@@ -220,10 +220,10 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                 ((MainActivity)getActivity()).startScanActivity(MyConstants.REQUEST_CODE_SCAN_CHARGE);
                 break;
             case R.id.tv_changeElectricity: //充电
-                ((MainActivity)getActivity()).changeTag(2);
+                ((MainActivity)getActivity()).changeTag(0);
                 break;
             case R.id.tv_chargeElectricity: //换电
-                ((MainActivity)getActivity()).changeTag(3);
+                ((MainActivity)getActivity()).changeTag(1);
                 break;
             case R.id.iv_shop:
                 isShow = false;

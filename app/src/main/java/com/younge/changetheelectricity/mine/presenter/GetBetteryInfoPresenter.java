@@ -40,7 +40,7 @@ public class GetBetteryInfoPresenter extends BasePresenter<GetBatteryInfoView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onAddBatterySuccess((BaseModel<Object>) o);
+                baseView.onAddBatterySuccess((BaseModel) o);
             }
 
             @Override

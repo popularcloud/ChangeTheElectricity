@@ -64,13 +64,6 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
         return new RealNameAuthenticationPresenter(this);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_real_name_authentication01);
-        ButterKnife.bind(this);
-        tv_center_title.setText("实名认证");
-    }
 
     @Override
     protected int getContentViewId(Bundle savedInstanceState) {
@@ -79,7 +72,7 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
 
     @Override
     protected void init() {
-
+        tv_center_title.setText("实名认证");
     }
 
     @Override

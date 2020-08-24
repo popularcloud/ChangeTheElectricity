@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
+import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.adapter.MyCarListAdapter;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.presenter.MyCarPresenter;
 import com.younge.changetheelectricity.mine.view.MyCarView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
+import com.younge.changetheelectricity.util.ToastUtil;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -85,7 +87,15 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
         mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
 
-        mAdapter = new MyCarListAdapter(this,allList,R.layout.item_my_car);
+        mAdapter = new MyCarListAdapter(this, allList, R.layout.item_my_car, new OnItemBtnClickCallBack() {
+            @Override
+            public void OnItemBtnclick(int pisition, int btn) {
+
+                if(btn == 1){ //删除
+                    mPresenter.delCar(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
+                }
+            }
+        });
         rv_data.setLayoutManager(new LinearLayoutManager(this));
         rv_data.setAdapter(mAdapter);
 
@@ -129,12 +139,15 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
     @Override
     public void onGetCarSuccess(BaseModel<MyCarBean> data) {
 
-        if(data != null && data.getData() != null && data.getData().getList() != null){
+        if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
+            mBGARefreshLayout.setVisibility(View.VISIBLE);
             if(page == 1) {
                 mAdapter.replaceAll(data.getData().getList());
             }else{
                 mAdapter.addAll(data.getData().getList());
             }
+        }else{
+            mBGARefreshLayout.setVisibility(View.INVISIBLE);
         }
 
 
@@ -143,6 +156,12 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
         }else{
             mBGARefreshLayout.endLoadingMore();
         }
+    }
+
+    @Override
+    public void onDelSuccess(BaseModel data) {
+        ToastUtil.makeText(this,"删除成功！");
+        mBGARefreshLayout.beginRefreshing();
     }
 
     @Override

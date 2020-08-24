@@ -19,6 +19,7 @@ import com.younge.changetheelectricity.mine.activity.MyWalletActivity;
 import com.younge.changetheelectricity.mine.activity.PersonalInfoActivity;
 import com.younge.changetheelectricity.mine.activity.RealNameAuthentication01Activity;
 import com.younge.changetheelectricity.mine.activity.SettingActivity;
+import com.younge.changetheelectricity.mine.activity.ShareSettingActivity;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 import com.younge.changetheelectricity.mine.presenter.MinePresenter;
 import com.younge.changetheelectricity.mine.view.MineView;
@@ -76,7 +77,7 @@ public class MineFragment extends MyBaseFragment<MinePresenter> implements MineV
         }
     }
 
-    @OnClick({R.id.ll_wallet,R.id.tv_status,R.id.tv_bind_battery,R.id.tv_bind_car,R.id.txt_name,R.id.img_head,R.id.txt_huiyuan,R.id.ll_package})
+    @OnClick({R.id.ll_wallet,R.id.tv_status,R.id.tv_bind_battery,R.id.tv_bind_car,R.id.txt_name,R.id.img_head,R.id.txt_huiyuan,R.id.ll_package,R.id.ll_invitation})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.ll_wallet:
@@ -95,6 +96,9 @@ public class MineFragment extends MyBaseFragment<MinePresenter> implements MineV
                 break;
             case R.id.ll_package:
                 startActivity(new Intent(getActivity(), MyPackageActivity.class));
+                break;
+            case R.id.ll_invitation:
+                startActivity(new Intent(getActivity(), ShareSettingActivity.class));
                 break;
             case R.id.img_head:
             case R.id.txt_huiyuan:

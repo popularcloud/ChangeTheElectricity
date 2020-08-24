@@ -8,6 +8,7 @@ public interface MyCarView extends BaseView {
 
 
     void onGetCarSuccess(BaseModel<MyCarBean> data);
+    void onDelSuccess(BaseModel data);
 
     void onGetDataFail();
 }

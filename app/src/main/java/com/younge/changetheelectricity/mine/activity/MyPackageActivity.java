@@ -2,7 +2,11 @@ package com.younge.changetheelectricity.mine.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +39,12 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
     TextView tv_center_title;
     @BindView(R.id.tv_right)
     TextView tv_right;
+    @BindView(R.id.tv_submit)
+    TextView tv_submit;
+    @BindView(R.id.tv_msg)
+    TextView tv_msg;
+    @BindView(R.id.tv_sn)
+    TextView tv_sn;
     @BindView(R.id.mBGARefreshLayout)
     BGARefreshLayout mBGARefreshLayout;
     private MyPackageListAdapter mAdapter;
@@ -60,6 +70,9 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
         tv_center_title.setText("我的套餐");
 
+        String sn = (String) SharedPreferencesUtils.getParam(this,"presentBattery","");
+
+        tv_sn.setText("当前电池（"+sn+")");
         tv_right.setVisibility(View.VISIBLE);
         tv_right.setText("使用记录");
         tv_right.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +96,17 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
     private void initList(){
 
+        String presentSn = (String) SharedPreferencesUtils.getParam(this,"","");
+
+        if(!TextUtils.isEmpty(presentSn)){
+            tv_submit.setText("绑定电池");
+            tv_msg.setVisibility(View.VISIBLE);
+            mBGARefreshLayout.setVisibility(View.GONE);
+        }else{
+            tv_submit.setText("购买套餐");
+            tv_msg.setVisibility(View.GONE);
+            mBGARefreshLayout.setVisibility(View.VISIBLE);
+        }
 
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
         mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
@@ -124,7 +148,11 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
                 finish();
                 break;
             case R.id.tv_submit:
-                startActivity(new Intent(MyPackageActivity.this,PackageListActivity.class));
+                if("购买套餐".equals(tv_submit.getText().toString().trim())){
+                    startActivity(new Intent(MyPackageActivity.this,PackageListActivity.class));
+                }else{
+                    startActivity(new Intent(MyPackageActivity.this,MyBatteryActivity.class));
+                }
                 break;
         }
     }
@@ -132,7 +160,11 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
     @Override
     public void onGetDataSuccess(BaseModel<PackageBean> data) {
         if(data != null && data.getData() != null && data.getData().getList() != null){
+
             if(page == 1) {
+                tv_submit.setText("购买套餐");
+                tv_msg.setVisibility(View.GONE);
+                mBGARefreshLayout.setVisibility(View.VISIBLE);
                 mAdapter.replaceAll(data.getData().getList());
             }else{
                 mAdapter.addAll(data.getData().getList());

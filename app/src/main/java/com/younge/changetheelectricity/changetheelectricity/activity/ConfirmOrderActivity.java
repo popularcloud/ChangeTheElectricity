@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
+import com.younge.changetheelectricity.changetheelectricity.Bean.AlipayBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ConfirmOrderAdapter;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
@@ -160,9 +161,9 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
     }
 
     @Override
-    public void onPayOrderByAliSuccess(BaseModel<Object> data) {
+    public void onPayOrderByAliSuccess(BaseModel<AlipayBean> data) {
         if(data != null){
-            PayServant.getInstance().aliPay(String.valueOf(data.getData()), ConfirmOrderActivity.this, new AliPayCallBack() {
+            PayServant.getInstance().aliPay(String.valueOf(data.getData().getPayparams()), ConfirmOrderActivity.this, new AliPayCallBack() {
                 @Override
                 public void OnAliPayResult(boolean success, boolean isWaiting, String msg) {
                     ToastUtil.makeText(ConfirmOrderActivity.this, msg);

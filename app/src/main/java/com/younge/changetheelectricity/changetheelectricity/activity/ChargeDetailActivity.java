@@ -100,6 +100,7 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
             @Override
             public void onClick(CustomDialog dialog, int id, Object object) {
                 startActivity(new Intent(ChargeDetailActivity.this, PackageListActivity.class));
+                finish();
             }
         });
 

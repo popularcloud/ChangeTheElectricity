@@ -27,12 +27,14 @@
                 android:id="@+id/radio_home"
                 style="@style/main_menu_radiobutton_style"
                 android:checked="true"
+                android:visibility="gone"
                 android:drawableTop="@drawable/tab_main_selector"
                 android:text="服务" />
 
             <RadioButton
                 android:id="@+id/radio_mba"
                 style="@style/main_menu_radiobutton_style"
+                android:visibility="gone"
                 android:drawableTop="@drawable/tab_main_selector"
                 android:text="商城" />
             <RadioButton
@@ -49,13 +51,14 @@
             <RadioButton
                 android:id="@+id/radio_order"
                 style="@style/main_menu_radiobutton_style"
+                android:visibility="gone"
                 android:drawableTop="@drawable/tab_main_selector"
                 android:text="活动" />
 
             <RadioButton
                 android:id="@+id/radio_mine"
                 style="@style/main_menu_radiobutton_style"
-                android:drawableTop="@drawable/tab_main_selector"
+                android:drawableTop="@drawable/tab_mime_selector"
                 android:text="我的" />
         </RadioGroup>
     </LinearLayout>

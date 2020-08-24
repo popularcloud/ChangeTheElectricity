@@ -3,6 +3,7 @@ package com.younge.changetheelectricity.mine.presenter;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
+import com.younge.changetheelectricity.changetheelectricity.Bean.AlipayBean;
 import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
@@ -84,7 +85,7 @@ public class RechargeCenterPresenter extends BasePresenter<RechargeCenterView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                    baseView.onPayOrderByAliSuccess((BaseModel<Object>) o);
+                    baseView.onPayOrderByAliSuccess((BaseModel<AlipayBean>) o);
             }
 
             @Override

@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
+            android:id="@+id/tv_battery_id"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -17,9 +18,10 @@
             android:text="2020ffff908"
             android:textColor="@color/black_33" />
         <ImageView
+            android:id="@+id/iv_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_gray_right_arrow"/>
+            android:src="@mipmap/ic_msg_more"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,15 +36,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_15"
-                android:text="电池绑定"
+                android:text="车辆绑定"
                 android:textColor="@color/gray_99" />
             <TextView
+                android:id="@+id/tv_car"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_15"
                 android:layout_marginLeft="@dimen/dp_15"
-                android:text="2020ffff908"
+                android:text=""
                 android:textColor="@color/black_33" />
         </LinearLayout>
         <LinearLayout
@@ -54,15 +57,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_15"
-                android:text="车辆品名"
+                android:text="电池型号"
                 android:textColor="@color/gray_99" />
             <TextView
+                android:id="@+id/tv_type"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_15"
                 android:layout_marginLeft="@dimen/dp_15"
-                android:text="G3 黑色"
+                android:text=""
                 android:textColor="@color/black_33" />
         </LinearLayout>
         <LinearLayout
@@ -74,15 +78,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_15"
-                android:text="车辆牌号"
+                android:text="电池SN码"
                 android:textColor="@color/gray_99" />
             <TextView
+                android:id="@+id/tv_sn"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/sp_15"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:text="赣A666666"
+                android:textColor="@color/black_33" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_15"
+                android:text="电池电量"
+                android:textColor="@color/gray_99" />
+            <TextView
+                android:id="@+id/tv_quantity"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_15"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:text=""
                 android:textColor="@color/black_33" />
         </LinearLayout>
     </LinearLayout>

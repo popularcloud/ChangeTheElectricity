@@ -70,12 +70,30 @@
         <activity android:name=".mine.activity.MyDepositActivity" />
         <activity android:name=".mine.activity.DepositHistoryActivity" />
         <activity android:name="module.login.activity.LoginActivity" />
+        <activity android:name="module.login.activity.WebViewActivity" />
         <activity android:name=".mine.activity.PackageListActivity" />
         <activity android:name=".mine.activity.RechargeCenterActivity" />
         <activity android:name=".mine.activity.SettingActivity" />
         <activity android:name=".changetheelectricity.activity.CharegeStatuActivity" />
+        <activity android:name=".mine.activity.ShareSettingActivity" />
 
         <meta-data android:name="com.amap.api.v2.apikey" android:value="d35bef7a58b82cffc7b4e04a16533c3d">
         </meta-data>
+
+        <!--支付宝-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <!--微信-->
     </application>
 </manifest>

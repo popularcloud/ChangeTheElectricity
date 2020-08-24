@@ -24,7 +24,7 @@ public class MainChargeDetailsAdapter extends SuperAdapter<DeviceDetailBean.Devi
     public void onBind(SuperViewHolder holder, int viewType, int layoutPosition, DeviceDetailBean.DeviceGoodsBean item) {
 
 
-        holder.setText(R.id.tv_num,""+(layoutPosition+1));
+        holder.setText(R.id.tv_num,""+item.getDevice_box());
 
 
         switch (item.getStatus()){//,//0无电池或充电中 1可使用 2已预约 3故障

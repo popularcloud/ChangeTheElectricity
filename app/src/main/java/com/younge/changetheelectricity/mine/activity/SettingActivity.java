@@ -32,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import module.login.activity.LoginActivity;
+import module.login.activity.WebViewActivity;
 
 /**
  * 设置
@@ -79,7 +80,7 @@ public class SettingActivity extends MyBaseActivity<MinePresenter> implements Mi
 
 	}
 
-	@OnClick({R.id.rl_fanhui_left,R.id.tv_exit})
+	@OnClick({R.id.rl_fanhui_left,R.id.tv_exit,R.id.txt_agreement,R.id.txt_privacy})
 	public void onBtnClick(View view){
 		switch (view.getId()){
 			case R.id.rl_fanhui_left:
@@ -89,6 +90,18 @@ public class SettingActivity extends MyBaseActivity<MinePresenter> implements Mi
 				SharedPreferencesUtils.setParam(SettingActivity.this,"token","");
 				startActivity(new Intent(this, LoginActivity.class));
 				finish();
+				break;
+			case R.id.txt_agreement:
+				Intent intent = new Intent(SettingActivity.this, WebViewActivity.class);
+				intent.putExtra("url","http://gxyc.jxcqs.com/shownode.aspx?nid=32");
+				intent.putExtra("title","用户协议");
+				startActivity(intent);
+				break;
+			case R.id.txt_privacy:
+				Intent intent2 = new Intent(SettingActivity.this, WebViewActivity.class);
+				intent2.putExtra("url","http://gxyc.jxcqs.com/shownode.aspx?nid=33");
+				intent2.putExtra("title","隐私协议");
+				startActivity(intent2);
 				break;
 		}
 	}

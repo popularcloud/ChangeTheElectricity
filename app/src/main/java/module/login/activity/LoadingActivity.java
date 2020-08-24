@@ -111,6 +111,8 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
                     startActivity(new Intent(LoadingActivity.this, MainActivity.class));
                 }
 
+                finish();
+
             }
 
             @Override
@@ -138,8 +140,14 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
         xBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model,View view, int position) {
-                Toast.makeText(LoadingActivity.this, "点击了第"+position+"图片", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoadingActivity.this, "点击了第"+position+"图片", Toast.LENGTH_SHORT).show();
+                String token = (String) SharedPreferencesUtils.getParam(LoadingActivity.this,"token","");
 
+                if(TextUtils.isEmpty(token)){
+                    startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
+                }else{
+                    startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+                }
             }
         });
     }

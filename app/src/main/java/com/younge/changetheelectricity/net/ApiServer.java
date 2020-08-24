@@ -2,6 +2,7 @@ package com.younge.changetheelectricity.net;
 
 
 import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.changetheelectricity.Bean.AlipayBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.UserHistoryBean;
@@ -16,6 +17,7 @@ import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
+import com.younge.changetheelectricity.mine.bean.ShareSettingBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 
 import java.util.List;
@@ -103,6 +105,14 @@ public interface ApiServer {
                                               @Field("page") String page,
                                               @Field("token") String token);
 
+    //
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/car_del")
+    Observable<BaseModel> delCar(@Field("HTTP_API") String httpApi,
+                                              @Field("id") String id,
+                                              @Field("token") String token);
+
     //车辆添加
     @POST("/api/index")
     @FormUrlEncoded
@@ -169,7 +179,7 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/recharge/api/recharge/submit")
-    Observable<BaseModel<Object>> rechargeOrderByAli(@Field("HTTP_API") String httpApi,
+    Observable<BaseModel<AlipayBean>> rechargeOrderByAli(@Field("HTTP_API") String httpApi,
                                                              @Field("type") String type,
                                                              @Field("package_id") String package_id,
                                                              @Field("paytype") String paytype,
@@ -192,13 +202,13 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/cms/api/archives/order")
-    Observable<BaseModel<Object>> PackageOrderByAli(@Field("HTTP_API") String httpApi,
-                                                       @Field("coupon_id") String coupon_id,
-                                                       @Field("type") String type,
-                                                       @Field("goodslist") String goodslist,
-                                                       @Field("paytype") String paytype,
-                                                       @Field("method") String method,
-                                                       @Field("token") String token);
+    Observable<BaseModel<AlipayBean>> PackageOrderByAli(@Field("HTTP_API") String httpApi,
+                                                        @Field("coupon_id") String coupon_id,
+                                                        @Field("type") String type,
+                                                        @Field("goodslist") String goodslist,
+                                                        @Field("paytype") String paytype,
+                                                        @Field("method") String method,
+                                                        @Field("token") String token);
 
     //套餐下单
     @POST("/api/index")
@@ -234,6 +244,15 @@ public interface ApiServer {
                                                       @Field("token") String token);
 
 
+    //我的电池
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/battery_del")
+    Observable<BaseModel> delBattery(@Field("HTTP_API") String httpApi,
+                                                      @Field("id") String id,
+                                                      @Field("token") String token);
+
+
     //根据sn获取电池信息
     @POST("/api/index")
     @FormUrlEncoded
@@ -247,7 +266,7 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/usercenter/api/car/battery_edit")
-    Observable<BaseModel<BatteryInfoBean>> addBattery(@Field("HTTP_API") String httpApi,
+    Observable<BaseModel> addBattery(@Field("HTTP_API") String httpApi,
                                                           @Field("sn") String sn,
                                                           @Field("token") String token);
 
@@ -302,5 +321,12 @@ public interface ApiServer {
                                                           @Field("page") String page,
                                                           @Field("size") String size,
                                                           @Field("token") String token);
+
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: api/common/config")
+    Observable<BaseModel<ShareSettingBean>> getShareSetting(@Field("HTTP_API") String httpApi,
+                                                            @Field("group") String type,
+                                                            @Field("token") String token);
 
 }

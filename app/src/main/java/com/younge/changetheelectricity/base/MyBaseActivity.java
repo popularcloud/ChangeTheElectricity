@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.util.LoadingDialog;
 import com.younge.changetheelectricity.util.ToastUtil;
@@ -41,6 +42,8 @@ public abstract class MyBaseActivity<P extends BasePresenter> extends FragmentAc
 		setContentView(layoutId);
 		ButterKnife.bind(this);
 
+		initStatusBar();
+
 		mPresenter = createPresenter();
 
 		try {
@@ -63,15 +66,15 @@ public abstract class MyBaseActivity<P extends BasePresenter> extends FragmentAc
 		 */
 		initGetData();
 
-		initStatus();
-
 	}
-
-	public void initStatus() {
-/*		ImmersionBar.with(this)
+	/**
+	 * 子类可重写改方法定制状态栏样式
+	 */
+	protected void initStatusBar(){
+		ImmersionBar.with(this)
 				.statusBarColor(R.color.white)
 				.statusBarDarkFont(true)
-				.navigationBarColor(R.color.white).init();*/
+				.init();
 	}
 
 	protected void setTitle(String title) {
@@ -156,7 +159,7 @@ public abstract class MyBaseActivity<P extends BasePresenter> extends FragmentAc
 	/**
 	 * 获取上一个界面传送过来的数据
 	 * 
-	 * 在{@link BaseActivity#init()}之前被调用
+	 * 在{@link BaseActivity()}之前被调用
 	 * 
 	 * @version 1.0
 	 * @createTime 2014年4月21日,下午2:42:56

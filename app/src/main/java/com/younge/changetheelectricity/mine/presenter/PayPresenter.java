@@ -3,6 +3,7 @@ package com.younge.changetheelectricity.mine.presenter;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
+import com.younge.changetheelectricity.changetheelectricity.Bean.AlipayBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.view.PayView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
@@ -45,7 +46,7 @@ public class PayPresenter extends BasePresenter<PayView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onPayOrderByAliSuccess((BaseModel<Object>) o);
+                baseView.onPayOrderByAliSuccess((BaseModel<AlipayBean>) o);
             }
 
             @Override
