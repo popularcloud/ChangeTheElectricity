@@ -49,7 +49,7 @@ public class UserInfoBean {
         private String money;
         private String givemoney;
         private int score;
-        private int verification;
+        private int verification;//0为未认证 1为认证通过 2为失败
         private String idcard;
         private String redmoney;
         private String verification_desc;

@@ -20,6 +20,9 @@ import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
 import com.younge.changetheelectricity.main.MainActivity;
+import com.younge.changetheelectricity.mine.bean.UserInfoBean;
+import com.younge.changetheelectricity.util.JsonUtil;
+import com.younge.changetheelectricity.util.RegexUtils;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 
@@ -126,7 +129,7 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
     };
 
 
-    @OnClick({R.id.tv_code,R.id.tv_login})
+    @OnClick({R.id.tv_code,R.id.tv_login,R.id.rl_fanhui_left})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_code:
@@ -144,8 +147,8 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
                 phone = et_phone.getText().toString().trim();
                // code = et_code.getText().toString().trim();
                 code = "1111";
-                if(TextUtils.isEmpty(phone)){
-                    ToastUtil.makeText(LoginActivity.this,"请输入手机号");
+                if(!RegexUtils.validateMobilePhone(phone)){
+                    ToastUtil.makeText(LoginActivity.this,"请输入正确的手机号");
                     return;
                 }
                 if(TextUtils.isEmpty(code)){
@@ -161,6 +164,9 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
                 mPresenter.loginByCode(phone,code,"");
 
                 break;
+            case R.id.rl_fanhui_left:
+                finish();
+                break;
         }
     }
 
@@ -170,13 +176,23 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
     public void onLoginSuccess(BaseModel<LoginBean> data) {
         ToastUtil.makeText(LoginActivity.this,"登录成功");
         SharedPreferencesUtils.setParam(LoginActivity.this,"token",data.getData().getToken());
-        startActivity(new Intent(this, MainActivity.class));
+        //startActivity(new Intent(this, MainActivity.class));
+
+        mPresenter.getPersonalInfo(data.getData().getToken());
     }
 
     @Override
     public void ongetCodeSuccess(BaseModel<Object> data) {
         handle.sendEmptyMessageDelayed(0, 1000);
         ToastUtil.makeText(LoginActivity.this,"验证码已发送");
+    }
+
+    @Override
+    public void onGetUserInfoSuccess(BaseModel<UserInfoBean> data) {
+        UserInfoBean.UserinfoBean userinfoBean = data.getData().getUserinfo();
+        String userInfoDetail = JsonUtil.parserObjectToGson(userinfoBean);
+        SharedPreferencesUtils.setParam(this,"userInfoDetail",userInfoDetail);
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override

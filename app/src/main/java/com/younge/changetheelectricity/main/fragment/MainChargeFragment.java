@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
@@ -37,7 +39,13 @@ import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
+import com.younge.changetheelectricity.mine.activity.BindCarActivity;
+import com.younge.changetheelectricity.mine.bean.MyCarBean;
+import com.younge.changetheelectricity.mine.bean.UserInfoBean;
+import com.younge.changetheelectricity.util.JsonUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
+import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.CustomDialog;
 import com.younge.changetheelectricity.widget.CustomViewPager;
 
 import java.util.ArrayList;
@@ -82,6 +90,10 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
     @BindView(R.id.tv_shop_address)
     TextView tv_shop_address;
 
+
+    @BindView(R.id.tv_to_authentication)
+    TextView tv_to_authentication;
+
     private boolean isShow = false;
     private boolean isShop = false;
 
@@ -98,6 +110,8 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
     private double presentLongitude;
     private double presentLatitude;
+
+    private CustomDialog customDialog;
 
 
     @Override
@@ -138,9 +152,12 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
         myLocationStyle.interval(10000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         // myLocationStyle.showMyLocation(true);
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-        //aMap.getUiSettings().setMyLocationButtonEnabled(true); //设置默认定位按钮是否显示，非必需设置。
+        aMap.getUiSettings().setMyLocationButtonEnabled(true); //设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 
+        //设置希望展示的地图缩放级别
+        CameraUpdate mCameraUpdate= CameraUpdateFactory.zoomTo(17);
+        aMap.moveCamera(mCameraUpdate);
         //mPresenter.getShopLocations(String.valueOf(location.getLongitude()),String.valueOf(location.getLatitude()));
         //mPresenter.getShopLocations("","");
     }
@@ -192,6 +209,13 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
         super.onResume();
         //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
         mMapView.onResume();
+
+        if(mPresenter != null){
+            //检测是否绑定车辆
+            mPresenter.getMyCarList("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
+        }
+
+        refreshData();
     }
     @Override
     public void onPause() {
@@ -262,6 +286,20 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
         }
     }
 
+
+    private void refreshData(){
+
+        String userInfoDetailStr = (String) SharedPreferencesUtils.getParam(getActivity(),"userInfoDetail","");
+        UserInfoBean.UserinfoBean userInfoDetail = JsonUtil.parserGsonToObject(userInfoDetailStr, UserInfoBean.UserinfoBean.class);
+
+        if(userInfoDetail.getVerification() == 1){
+            tv_to_authentication.setVisibility(View.VISIBLE);
+        }else{
+            tv_to_authentication.setVisibility(View.GONE);
+        }
+
+    }
+
     @Override
     public void onGetShopLocationSuccess(BaseModel<ShopDetailLocationBean> data) {
         if(data != null && data.getData() != null && data.getData().getList() != null){
@@ -307,6 +345,31 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
         };
 // 绑定 Marker 被点击事件
         aMap.setOnMarkerClickListener(markerClickListener);
+    }
+
+    @Override
+    public void onGetCarSuccess(BaseModel<MyCarBean> data) {
+        if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
+            ToastUtil.makeText(getContext(),"已监测到你的车辆");
+        }else{
+            if(customDialog == null){
+                customDialog = new CustomDialog(getActivity());
+                customDialog.setTitle("温馨提示");
+                customDialog.setMessage("未监测到您的车辆");
+                customDialog.setGoneBut2();
+                customDialog.setButton1Text("绑定车辆");
+                customDialog.setCanceledOnTouchOutside(true);
+                customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        startActivity(new Intent(getContext(), BindCarActivity.class));
+                    }
+                });
+            }
+            customDialog.show();
+        }
+
+
     }
 
 

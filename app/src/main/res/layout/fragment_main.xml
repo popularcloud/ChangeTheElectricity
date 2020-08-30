@@ -253,4 +253,19 @@
         </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_to_authentication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue_yq"
+        android:background="@drawable/item_white_circle"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginRight="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_80"
+        android:textSize="@dimen/sp_12"
+        android:paddingLeft="@dimen/dp_30"
+        android:paddingBottom="@dimen/dp_7"
+        android:paddingTop="@dimen/dp_7"
+        android:visibility="gone"
+        android:text="为了防止您的设备丢失，请先实名认证"/>
 </FrameLayout>
