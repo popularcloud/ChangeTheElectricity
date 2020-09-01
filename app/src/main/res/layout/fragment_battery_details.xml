@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/gray_99"
             android:textSize="@dimen/sp_12"
-            android:text="电池数量3个"/>
+            android:text=""/>
         <TextView
             android:id="@+id/tv_num"
             android:layout_width="0dp"
@@ -33,7 +33,7 @@
             android:textColor="@color/gray_99"
             android:textSize="@dimen/sp_12"
             android:gravity="right"
-            android:text="电柜编号：dldjf45454"/>
+            android:text=""/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_data"
@@ -75,8 +75,9 @@
             android:textColor="@color/blue_yq"
             android:textSize="@dimen/sp_14"
             android:gravity="center"
-            android:text="48V 20Ah"/>
+            android:text=""/>
         <TextView
+            android:id="@+id/tv_msg"
             android:layout_width="match_parent"
             android:paddingTop="@dimen/dp_25"
             android:layout_height="wrap_content"

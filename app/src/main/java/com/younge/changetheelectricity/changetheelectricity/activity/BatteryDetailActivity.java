@@ -56,6 +56,8 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
 
     @BindView(R.id.tv_title01)
     TextView tv_title01;
+    @BindView(R.id.tv_msg)
+    TextView tv_msg;
 
     //订单类型 0。其他 1。预约
     private int orderType = 0;
@@ -146,6 +148,8 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
             ll_batterys.setVisibility(View.GONE);
 
             tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStart_box()+"号电池");
+            tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStart_box()+"号电池");
+            tv_msg.setText("请于"+appointmentBean.getAppointment_minute()+"分钟内到此门店更换，过时将自动取消预约\\n本月剩余次数："+appointmentBean.getAppointment_minute()+"次");
 
         }else{
             ll_order_battery.setVisibility(View.GONE);
