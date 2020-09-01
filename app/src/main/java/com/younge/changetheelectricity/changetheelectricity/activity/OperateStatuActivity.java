@@ -8,6 +8,7 @@ import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBean;
+import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.presenter.ChargeStatusPresenter;
 import com.younge.changetheelectricity.changetheelectricity.view.ChargeStatusView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
@@ -22,6 +23,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * 换电状态
+ */
+
 public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> implements ChargeStatusView {
 
     @BindView(R.id.tv_center_title)
@@ -31,10 +36,15 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
     TextView tv_msg;
     @BindView(R.id.tv_cancel)
     TextView tv_cancel;
+    @BindView(R.id.tv_submit)
+    TextView tv_submit;
 
     private String orderId;
 
     private Disposable mDisposable;
+
+
+    private int act;
 
     @Override
     protected ChargeStatusPresenter createPresenter() {
@@ -75,11 +85,22 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
 
     }
 
-    @OnClick({R.id.rl_fanhui_left})
+    @OnClick({R.id.rl_fanhui_left,R.id.tv_cancel,R.id.tv_submit})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.rl_fanhui_left:
                 finish();
+                break;
+            case R.id.tv_cancel:
+                if(act == 2){
+                    mPresenter.cancel(orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
+                }else if(act == 1){
+                    mPresenter.start("3",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
+                }
+
+                break;
+            case R.id.tv_submit:
+                mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
                 break;
         }
     }
@@ -139,6 +160,11 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
             8电池验证通过，归还成功(倒数3秒调start)
             */
 
+            act = data.getData().getResult().getAct();
+
+            tv_submit.setVisibility(View.GONE);
+            tv_cancel.setVisibility(View.GONE);
+
             switch (chargeStatusBean.getResult().getStatus()){
                 case 0:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
@@ -150,15 +176,21 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     break;
                 case 2:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
-                    tv_cancel.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
-                    cancel();
+                    tv_submit.setVisibility(View.VISIBLE);
+                    tv_cancel.setVisibility(View.VISIBLE);
+                    if(act == 2){
+                        tv_submit.setText("重试");
+                        tv_cancel.setText("取消");
+                    }else{
+                        tv_submit.setText("重试");
+                        tv_cancel.setText("退回旧电池");
+                    }
                     break;
                 case 4:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
-                    tv_cancel.setVisibility(View.VISIBLE);
                     break;
                 case 5:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
@@ -179,6 +211,19 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
 
             }
         }
+    }
+
+    @Override
+    public void onStartSuccess(BaseModel<StartResultBean> data) {
+
+        orderId = data.getData().getOrder_id();
+
+    }
+
+    @Override
+    public void onCancelSuccess(BaseModel<StartResultBean> data) {
+
+        finish();
     }
 
     @Override

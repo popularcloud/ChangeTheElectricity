@@ -10,6 +10,7 @@ import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBean;
+import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.presenter.ChargeStatusPresenter;
 import com.younge.changetheelectricity.changetheelectricity.view.ChargeStatusView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
@@ -26,6 +27,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
+
+/**
+ * 换电状态
+ */
 
 public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> implements ChargeStatusView {
 
@@ -172,7 +178,6 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     break;
                 case 1: //充电完成
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
-                    cancel();
                     break;
                 case 2:
                     tv_msg.setText(boxId+"号插座已通电，请插入充电("+chargeStatusBean.getResult().getMessage()+")");
@@ -180,7 +185,6 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     break;
                 case 3:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
-                    cancel();
                     break;
                 case 4:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
@@ -188,15 +192,23 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     break;
                 case 5:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
-                    cancel();
                     break;
                 case 9:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
-                    cancel();
                     break;
 
             }
         }
+    }
+
+    @Override
+    public void onStartSuccess(BaseModel<StartResultBean> data) {
+
+    }
+
+    @Override
+    public void onCancelSuccess(BaseModel<StartResultBean> data) {
+
     }
 
     @Override

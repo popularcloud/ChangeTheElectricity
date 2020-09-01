@@ -7,26 +7,29 @@
         android:orientation="vertical"
         android:fitsSystemWindows="true">
         <include layout="@layout/include_title_bar" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_80"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_80">
+
             <ImageView
                 android:id="@+id/iv_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/cte_logo"/>
+                android:src="@mipmap/cte_logo" />
+
             <TextView
                 android:id="@+id/tv_time"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:textSize="@dimen/sp_16"
                 android:textColor="@color/black_33"
-                android:text="00:00:00"/>
+                android:textSize="@dimen/sp_16"
+                android:visibility="gone"
+                android:text="00:00:00" />
         </RelativeLayout>
 
         <TextView

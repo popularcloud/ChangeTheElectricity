@@ -5,6 +5,7 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.changetheelectricity.Bean.AlipayBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
+import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.UserHistoryBean;
 import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
@@ -299,9 +300,18 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/order/api/index/start")
-    Observable<BaseModel<ChargeStatusBean>> start(@Field("HTTP_API") String httpApi,
+    Observable<BaseModel<StartResultBean>> start(@Field("HTTP_API") String httpApi,
                                                            @Field("act") String act,
+                                                           @Field("order_id") String order_id,
                                                            @Field("token") String token);
+
+    //取消订单
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/order/api/index/cancel")
+    Observable<BaseModel<StartResultBean>> cancel(@Field("HTTP_API") String httpApi,
+                                                  @Field("order_id") String act,
+                                                  @Field("token") String token);
 
     //执行结果
     @POST("/api/index")

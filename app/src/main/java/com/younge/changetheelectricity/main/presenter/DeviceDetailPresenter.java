@@ -70,7 +70,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailView> {
     }
 
     public void start(String act,String token) {
-        addDisposable(ApiRetrofit.getInstance().getApiService().start("vv/order/api/index/start",act,token), new BaseObserver(baseView) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().start("vv/order/api/index/start",act,null,token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
