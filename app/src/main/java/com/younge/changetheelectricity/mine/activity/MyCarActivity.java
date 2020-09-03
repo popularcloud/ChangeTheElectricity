@@ -19,6 +19,7 @@ import com.younge.changetheelectricity.mine.presenter.MyCarPresenter;
 import com.younge.changetheelectricity.mine.view.MyCarView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.ShowListDialog;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -47,6 +48,8 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
 
     private List<MyCarBean.ListBean> allList = new ArrayList<>();
     private int page = 1;
+
+    private ShowListDialog showListDialog;
 
     @Override
     protected MyCarPresenter createPresenter() {
@@ -163,6 +166,15 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
 
     @Override
     public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
+
+        showListDialog = new ShowListDialog(MyCarActivity.this, new ShowListDialog.CallBack() {
+            @Override
+            public void onSubmit(int position) {
+                showListDialog.dismiss();
+                //cancelLeaseOrder(reasons.get(position),myOrder.getOrderId());
+            }
+        },null,"取消订单","请选择取消订单原因",true);
+        showListDialog.show();
 
     }
 
