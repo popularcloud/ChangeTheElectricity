@@ -426,7 +426,6 @@ public class DeviceDetailBean {
             public int getExpiretime() {
                 return expiretime;
             }
-
             public void setExpiretime(int expiretime) {
                 this.expiretime = expiretime;
             }

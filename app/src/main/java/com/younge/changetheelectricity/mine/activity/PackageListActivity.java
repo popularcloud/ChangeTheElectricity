@@ -12,6 +12,7 @@ import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.mine.adapter.MyPagerHasTitleAdapter;
+import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.RecommendItemBean;
 import com.younge.changetheelectricity.mine.fragment.ChangePackageFragment;
@@ -124,6 +125,11 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
 
     @Override
     public void onGetCarSuccess(BaseModel<MyCarBean> data) {
+
+    }
+
+    @Override
+    public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
 
     }
 

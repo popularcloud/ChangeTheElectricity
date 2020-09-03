@@ -8,7 +8,9 @@ import com.younge.changetheelectricity.mine.bean.MyCarBean;
 public interface MyBatteryView extends BaseView {
 
 
-    void onGetCarSuccess(BaseModel<MyBatteryBean> data);
+    void onGetBatterySuccess(BaseModel<MyBatteryBean> data);
+
+    void onGetCarSuccess(BaseModel<MyCarBean> data);
 
     void onDelSuccess(BaseModel data);
 

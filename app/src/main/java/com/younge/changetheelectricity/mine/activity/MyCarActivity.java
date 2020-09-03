@@ -13,6 +13,7 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.adapter.MyCarListAdapter;
+import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.presenter.MyCarPresenter;
 import com.younge.changetheelectricity.mine.view.MyCarView;
@@ -93,6 +94,8 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
 
                 if(btn == 1){ //删除
                     mPresenter.delCar(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
+                }else{
+                    mPresenter.getMyBattery("1",(String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
                 }
             }
         });
@@ -156,6 +159,11 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
         }else{
             mBGARefreshLayout.endLoadingMore();
         }
+    }
+
+    @Override
+    public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
+
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.younge.changetheelectricity.base.MyConstants;
 import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.adapter.MyBatteryListAdapter;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
+import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.presenter.MyBatteryPresenter;
 import com.younge.changetheelectricity.mine.view.MyBatteryView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
@@ -151,7 +152,7 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
     }
 
     @Override
-    public void onGetCarSuccess(BaseModel<MyBatteryBean> data) {
+    public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
         if (data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0) {
             mBGARefreshLayout.setVisibility(View.VISIBLE);
             SharedPreferencesUtils.setParam(MyBatteryActivity.this,"presentBattery",data.getData().getList().get(0).getSn());
@@ -170,6 +171,11 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
         } else {
             mBGARefreshLayout.endLoadingMore();
         }
+    }
+
+    @Override
+    public void onGetCarSuccess(BaseModel<MyCarBean> data) {
+
     }
 
     @Override
