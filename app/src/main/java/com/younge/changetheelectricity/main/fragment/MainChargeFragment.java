@@ -40,7 +40,9 @@ import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
 import com.younge.changetheelectricity.mine.activity.BindCarActivity;
+import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
+import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 import com.younge.changetheelectricity.util.JsonUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
@@ -348,6 +350,11 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
     }
 
     @Override
+    public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
+
+    }
+
+    @Override
     public void onGetCarSuccess(BaseModel<MyCarBean> data) {
         if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
             ToastUtil.makeText(getContext(),"已监测到你的车辆");
@@ -369,6 +376,11 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
             customDialog.show();
         }
 
+
+    }
+
+    @Override
+    public void onGetMyPackageSuccess(BaseModel<PackageBean> data) {
 
     }
 

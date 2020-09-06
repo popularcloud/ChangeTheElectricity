@@ -429,7 +429,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     public void onGetCarSuccess(BaseModel<MyCarBean> data) {
         if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
             ToastUtil.makeText(getContext(),"已监测到您的车辆");
-            mPresenter.getMyCarList("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
+            mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
         }else{
 
                customDialog = new CustomDialog(getActivity());
@@ -458,14 +458,14 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
             customDialog = new CustomDialog(getActivity());
             customDialog.setTitle("温馨提示");
-            customDialog.setMessage("未监测到您的车辆");
+            customDialog.setMessage("请先购买骑行套餐，再来使用");
             customDialog.setGoneBut2();
-            customDialog.setButton1Text("绑定车辆");
+            customDialog.setButton1Text("购买套餐");
             customDialog.setCanceledOnTouchOutside(true);
             customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
                 @Override
                 public void onClick(CustomDialog dialog, int id, Object object) {
-                    startActivity(new Intent(getContext(), BindCarActivity.class));
+                    startActivity(new Intent(getContext(), PackageListActivity.class));
                 }
             });
             customDialog.show();

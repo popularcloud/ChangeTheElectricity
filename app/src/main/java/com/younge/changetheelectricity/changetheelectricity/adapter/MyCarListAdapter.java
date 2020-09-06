@@ -1,6 +1,7 @@
 package com.younge.changetheelectricity.changetheelectricity.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,7 @@ public class MyCarListAdapter extends SuperAdapter<MyCarBean.ListBean> {
 
 
         holder.setText(R.id.tv_id,item.getCarvin());
-        holder.setText(R.id.tv_battery_id,item.getBattery_id()==0?"未绑定电池":String.valueOf(item.getBattery_id()));
+        holder.setText(R.id.tv_battery_id, TextUtils.isEmpty(item.getBattery_sn())?"未绑定电池":String.valueOf(item.getBattery_sn()));
         holder.setText(R.id.tv_car_brand,item.getSerial());
         holder.setText(R.id.tv_car_num,item.getCarno());
 

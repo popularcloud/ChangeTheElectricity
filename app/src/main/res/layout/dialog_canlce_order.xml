@@ -40,7 +40,7 @@
             android:id="@+id/tv_reason_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="请选择取消订单的原因"
+            android:text=""
             android:textSize="@dimen/sp_12"
             android:textColor="@color/gray_cc"
             android:gravity="center"

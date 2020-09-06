@@ -46,6 +46,8 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
 
     private MyCarListAdapter mAdapter;
 
+    String presentOperateId;
+
     private List<MyCarBean.ListBean> allList = new ArrayList<>();
     private int page = 1;
 
@@ -98,8 +100,10 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
                 if(btn == 1){ //删除
                     mPresenter.delCar(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
                 }else{
+                    presentOperateId = String.valueOf(mAdapter.getItem(pisition).getId());
                     mPresenter.getMyBattery("1",(String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
                 }
+
             }
         });
         rv_data.setLayoutManager(new LinearLayoutManager(this));
@@ -167,15 +171,38 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
     @Override
     public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
 
-        showListDialog = new ShowListDialog(MyCarActivity.this, new ShowListDialog.CallBack() {
-            @Override
-            public void onSubmit(int position) {
-                showListDialog.dismiss();
-                //cancelLeaseOrder(reasons.get(position),myOrder.getOrderId());
-            }
-        },null,"取消订单","请选择取消订单原因",true);
-        showListDialog.show();
 
+        if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
+
+            List<MyBatteryBean.ListBean> dataList = data.getData().getList();
+            List<String> myReason = new ArrayList<>();
+
+            for(int i = 0; i < dataList.size(); i++){
+                myReason.add(String.valueOf(dataList.get(i).getId()));
+            }
+
+            showListDialog = new ShowListDialog(MyCarActivity.this, new ShowListDialog.CallBack() {
+                @Override
+                public void onSubmit(int position) {
+                    showListDialog.dismiss();
+                    if(presentOperateId != null){
+                        mPresenter.carBindBattery(myReason.get(position),presentOperateId, (String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
+                    }
+                }
+            },myReason,"改绑电池","",false);
+            showListDialog.show();
+
+        }else{
+            ToastUtil.makeText(this,"您还未添加电池！");
+        }
+
+
+    }
+
+    @Override
+    public void onCarBatteryBindSuccess(BaseModel data) {
+        ToastUtil.makeText(this,"绑定成功！");
+        mBGARefreshLayout.beginRefreshing();
     }
 
     @Override

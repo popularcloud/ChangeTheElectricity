@@ -134,6 +134,11 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
     }
 
     @Override
+    public void onCarBatteryBindSuccess(BaseModel data) {
+
+    }
+
+    @Override
     public void onDelSuccess(BaseModel data) {
 
     }

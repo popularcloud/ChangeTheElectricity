@@ -12,6 +12,8 @@ public interface MyBatteryView extends BaseView {
 
     void onGetCarSuccess(BaseModel<MyCarBean> data);
 
+    void onCarBatteryBindSuccess(BaseModel data);
+
     void onDelSuccess(BaseModel data);
 
     void onGetDataFail();

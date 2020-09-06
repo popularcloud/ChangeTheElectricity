@@ -81,4 +81,26 @@ public class MyBatteryPresenter extends BasePresenter<MyBatteryView> {
         });
     }
 
+    public void carBindBattery(String batteryId,String carId,String token) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().carBindBattery("vv/usercenter/api/car/battery_car",batteryId,carId,token), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.onCarBatteryBindSuccess((BaseModel) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
 }

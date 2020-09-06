@@ -339,4 +339,19 @@ public interface ApiServer {
                                                             @Field("group") String type,
                                                             @Field("token") String token);
 
+    /**
+     * 车辆电池绑定
+     * @param httpApi
+     * @param id
+     * @param car_id
+     * @param token
+     * @return
+     */
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/battery_car")
+    Observable<BaseModel> carBindBattery(@Field("HTTP_API") String httpApi,
+                                                            @Field("id") String id,
+                                                            @Field("car_id") String car_id,
+                                                            @Field("token") String token);
 }

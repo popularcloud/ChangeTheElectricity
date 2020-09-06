@@ -23,6 +23,7 @@ import com.younge.changetheelectricity.mine.presenter.MyBatteryPresenter;
 import com.younge.changetheelectricity.mine.view.MyBatteryView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.ShowListDialog;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
 
@@ -52,6 +53,9 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
     private List<MyBatteryBean.ListBean> allList = new ArrayList<>();
 
     int page = 1;
+
+    private ShowListDialog showListDialog;
+    private String presentOperateId;
 
     @Override
     protected MyBatteryPresenter createPresenter() {
@@ -112,7 +116,12 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
 
                 if(btn == 1){ //删除
                     mPresenter.delBattery(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
+                }else{
+                    presentOperateId = String.valueOf(mAdapter.getItem(pisition).getId());
+                    mPresenter.getMyCarList("1",(String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
                 }
+
+
             }
         });
         rv_data.setLayoutManager(new LinearLayoutManager(this));
@@ -175,7 +184,35 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
 
     @Override
     public void onGetCarSuccess(BaseModel<MyCarBean> data) {
+        if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
 
+            List<MyCarBean.ListBean> dataList = data.getData().getList();
+            List<String> myReason = new ArrayList<>();
+
+            for(int i = 0; i < dataList.size(); i++){
+                myReason.add(String.valueOf(dataList.get(i).getId()));
+            }
+
+            showListDialog = new ShowListDialog(MyBatteryActivity.this, new ShowListDialog.CallBack() {
+                @Override
+                public void onSubmit(int position) {
+                    showListDialog.dismiss();
+                    if(presentOperateId != null){
+                        mPresenter.carBindBattery(myReason.get(position),presentOperateId, (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
+                    }
+                }
+            },myReason,"改绑电池","",false);
+            showListDialog.show();
+
+        }else{
+            ToastUtil.makeText(this,"您还未绑定电池！");
+        }
+    }
+
+    @Override
+    public void onCarBatteryBindSuccess(BaseModel data) {
+        ToastUtil.makeText(this,"绑定成功！");
+        mBGARefreshLayout.beginRefreshing();
     }
 
     @Override

@@ -66,7 +66,7 @@ public class MyCarBean {
         private String picback;
         private String picleft;
         private String picright;
-        private int battery_id;
+        private String battery_sn;
         private int createtime;
         private int updatetime;
         @SerializedName("default")
@@ -144,12 +144,12 @@ public class MyCarBean {
             this.picright = picright;
         }
 
-        public int getBattery_id() {
-            return battery_id;
+        public String getBattery_sn() {
+            return battery_sn;
         }
 
-        public void setBattery_id(int battery_id) {
-            this.battery_id = battery_id;
+        public void setBattery_sn(String battery_sn) {
+            this.battery_sn = battery_sn;
         }
 
         public int getCreatetime() {
