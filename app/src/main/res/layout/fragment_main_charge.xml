@@ -136,7 +136,7 @@
             android:textSize="@dimen/sp_15"
             android:textColor="@color/white"
             android:padding="@dimen/dp_15"
-            android:text="扫码换电"/>
+            android:text="扫码充电"/>
         <LinearLayout
             android:id="@+id/ll_no_select_show"
             android:layout_width="match_parent"

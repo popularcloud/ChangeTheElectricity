@@ -29,11 +29,16 @@ import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
 import com.younge.changetheelectricity.base.MyConstants;
+import com.younge.changetheelectricity.changetheelectricity.activity.BatteryDetailActivity;
+import com.younge.changetheelectricity.changetheelectricity.activity.CharegeStatuActivity;
+import com.younge.changetheelectricity.changetheelectricity.activity.ChargeDetailActivity;
+import com.younge.changetheelectricity.changetheelectricity.activity.OperateStatuActivity;
 import com.younge.changetheelectricity.changetheelectricity.fragment.BatteryDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ShopDetailFragment;
 import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
+import com.younge.changetheelectricity.main.bean.UsingOrderBean;
 import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
 import com.younge.changetheelectricity.mine.activity.BindBatteryActivity;
@@ -97,6 +102,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     @BindView(R.id.tv_to_authentication)
     TextView tv_to_authentication;
 
+    private boolean isHasCar = false;
+
     private boolean isShow = false;
     private boolean isShop = false;
 
@@ -132,6 +139,10 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
         initMapView();
         initViewpager();
+
+        //获取正在进行的订单
+        mPresenter.getUsingOrder((String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
+
         return view;
     }
 
@@ -236,7 +247,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     }
 
     @OnClick({R.id.tv_scan,R.id.tv_changeElectricity,R.id.tv_chargeElectricity,R.id.tv_show_hide,R.id.iv_shop,
-            R.id.tv_battery_detail_txt,R.id.tv_shop_detail_txt,R.id.tv_to_authentication})
+            R.id.tv_battery_detail_txt,R.id.tv_shop_detail_txt,R.id.tv_to_authentication,R.id.tv_nav})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_scan:
@@ -246,28 +257,34 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                     getActivity().startActivity(intent);
                 }*/
 
-                customDialog = new CustomDialog(getActivity());
-                customDialog.setTitle("温馨提示");
-                customDialog.setMessage("您是否有动力风专用车");
-                customDialog.setButton1Text("是");
-                customDialog.setButton2Text("否");
-                customDialog.setCanceledOnTouchOutside(true);
-                customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
-                    @Override
-                    public void onClick(CustomDialog dialog, int id, Object object) {
-                        if(mPresenter != null){
-                            //检测是否绑定车辆
-                            mPresenter.getMyCarList("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
-                        }
-                    }
-                });
-                customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
-                    @Override
-                    public void onClick(CustomDialog dialog, int id, Object object) {
-                        customDialog.dismiss();
-                    }
-                });
-                customDialog.show();
+          if(!isHasCar){
+              customDialog = new CustomDialog(getActivity());
+              customDialog.setTitle("温馨提示");
+              customDialog.setMessage("您是否有动力风专用车");
+              customDialog.setButton1Text("是");
+              customDialog.setButton2Text("否");
+              customDialog.setCanceledOnTouchOutside(true);
+              customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                  @Override
+                  public void onClick(CustomDialog dialog, int id, Object object) {
+                      customDialog.dismiss();
+                      if(mPresenter != null){
+                          //检测是否绑定车辆
+                          mPresenter.getMyCarList("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
+                      }
+                  }
+              });
+              customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                  @Override
+                  public void onClick(CustomDialog dialog, int id, Object object) {
+                      customDialog.dismiss();
+                  }
+              });
+              customDialog.show();
+          }else{
+              mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
+          }
+
                // ((MainActivity)getActivity()).startScanActivity(MyConstants.REQUEST_CODE_SCAN_CHANGE);
 
                 break;
@@ -390,7 +407,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
 
         if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
-            ToastUtil.makeText(getContext(),"已监测到您的电池");
+           // ToastUtil.makeText(getContext(),"已监测到您的电池");
             if(userInfoDetail != null && userInfoDetail.getVerification() != 1){
                 customDialog = new CustomDialog(getActivity());
                 customDialog.setTitle("温馨提示");
@@ -428,6 +445,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     @Override
     public void onGetCarSuccess(BaseModel<MyCarBean> data) {
         if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
+            isHasCar = true;
             ToastUtil.makeText(getContext(),"已监测到您的车辆");
             mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
         }else{
@@ -448,6 +466,22 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         }
 
 
+    }
+
+    @Override
+    public void onGetUsingOrderSuccess(BaseModel<UsingOrderBean> data) {
+        if(data.getData().getInfo() != null){
+            if("0".equals(data.getData().getInfo().getGoods_type())){ //0换电 1充电
+                Intent intent = new Intent(getActivity(), OperateStatuActivity.class);
+                intent.putExtra("orderId", data.getData().getInfo().getId());
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(getActivity(), CharegeStatuActivity.class);
+                intent.putExtra("orderId", data.getData().getInfo().getId());
+                intent.putExtra("boxId",data.getData().getInfo().getStart_box());
+                startActivity(intent);
+            }
+        }
     }
 
     @Override

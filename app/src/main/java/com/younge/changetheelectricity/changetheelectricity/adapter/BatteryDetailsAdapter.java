@@ -1,6 +1,7 @@
 package com.younge.changetheelectricity.changetheelectricity.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,22 +33,18 @@ public class BatteryDetailsAdapter extends SuperAdapter<DeviceDetailBean.DeviceG
     @Override
     public void onBind(SuperViewHolder holder, int viewType, int layoutPosition, DeviceDetailBean.DeviceGoodsBean item) {
 
+        TextView tv_order = holder.findViewById(R.id.tv_order);
+        TextView tv_has = holder.findViewById(R.id.tv_has);
 
-        holder.setText(R.id.tv_title,item.getVoltage()+"V  "+ item.getVolume()+"Ah");
-      //  holder.setText(R.id.tv_has,item.getBattery().getBattery()+"%");
+        holder.setText(R.id.tv_title,item.getBattery_serial());
+        holder.setText(R.id.tv_has, item.getBattery()+"%");
         holder.setText(R.id.tv_num,String.valueOf(item.getDevice_box()));
-
-       TextView tv_order = holder.findViewById(R.id.tv_order);
-
-        if(mContext instanceof BatteryDetailActivity){
-            tv_order.setVisibility(View.GONE);
-           }
-
 
         switch (item.getStatus()){
             case 0:
-                tv_order.setText("无电池");
-                tv_order.setBackgroundResource(R.drawable.btn_blue_bg);
+                holder.setText(R.id.tv_title,"空仓");
+                tv_order.setVisibility(View.GONE);
+                tv_has.setVisibility(View.GONE);
                 break;
             case 1:
                 tv_order.setText("预\u3000约");
@@ -60,19 +57,28 @@ public class BatteryDetailsAdapter extends SuperAdapter<DeviceDetailBean.DeviceG
 
                     }
                 });
+                tv_order.setVisibility(View.VISIBLE);
+                tv_has.setVisibility(View.VISIBLE);
                 tv_order.setBackgroundResource(R.drawable.btn_blue_bg);
                 break;
             case 2:
                 tv_order.setText("已预约");
-                tv_order.setBackgroundResource(R.drawable.btn_blue_bg);
+                tv_order.setVisibility(View.VISIBLE);
+                tv_has.setVisibility(View.VISIBLE);
+                tv_order.setBackgroundResource(R.drawable.btn_gray_bg);
                 break;
             case 3:
                 tv_order.setText("故\u3000障");
-                tv_order.setBackgroundResource(R.drawable.btn_blue_bg);
+                tv_order.setVisibility(View.VISIBLE);
+                tv_has.setVisibility(View.VISIBLE);
+                tv_order.setBackgroundResource(R.drawable.btn_gray_bg);
                 break;
 
         }
 
+
+        if(mContext instanceof BatteryDetailActivity){
+            tv_order.setVisibility(View.GONE);}
         tv_order.setPadding(DisplayUtil.dip2px(mContext,15),DisplayUtil.dip2px(mContext,8),DisplayUtil.dip2px(mContext,15),DisplayUtil.dip2px(mContext,8));
 
     }

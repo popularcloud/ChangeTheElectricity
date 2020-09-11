@@ -11,6 +11,7 @@ import com.younge.changetheelectricity.main.bean.BatteryInfoBean;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailBean;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
+import com.younge.changetheelectricity.main.bean.UsingOrderBean;
 import com.younge.changetheelectricity.mine.bean.DepositHistoryBean;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
@@ -354,4 +355,16 @@ public interface ApiServer {
                                                             @Field("id") String id,
                                                             @Field("car_id") String car_id,
                                                             @Field("token") String token);
+
+    /**
+     * 获取正在进行的订单
+     * @param httpApi
+     * @param token
+     * @return
+     */
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/battery_car")
+    Observable<BaseModel<UsingOrderBean>> getUsingOrder(@Field("HTTP_API") String httpApi,
+                                                        @Field("token") String token);
 }

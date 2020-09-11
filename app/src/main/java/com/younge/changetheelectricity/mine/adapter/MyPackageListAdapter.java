@@ -23,9 +23,8 @@ public class MyPackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
     @Override
     public void onBind(SuperViewHolder holder, int viewType, int layoutPosition, PackageBean.ListBean item) {
 
-
         holder.setText(R.id.tv_title,item.getTitle());
-        holder.setText(R.id.tv_time, DateUtil.timeStamp2Date(String.valueOf(item.getEndtime()),"YYYY-MM-dd")+"到期");
+        holder.setText(R.id.tv_time, DateUtil.timeStamp2Date(String.valueOf(item.getEndtime()),"yyyy-MM-dd")+"到期");
        // holder.setText(R.id.tv_price,"￥"+item.getText().getMoney());
         switch (item.getText().getUse()){
             case "0":

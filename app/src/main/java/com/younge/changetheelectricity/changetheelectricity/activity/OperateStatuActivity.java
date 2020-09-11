@@ -182,11 +182,11 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     tv_submit.setVisibility(View.VISIBLE);
                     tv_cancel.setVisibility(View.VISIBLE);
                     if(act == 2){
-                        tv_submit.setText("重试");
-                        tv_cancel.setText("取消");
+                        tv_submit.setText("重新开门");
+                        tv_cancel.setText("结束");
                     }else{
-                        tv_submit.setText("重试");
-                        tv_cancel.setText("退回旧电池");
+                        tv_submit.setText("重新开门");
+                        tv_cancel.setText("放弃换电,退回旧电池");
                     }
                     break;
                 case 4:
@@ -197,9 +197,15 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     break;
                 case 6:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    tv_submit.setVisibility(View.VISIBLE);
+                    tv_cancel.setVisibility(View.VISIBLE);
+                    tv_submit.setText("重新打开仓门");
+                    tv_cancel.setText("空箱关门（我不换电了）");
                     break;
                 case 7:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    tv_submit.setVisibility(View.VISIBLE);
+                    tv_submit.setText("确认");
                     break;
                 case 8:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());

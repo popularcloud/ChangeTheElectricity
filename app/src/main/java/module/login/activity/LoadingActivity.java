@@ -93,10 +93,11 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
 
 
     private void gotoMain(){
-        Observable.timer(2, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
+        Observable.timer(5, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
                 d.dispose();
+                onNext(0L);
             }
 
             @Override
@@ -158,6 +159,8 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
             List<LoadingImgBean> loadingImgBeans = (List<LoadingImgBean>) data.getData();
             xBanner.setBannerData(loadingImgBeans);
         }
+
+        //gotoMain();
     }
 
     @Override
