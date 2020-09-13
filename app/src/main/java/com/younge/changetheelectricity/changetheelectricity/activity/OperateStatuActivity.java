@@ -1,7 +1,12 @@
 package com.younge.changetheelectricity.changetheelectricity.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
@@ -11,6 +16,7 @@ import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBea
 import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.presenter.ChargeStatusPresenter;
 import com.younge.changetheelectricity.changetheelectricity.view.ChargeStatusView;
+import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -22,6 +28,8 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import module.login.activity.LoadingActivity;
+import module.login.activity.LoginActivity;
 
 /**
  * 换电状态
@@ -38,6 +46,8 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
     TextView tv_cancel;
     @BindView(R.id.tv_submit)
     TextView tv_submit;
+    @BindView(R.id.iv_header)
+    ImageView iv_header;
 
     private String orderId;
 
@@ -72,7 +82,6 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 mPresenter.getOrderStatus(orderId, (String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
             }
         });
-
     }
 
     @Override
@@ -133,6 +142,7 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 });
     }
 
+
     /**
      * 取消订阅
      */
@@ -157,7 +167,7 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
             5电池正在验证中，请耐心等待(定时器轮询)
             6未检测到电池，请检查是否连接好充电线(重试调start)(结束调cancel)
             7电池验证失败，请取走您的旧电池，并关好仓门(确认调start)
-            8电池验证通过，归还成功(倒数3秒调start)
+            8电池验证通过，归还成功
             */
 
             act = data.getData().getResult().getAct();
@@ -165,20 +175,23 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
             tv_submit.setVisibility(View.GONE);
             tv_cancel.setVisibility(View.GONE);
 
+            tv_msg.setText(chargeStatusBean.getResult().getMessage());
+
             switch (chargeStatusBean.getResult().getStatus()){
                 case 0:
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    iv_header.setImageResource(R.mipmap.ic_cdz);
                     break;
                 case 1: //换电完成
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    tv_msg.setText(chargeStatusBean.getResult().getMessage()+" 三秒钟后将回到主页面");
+                    iv_header.setImageResource(R.mipmap.ic_wc);
                     cancel();
-                    finish();
+                    exitDelay();
                     break;
                 case 2:
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    iv_header.setImageResource(R.mipmap.ic_wc);
                     break;
                 case 3:
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    iv_header.setImageResource(R.mipmap.ic_jg);
                     tv_submit.setVisibility(View.VISIBLE);
                     tv_cancel.setVisibility(View.VISIBLE);
                     if(act == 2){
@@ -190,29 +203,43 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     }
                     break;
                 case 4:
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    iv_header.setImageResource(R.mipmap.ic_cdz);
                     break;
                 case 5:
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    iv_header.setImageResource(R.mipmap.ic_cdz);
                     break;
                 case 6:
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    iv_header.setImageResource(R.mipmap.ic_jg);
                     tv_submit.setVisibility(View.VISIBLE);
                     tv_cancel.setVisibility(View.VISIBLE);
                     tv_submit.setText("重新打开仓门");
                     tv_cancel.setText("空箱关门（我不换电了）");
                     break;
                 case 7:
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    iv_header.setImageResource(R.mipmap.ic_jg);
                     tv_submit.setVisibility(View.VISIBLE);
                     tv_submit.setText("确认");
                     break;
                 case 8:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    iv_header.setImageResource(R.mipmap.ic_wc);
                     break;
                 case 9:
-                    tv_msg.setText(chargeStatusBean.getResult().getMessage());
+                    tv_msg.setText(chargeStatusBean.getResult().getMessage()+"三秒钟后将回到主页面");
+                    iv_header.setImageResource(R.mipmap.ic_wc);
+                    exitDelay();
                     cancel();
+                    break;
+                case 10:
+                    iv_header.setImageResource(R.mipmap.ic_jg);
+                    tv_submit.setVisibility(View.VISIBLE);
+                    tv_submit.setText("重新打开仓门");
+                    break;
+                case 11:
+                    iv_header.setImageResource(R.mipmap.ic_wc);
+                    tv_msg.setText(chargeStatusBean.getResult().getMessage()+"三秒钟后将回到主页面");
+                    cancel();
+                    exitDelay();
                     break;
 
             }
@@ -226,14 +253,45 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
 
     }
 
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            finish();
+        }
+    };
+
+
+    private void exitDelay(){
+        mHandler.sendEmptyMessageDelayed(1, 3*1000);
+    }
+
     @Override
     public void onCancelSuccess(BaseModel<StartResultBean> data) {
-
-        finish();
+        //finish();
     }
 
     @Override
     public void onGetDataFail() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDisposable != null && mDisposable.isDisposed() && !TextUtils.isEmpty(orderId)) {
+            interval(2000, new CharegeStatuActivity.RxAction() {
+                @Override
+                public void action(long number) {
+                    mPresenter.getOrderStatus(orderId, (String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cancel();
     }
 }

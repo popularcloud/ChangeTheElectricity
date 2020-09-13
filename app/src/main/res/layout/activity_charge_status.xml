@@ -3,7 +3,7 @@
     android:id="@+id/my_content_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@mipmap/ic_statu_bg"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
     <include layout="@layout/include_title_bar" />
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/cte_logo"/>
+            android:src="@mipmap/ic_cdz"/>
         <TextView
             android:id="@+id/tv_time"
             android:visibility="gone"
@@ -28,13 +28,13 @@
             android:textColor="@color/black_33"
             android:text="00:00:00"/>
     </RelativeLayout>
-
     <TextView
         android:id="@+id/tv_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:layout_marginTop="@dimen/dp_20"
         android:textColor="@color/black_33"
         android:textSize="@dimen/sp_16"
         android:text="5号插座已通电，请插入充电"></TextView>

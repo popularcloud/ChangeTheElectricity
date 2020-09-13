@@ -19,6 +19,7 @@ import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
+import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
@@ -75,8 +76,6 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     TextView tv_changeElectricity;
     @BindView(R.id.tv_chargeElectricity)
     TextView tv_chargeElectricity;
-    @BindView(R.id.tv_show_hide)
-    TextView tv_show_hide;
     @BindView(R.id.ll_no_select_show)
     LinearLayout ll_no_select_show;
     @BindView(R.id.iv_shop)
@@ -168,13 +167,15 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW) ;//连续定位 10秒
         myLocationStyle.interval(60000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
        // myLocationStyle.showMyLocation(true);
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                .decodeResource(getResources(),R.mipmap.ic_car_location)));
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
 
         aMap.getUiSettings().setMyLocationButtonEnabled(true); //设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 
         //设置希望展示的地图缩放级别
-        CameraUpdate mCameraUpdate=CameraUpdateFactory.zoomTo(17);
+        CameraUpdate mCameraUpdate=CameraUpdateFactory.zoomTo(16);
         aMap.moveCamera(mCameraUpdate);
 
         mUiSettings.setZoomControlsEnabled(true);

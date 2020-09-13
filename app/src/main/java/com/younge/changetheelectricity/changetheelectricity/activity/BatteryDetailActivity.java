@@ -183,6 +183,7 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
                 Intent intent = new Intent(BatteryDetailActivity.this, OperateStatuActivity.class);
                 intent.putExtra("orderId", data.getData().getOrder_id());
                 startActivity(intent);
+                finish();
             }else{
                 ToastUtil.makeText(BatteryDetailActivity.this,"预约成功");
                 ll_order_battery.setVisibility(View.VISIBLE);

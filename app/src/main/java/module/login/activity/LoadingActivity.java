@@ -2,7 +2,10 @@ package module.login.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -27,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import module.login.bean.LoadingImgBean;
 import module.login.presenter.LoadingPresenter;
@@ -69,40 +73,61 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
 
     }
 
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String token = (String) SharedPreferencesUtils.getParam(LoadingActivity.this,"token","");
+
+            if(TextUtils.isEmpty(token)){
+                startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
+            }else{
+                startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+            }
+
+            finish();
+        }
+    };
+
 
     @Override
     protected void initGetData() {
         mPresenter.getLoadingImage();
-
         AndPermission.with(LoadingActivity.this)
                 .runtime()
                 .permission(permissions)
                 .onGranted(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-                        gotoMain();
+                        mHandler.sendEmptyMessageDelayed(1, 5*1000);
                     }
                 })
                 .onDenied(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-                        gotoMain();
+                        mHandler.sendEmptyMessageDelayed(1, 5*1000);
                     }
                 }).start();
     }
 
 
+
+
     private void gotoMain(){
-        Observable.timer(5, TimeUnit.SECONDS).subscribe(new Observer<Long>() {
+
+        Observable.timer(2000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {
                 d.dispose();
-                onNext(0L);
+              //  onNext(0L);
+                Log.e("rxlog","onSubscribe");
             }
 
             @Override
             public void onNext(Long aLong) {
-
+                Log.e("rxlog","onNext");
                 String token = (String) SharedPreferencesUtils.getParam(LoadingActivity.this,"token","");
 
                 if(TextUtils.isEmpty(token)){
@@ -112,14 +137,17 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
                 }
 
                 finish();
-
             }
 
             @Override
-            public void onError(Throwable e) {}
+            public void onError(Throwable e) {
+                Log.e("rxlog","onError"+e.getMessage());
+            }
 
             @Override
-            public void onComplete() {}
+            public void onComplete() {
+                Log.e("rxlog","onComplete");
+            }
         });
     }
 
