@@ -238,8 +238,6 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 case 11:
                     iv_header.setImageResource(R.mipmap.ic_wc);
                     tv_msg.setText(chargeStatusBean.getResult().getMessage()+"三秒钟后将回到主页面");
-                    cancel();
-                    exitDelay();
                     break;
 
             }
