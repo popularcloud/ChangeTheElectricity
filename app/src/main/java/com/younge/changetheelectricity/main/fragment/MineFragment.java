@@ -20,6 +20,7 @@ import com.younge.changetheelectricity.mine.activity.PersonalInfoActivity;
 import com.younge.changetheelectricity.mine.activity.RealNameAuthentication01Activity;
 import com.younge.changetheelectricity.mine.activity.SettingActivity;
 import com.younge.changetheelectricity.mine.activity.ShareSettingActivity;
+import com.younge.changetheelectricity.mine.bean.PageInfoBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 import com.younge.changetheelectricity.mine.presenter.MinePresenter;
 import com.younge.changetheelectricity.mine.view.MineView;
@@ -128,6 +129,11 @@ public class MineFragment extends MyBaseFragment<MinePresenter> implements MineV
 
 
        // tv_status.setText(userinfoBean.getVerification_desc());
+
+    }
+
+    @Override
+    public void onGetAboutUsSuccess(BaseModel<PageInfoBean> data) {
 
     }
 

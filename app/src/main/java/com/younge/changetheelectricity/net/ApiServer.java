@@ -15,12 +15,12 @@ import com.younge.changetheelectricity.main.bean.UsingOrderBean;
 import com.younge.changetheelectricity.mine.bean.DepositHistoryBean;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
-import com.younge.changetheelectricity.mine.bean.MyWxBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.bean.ShareSettingBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
+import com.younge.changetheelectricity.mine.bean.PageInfoBean;
 
 import java.util.List;
 
@@ -367,4 +367,18 @@ public interface ApiServer {
     @Headers("HTTP_API: vv/usercenter/api/car/battery_car")
     Observable<BaseModel<UsingOrderBean>> getUsingOrder(@Field("HTTP_API") String httpApi,
                                                         @Field("token") String token);
+
+
+    /**
+     * 文案
+     * @param httpApi
+     * @param token
+     * @return
+     */
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/cms/api/my/page")
+    Observable<BaseModel<PageInfoBean>> aboutUs(@Field("HTTP_API") String httpApi,
+                                                             @Field("name") String about,
+                                                             @Field("token") String token);
 }

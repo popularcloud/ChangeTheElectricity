@@ -23,7 +23,7 @@ public class UserHistoryAdapter extends SuperAdapter<UserHistoryBean.ListBean> {
     public void onBind(SuperViewHolder holder, int viewType, int layoutPosition, UserHistoryBean.ListBean item) {
 
         holder.setText(R.id.tv_title,item.getTitle());
-        holder.setText(R.id.tv_title, DateUtil.timeStamp2Date(String.valueOf(item.getCreatetime()),"yyyy-MM-dd HH:mm:ss"));
+        holder.setText(R.id.tv_time, DateUtil.timeStamp2Date(String.valueOf(item.getCreatetime()),"yyyy-MM-dd HH:mm:ss"));
         holder.setText(R.id.tv_shopName,item.getSeller().getNickname());
     }
 }

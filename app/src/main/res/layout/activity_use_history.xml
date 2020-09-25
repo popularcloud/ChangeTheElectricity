@@ -3,7 +3,7 @@
     android:id="@+id/my_content_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/f0_gray_line"
+    android:background="@color/gray_fa"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
     <include layout="@layout/include_title_bar" />
@@ -15,10 +15,11 @@
         android:textColor="@color/gray_99"
         android:textSize="@dimen/sp_16"
         android:padding="@dimen/dp_15"
-        android:text="当前电池（3242343243223）"/>
+        android:text="当前电池"/>
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
         android:id="@+id/mBGARefreshLayout"
         android:layout_width="match_parent"
+        android:background="@drawable/item_white_circle"
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_data"

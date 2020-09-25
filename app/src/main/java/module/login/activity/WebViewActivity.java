@@ -1,6 +1,7 @@
 package module.login.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
@@ -38,16 +39,23 @@ public class WebViewActivity extends BaseActivity {
 
         String url = getIntent().getStringExtra("url");
         String title = getIntent().getStringExtra("title");
+        String content = getIntent().getStringExtra("content");
 
         tv_center_title.setText(title);
-        wv_data.loadUrl(url);
 
-        rl_fanhui_left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        if(TextUtils.isEmpty(url)){
+            wv_data.loadData(content,"text/html","UTF-8");
+        }else{
+            wv_data.loadUrl(url);
+
+            rl_fanhui_left.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+
     }
 
 
