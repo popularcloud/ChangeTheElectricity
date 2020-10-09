@@ -1,2 +1,3 @@
+include ':shareandthirdlogin'
 include ':app'
 rootProject.name='ChangeTheElectricity'

@@ -37,7 +37,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name="module.login.activity.LoadingActivity">
+        <activity android:name=".login.activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,8 +69,8 @@
         <activity android:name=".mine.activity.UseHistoryActivity" />
         <activity android:name=".mine.activity.MyDepositActivity" />
         <activity android:name=".mine.activity.DepositHistoryActivity" />
-        <activity android:name="module.login.activity.LoginActivity" />
-        <activity android:name="module.login.activity.WebViewActivity" />
+        <activity android:name=".login.activity.LoginActivity" />
+        <activity android:name=".login.activity.WebViewActivity" />
         <activity android:name=".mine.activity.PackageListActivity" />
         <activity android:name=".mine.activity.RechargeCenterActivity" />
         <activity android:name=".mine.activity.SettingActivity" />
@@ -95,5 +95,10 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <!--微信-->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 </manifest>

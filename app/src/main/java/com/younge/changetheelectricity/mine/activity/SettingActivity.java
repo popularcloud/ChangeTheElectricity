@@ -1,31 +1,17 @@
 package com.younge.changetheelectricity.mine.activity;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.Dialog;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.younge.changetheelectricity.R;
-import com.younge.changetheelectricity.base.BaseActivity;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
-import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PageInfoBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 import com.younge.changetheelectricity.mine.presenter.MinePresenter;
@@ -35,13 +21,11 @@ import com.younge.changetheelectricity.util.ToastUtil;
 
 import java.io.File;
 import java.text.DecimalFormat;
-import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import module.login.activity.LoginActivity;
-import module.login.activity.WebViewActivity;
+import com.younge.changetheelectricity.login.activity.LoginActivity;
+import com.younge.changetheelectricity.login.activity.WebViewActivity;
 
 /**
  * 设置

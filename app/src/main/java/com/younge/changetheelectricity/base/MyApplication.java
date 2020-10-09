@@ -2,12 +2,16 @@ package com.younge.changetheelectricity.base;
 
 import android.app.Application;
 
+import androidx.multidex.MultiDex;
+
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
 
 public class MyApplication extends Application {
 
@@ -16,14 +20,17 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // 初始化MultiDex
+        MultiDex.install(this);
         //注册微信
-        IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, "wx197fcf39e65d69a9", true);
-        mWxApi.registerApp("wx197fcf39e65d69a9");
+   /*     IWXAPI mWxApi = WXAPIFactory.createWXAPI(this, "wx197fcf39e65d69a9", true);
+        mWxApi.registerApp("wx197fcf39e65d69a9");*/
 
         //初始化二维码扫描
        // ZXingLibrary.initDisplayOpinion(this);
 
         initLogger();
+        initUmeng();
     }
 
 
@@ -41,6 +48,16 @@ public class MyApplication extends Application {
                 return true;
             }
         });
+    }
+
+    private void initUmeng() {
+        UMConfigure.init(this,"5f0d9287dbc2ec0841e9cad0","umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
+        UMConfigure.setLogEnabled(true);
+
+
+        //友盟分享
+        // 微信 appid appsecret
+        PlatformConfig.setWeixin("wx197fcf39e65d69a9", "ebb31de9cb77fcff21256d2f2f593580");
     }
 
 }

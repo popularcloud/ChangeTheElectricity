@@ -31,5 +31,5 @@
         android:paddingRight="@dimen/dp_15"
         android:background="@drawable/btn_gray_bg_circle_line"
         android:text="立即体验"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 </FrameLayout>

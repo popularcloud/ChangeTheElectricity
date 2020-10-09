@@ -1,0 +1,108 @@
+package com.younge.changetheelectricity.login.presenter;
+
+import com.younge.changetheelectricity.base.BaseModel;
+import com.younge.changetheelectricity.base.BaseObserver;
+import com.younge.changetheelectricity.base.BasePresenter;
+import com.younge.changetheelectricity.mine.bean.UserInfoBean;
+import com.younge.changetheelectricity.net.ApiRetrofit;
+
+import com.younge.changetheelectricity.login.bean.LoginBean;
+import com.younge.changetheelectricity.login.view.LoginView;
+
+public class LoginPresenter extends BasePresenter<LoginView> {
+
+    public LoginPresenter(LoginView baseView) {
+        super(baseView);
+    }
+
+    public void getPhoneCode(String mobile){
+        addDisposable(ApiRetrofit.getInstance().getApiService().getPhoneCode("vv/sms/api/index/send",mobile,"mobilebind"), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.ongetCodeSuccess((BaseModel<Object>) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
+    public void loginByCode(String mobile,String code,String pid){
+        addDisposable(ApiRetrofit.getInstance().getApiService().loginByCode("vv/usercenter/api/user/login","mobile",mobile,code,pid), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.onLoginSuccess((BaseModel<LoginBean>) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
+
+
+    public void getPersonalInfo(String token){
+        addDisposable(ApiRetrofit.getInstance().getApiService().getPersonalInfo("vv/usercenter/api/user/profile",token), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.onGetUserInfoSuccess((BaseModel<UserInfoBean>) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
+    public void wechatLogin(String unionid,String openid,String avatar,String gender,String nickname,String pid){
+        addDisposable(ApiRetrofit.getInstance().getApiService().loginByWeChat("vv/usercenter/api/user/login","wechat.app",unionid,openid,avatar,gender,nickname,pid), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.onWeChatLoginSuccess((BaseModel<LoginBean>) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
+}

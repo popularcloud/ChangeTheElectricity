@@ -3,7 +3,7 @@ package com.younge.changetheelectricity.mine.view;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseView;
 
-import module.login.bean.LoginBean;
+import com.younge.changetheelectricity.login.bean.LoginBean;
 
 public interface LoginView extends BaseView {
 

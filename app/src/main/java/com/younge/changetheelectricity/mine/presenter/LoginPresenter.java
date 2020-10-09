@@ -5,8 +5,8 @@ import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
 import com.younge.changetheelectricity.net.ApiRetrofit;
 
-import module.login.bean.LoginBean;
-import module.login.view.LoginView;
+import com.younge.changetheelectricity.login.bean.LoginBean;
+import com.younge.changetheelectricity.login.view.LoginView;
 
 public class LoginPresenter extends BasePresenter<LoginView> {
 

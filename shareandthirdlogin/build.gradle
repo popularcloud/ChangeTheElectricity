@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+    api files('libs/SecurityEnvSDK-release-1.1.0.jar')
+    api files('libs/umeng-common-2.0.2.jar')
+    api files('libs/umeng-share-core-6.9.4.jar')
+    api files('libs/umeng-share-QQ-simplify-6.9.4.jar')
+    api files('libs/umeng-share-sina-simplify-6.9.4.jar')
+    api files('libs/umeng-share-wechat-full-6.9.4.jar')
+    api files('libs/umeng-shareboard-widget-6.9.4.jar')
+    api files('libs/umeng-sharetool-6.9.4.jar')
+    api files('libs/wechat-sdk-android-without-mta-5.1.4.jar')
+}

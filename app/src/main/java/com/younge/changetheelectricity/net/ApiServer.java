@@ -25,8 +25,8 @@ import com.younge.changetheelectricity.mine.bean.PageInfoBean;
 import java.util.List;
 
 import io.reactivex.Observable;
-import module.login.bean.LoadingImgBean;
-import module.login.bean.LoginBean;
+import com.younge.changetheelectricity.login.bean.LoadingImgBean;
+import com.younge.changetheelectricity.login.bean.LoginBean;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -55,6 +55,19 @@ public interface ApiServer {
     @Headers("HTTP_API: vv/usercenter/api/user/login")
     Observable<BaseModel<LoginBean>> loginByCode(@Field("HTTP_API") String httpApi, @Field("platform") String platform,
                                                  @Field("mobile") String mobile, @Field("smscode") String smscode, @Field("pid") String pid);
+
+    //微信登录
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/user/login")
+    Observable<BaseModel<LoginBean>> loginByWeChat(@Field("HTTP_API") String httpApi,
+                                                   @Field("platform") String platform,
+                                                   @Field("unionid") String unionid, //微信unionid
+                                                   @Field("openid") String openid, //微信openid
+                                                   @Field("avatar") String avatar,
+                                                   @Field("gender") String gender,
+                                                   @Field("nickname") String nickname,
+                                                   @Field("pid") String pid);
 
     //手机一键登录
     @POST("/api/index")

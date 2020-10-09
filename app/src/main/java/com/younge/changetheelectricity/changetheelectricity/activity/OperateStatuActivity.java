@@ -1,6 +1,5 @@
 package com.younge.changetheelectricity.changetheelectricity.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +15,6 @@ import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBea
 import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.presenter.ChargeStatusPresenter;
 import com.younge.changetheelectricity.changetheelectricity.view.ChargeStatusView;
-import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -28,8 +26,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import module.login.activity.LoadingActivity;
-import module.login.activity.LoginActivity;
 
 /**
  * 换电状态

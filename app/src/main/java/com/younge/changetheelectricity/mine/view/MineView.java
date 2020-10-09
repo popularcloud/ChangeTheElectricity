@@ -5,10 +5,6 @@ import com.younge.changetheelectricity.base.BaseView;
 import com.younge.changetheelectricity.mine.bean.PageInfoBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 
-import java.util.List;
-
-import module.login.bean.LoadingImgBean;
-
 public interface MineView extends BaseView {
 
     void onGetDataSuccess(BaseModel<UserInfoBean> data);
