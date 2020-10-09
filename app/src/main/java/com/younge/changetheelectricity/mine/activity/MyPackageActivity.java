@@ -46,8 +46,8 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
     TextView tv_msg;
     @BindView(R.id.tv_sn)
     TextView tv_sn;
-    @BindView(R.id.ll_no_use)
-    LinearLayout ll_no_use;
+//    @BindView(R.id.ll_no_use)
+//    LinearLayout ll_no_use;
     @BindView(R.id.mBGARefreshLayout)
     BGARefreshLayout mBGARefreshLayout;
     private MyPackageListAdapter mAdapter;

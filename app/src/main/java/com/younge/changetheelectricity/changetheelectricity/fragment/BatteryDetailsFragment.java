@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetai
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
 import com.younge.changetheelectricity.main.view.DeviceDetailView;
+import com.younge.changetheelectricity.util.DisplayUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 
@@ -46,6 +48,11 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     TextView tv_title01;
     @BindView(R.id.tv_msg)
     TextView tv_msg;
+
+    @BindView(R.id.tv_has_bg)
+    TextView tv_has_bg;
+    @BindView(R.id.tv_has)
+    TextView tv_has;
 
     private BatteryDetailsAdapter mAdapter;
 
@@ -136,13 +143,24 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
                 ll_order_battery.setVisibility(View.VISIBLE);
                 rv_data.setVisibility(View.GONE);
 
+                List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
+                for(int i = 0;i < deviceGoodsBeans.size();i++){
+                    if(appointmentBean.getMy_order().getStart_box() == deviceGoodsBeans.get(i).getDevice_box()){
+                        tv_has.setText(deviceGoodsBeans.get(i).getBattery()+"%");
+                        //计算电量背景的长度
+                        float bgLength =  80 * (deviceGoodsBeans.get(i).getBattery()/100);
+                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv_has_bg.getLayoutParams();
+                        layoutParams.width = DisplayUtil.dip2px(getContext(),bgLength);
+                    }
+                }
+
                 tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStart_box()+"号电池");
-                tv_msg.setText("请于"+appointmentBean.getAppointment_minute()+"分钟内到此门店更换，过时将自动取消预约\\n本月剩余次数："+appointmentBean.getAppointment_minute()+"次");
+                tv_msg.setText("请于"+appointmentBean.getAppointment_minute()+"分钟内到此门店更换，过时将自动取消预约\n本月剩余次数："+(appointmentBean.getAppointment_count()-appointmentBean.getMy_count())+"次");
 
             }else{
                 ll_order_battery.setVisibility(View.GONE);
                 rv_data.setVisibility(View.VISIBLE);
-                tv_battery_account.setText("电池数量："+ data.getData().getBox());
+                tv_battery_account.setText("电池数量："+ data.getData().getBox()+"个");
                 tv_num.setText("电柜编号："+macno);
 
                 List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
@@ -162,8 +180,10 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     @Override
     public void onOrderSuccess(BaseModel<OrderResultBean> data) {
         ToastUtil.makeText(getContext(),"预约成功");
-        ll_order_battery.setVisibility(View.VISIBLE);
-        rv_data.setVisibility(View.GONE);
+        /*ll_order_battery.setVisibility(View.VISIBLE);
+        rv_data.setVisibility(View.GONE);*/
+
+        mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
     }
 
     @Override

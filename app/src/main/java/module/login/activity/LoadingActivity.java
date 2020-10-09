@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.stx.xhb.xbanner.XBanner;
@@ -40,6 +41,8 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
 
     @BindView(R.id.xbanner)
     XBanner xBanner;
+    @BindView(R.id.tv_go_in)
+    TextView tv_go_in;
 
     private String [] permissions = new String[]{
             Permission.CAMERA,
@@ -52,6 +55,8 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
     private BatteryDetailsAdapter mAdapter;
 
     private List<BatteryDetailsBean> allList = new ArrayList<>();
+
+    private List<LoadingImgBean> loadingImgBeans = new ArrayList<>();
 
     @Override
     protected LoadingPresenter createPresenter() {
@@ -99,13 +104,13 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
                 .onGranted(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-                        mHandler.sendEmptyMessageDelayed(1, 5*1000);
+                       // mHandler.sendEmptyMessageDelayed(1, 5*1000);
                     }
                 })
                 .onDenied(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-                        mHandler.sendEmptyMessageDelayed(1, 5*1000);
+                       // mHandler.sendEmptyMessageDelayed(1, 5*1000);
                     }
                 }).start();
     }
@@ -162,6 +167,22 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
                 //2、返回的图片路径为Object类型，你只需要强转成你传输的类型就行，切记不要胡乱强转！
                 LoadingImgBean loadingImgBean = (LoadingImgBean) model;
                 Glide.with(LoadingActivity.this).load(loadingImgBean.getImage()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into((ImageView) view);
+
+                if(position == loadingImgBeans.size() -1 && position != 0){
+                    tv_go_in.setVisibility(View.VISIBLE);
+                    tv_go_in.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String token = (String) SharedPreferencesUtils.getParam(LoadingActivity.this,"token","");
+
+                            if(TextUtils.isEmpty(token)){
+                                startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
+                            }else{
+                                startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+                            }
+                        }
+                    });
+                }
             }
         });
 
@@ -176,6 +197,8 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
                 }else{
                     startActivity(new Intent(LoadingActivity.this, MainActivity.class));
                 }
+
+                finish();
             }
         });
     }
@@ -184,7 +207,7 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
     @Override
     public void onGetDataSuccess(BaseModel<List<LoadingImgBean>> data) {
         if (data != null) {
-            List<LoadingImgBean> loadingImgBeans = (List<LoadingImgBean>) data.getData();
+            loadingImgBeans = (List<LoadingImgBean>) data.getData();
             xBanner.setBannerData(loadingImgBeans);
         }
 

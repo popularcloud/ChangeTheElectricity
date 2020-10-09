@@ -101,7 +101,7 @@ public class ShopDetailFragment extends MyBaseFragment<ShopDetailPresenter> impl
     public void onGetShopDetailSuccess(BaseModel<ShopDetailBean> data) {
 
         if(data != null && data.getData() != null){
-            tv_num.setText(String.valueOf(data.getData().getAdmin_id()));
+            tv_num.setText(macno);
             if(data.getData().getDevice_goods_stats() != null ){
                 List<ShopDetailBean.DeviceGoodsStatsBean> deviceGoodsStatsBeans = data.getData().getDevice_goods_stats();
                 StringBuilder stringBuilder = new StringBuilder();

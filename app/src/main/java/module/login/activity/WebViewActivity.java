@@ -43,17 +43,18 @@ public class WebViewActivity extends BaseActivity {
 
         tv_center_title.setText(title);
 
+
+        rl_fanhui_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         if(TextUtils.isEmpty(url)){
             wv_data.loadData(content,"text/html","UTF-8");
         }else{
             wv_data.loadUrl(url);
-
-            rl_fanhui_left.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
         }
 
     }

@@ -96,10 +96,10 @@ public class BindBatteryActivity extends MyBaseActivity<GetBetteryInfoPresenter>
     public void onGetBatteryInfoSuccess(BaseModel<BatteryInfoBean> data) {
 
         if(data != null && data.getData() != null){
-            tv_remain.setText(String.valueOf(data.getData().getBattery()));
+            tv_remain.setText(data.getData().getBattery()+"%");
             tv_sn_num.setText(data.getData().getSn());
-            tv_num.setText(data.getData().getSerial());
-            tv_type.setText(data.getData().getVoltage());
+            tv_num.setText(data.getData().getNo());
+            tv_type.setText(data.getData().getSerial());
         }else{
             ToastUtil.makeText(BindBatteryActivity.this,"电池SN码不存在");
             finish();

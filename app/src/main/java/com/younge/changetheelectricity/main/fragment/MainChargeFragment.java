@@ -42,6 +42,7 @@ import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
 import com.younge.changetheelectricity.mine.activity.BindBatteryActivity;
 import com.younge.changetheelectricity.mine.activity.BindCarActivity;
+import com.younge.changetheelectricity.mine.activity.MyBatteryActivity;
 import com.younge.changetheelectricity.mine.activity.PackageListActivity;
 import com.younge.changetheelectricity.mine.activity.RealNameAuthentication01Activity;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
@@ -397,6 +398,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                     @Override
                     public void onClick(CustomDialog dialog, int id, Object object) {
                         startActivity(new Intent(getContext(), RealNameAuthentication01Activity.class));
+                        customDialog.dismiss();
                     }
                 });
                 customDialog.show();
@@ -413,7 +415,8 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
             customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
                 @Override
                 public void onClick(CustomDialog dialog, int id, Object object) {
-                    startActivity(new Intent(getContext(), BindBatteryActivity.class));
+                    startActivity(new Intent(getContext(), MyBatteryActivity.class));
+                    customDialog.dismiss();
                 }
             });
             customDialog.show();
@@ -437,6 +440,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                 @Override
                 public void onClick(CustomDialog dialog, int id, Object object) {
                     startActivity(new Intent(getContext(), BindCarActivity.class));
+                    customDialog.dismiss();
                 }
             });
             customDialog.show();
@@ -466,6 +470,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                 @Override
                 public void onClick(CustomDialog dialog, int id, Object object) {
                     startActivity(new Intent(getContext(), PackageListActivity.class));
+                    customDialog.dismiss();
                 }
             });
             customDialog.show();

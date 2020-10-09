@@ -3,6 +3,8 @@ package com.younge.changetheelectricity.changetheelectricity.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
@@ -35,16 +37,41 @@ public class BatteryDetailsAdapter extends SuperAdapter<DeviceDetailBean.DeviceG
 
         TextView tv_order = holder.findViewById(R.id.tv_order);
         TextView tv_has = holder.findViewById(R.id.tv_has);
+        RelativeLayout ll_battery_bg = holder.findViewById(R.id.ll_battery_bg);
+        TextView tv_has_bg = holder.findViewById(R.id.tv_has_bg);
+        TextView tv_charge_time = holder.findViewById(R.id.tv_charge_time);
 
         holder.setText(R.id.tv_title,item.getBattery_serial());
         holder.setText(R.id.tv_has, item.getBattery()+"%");
         holder.setText(R.id.tv_num,String.valueOf(item.getDevice_box()));
 
+        ll_battery_bg.setVisibility(View.VISIBLE);
+
+        //计算电量背景的长度
+
+        float bgLength =  80 * (item.getBattery()/100);
+
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv_has_bg.getLayoutParams();
+        layoutParams.width = DisplayUtil.dip2px(mContext,bgLength);
+
+
+        //tv_has_bg.setWidth(DisplayUtil.dip2px(mContext,bgLength));
+
+        tv_charge_time.setVisibility(View.GONE);
         switch (item.getStatus()){
             case 0:
-                holder.setText(R.id.tv_title,"空仓");
-                tv_order.setVisibility(View.GONE);
-                tv_has.setVisibility(View.GONE);
+                if(TextUtils.isEmpty(item.getMacno())){//空仓
+                    holder.setText(R.id.tv_title,"空仓");
+                    tv_order.setVisibility(View.GONE);
+                    tv_has.setVisibility(View.GONE);
+                    ll_battery_bg.setVisibility(View.GONE);
+                }else{ //充电中
+
+                    if(item.getCharge_minute() != 0){
+                        tv_charge_time.setVisibility(View.VISIBLE);
+                        tv_charge_time.setText("约"+item.getCharge_minute()+"分钟可充满");
+                    }
+                }
                 break;
             case 1:
                 tv_order.setText("预\u3000约");

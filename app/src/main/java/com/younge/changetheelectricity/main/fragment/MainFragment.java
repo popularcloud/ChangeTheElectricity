@@ -44,6 +44,7 @@ import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
 import com.younge.changetheelectricity.mine.activity.BindBatteryActivity;
 import com.younge.changetheelectricity.mine.activity.BindCarActivity;
+import com.younge.changetheelectricity.mine.activity.MyBatteryActivity;
 import com.younge.changetheelectricity.mine.activity.PackageListActivity;
 import com.younge.changetheelectricity.mine.activity.RealNameAuthentication01Activity;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
@@ -420,6 +421,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                     @Override
                     public void onClick(CustomDialog dialog, int id, Object object) {
                         startActivity(new Intent(getContext(), RealNameAuthentication01Activity.class));
+                        customDialog.dismiss();
                     }
                 });
                 customDialog.show();
@@ -436,7 +438,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
             customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
                 @Override
                 public void onClick(CustomDialog dialog, int id, Object object) {
-                    startActivity(new Intent(getContext(), BindBatteryActivity.class));
+                    startActivity(new Intent(getContext(), MyBatteryActivity.class));
+                    customDialog.dismiss();
                 }
             });
             customDialog.show();
@@ -461,6 +464,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                    @Override
                    public void onClick(CustomDialog dialog, int id, Object object) {
                        startActivity(new Intent(getContext(), BindCarActivity.class));
+                       customDialog.dismiss();
                    }
                });
             customDialog.show();
@@ -471,7 +475,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     @Override
     public void onGetUsingOrderSuccess(BaseModel<UsingOrderBean> data) {
-        if(data.getData().getInfo() != null){
+        if(data.getData() != null && data.getData().getInfo().getOrder_type() == 0){  //"order_type": 1,//0普通  1预约
             if("0".equals(data.getData().getInfo().getGoods_type())){ //0换电 1充电
                 Intent intent = new Intent(getActivity(), OperateStatuActivity.class);
                 intent.putExtra("orderId", data.getData().getInfo().getId());
@@ -501,6 +505,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 @Override
                 public void onClick(CustomDialog dialog, int id, Object object) {
                     startActivity(new Intent(getContext(), PackageListActivity.class));
+                    customDialog.dismiss();
                 }
             });
             customDialog.show();

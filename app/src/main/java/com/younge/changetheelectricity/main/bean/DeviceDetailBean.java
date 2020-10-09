@@ -363,8 +363,8 @@ public class DeviceDetailBean {
          */
 
         private String appointment_minute;
-        private String appointment_count;
-        private int my_count;
+        private Integer appointment_count;
+        private Integer my_count;
         private MyOrder my_order;
 
         public String getAppointment_minute() {
@@ -375,19 +375,19 @@ public class DeviceDetailBean {
             this.appointment_minute = appointment_minute;
         }
 
-        public String getAppointment_count() {
+        public Integer getAppointment_count() {
             return appointment_count;
         }
 
-        public void setAppointment_count(String appointment_count) {
+        public void setAppointment_count(Integer appointment_count) {
             this.appointment_count = appointment_count;
         }
 
-        public int getMy_count() {
+        public Integer getMy_count() {
             return my_count;
         }
 
-        public void setMy_count(int my_count) {
+        public void setMy_count(Integer my_count) {
             this.my_count = my_count;
         }
 
@@ -573,7 +573,7 @@ public class DeviceDetailBean {
         private int lock;
         private int rfid;
         private int hall;
-        private Object battery;
+        private Float battery;
         private int createtime;
         private int updatetime;
         private int lockid;
@@ -679,11 +679,11 @@ public class DeviceDetailBean {
             this.hall = hall;
         }
 
-        public Object getBattery() {
+        public Float getBattery() {
             return battery;
         }
 
-        public void setBattery(Object battery) {
+        public void setBattery(Float battery) {
             this.battery = battery;
         }
 
