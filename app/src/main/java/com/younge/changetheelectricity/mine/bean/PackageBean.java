@@ -69,6 +69,7 @@ public class PackageBean{
         private int weigh;
         private String status;
         private boolean isChecked;
+        private int num;
 
         public int getId() {
             return id;
@@ -180,6 +181,14 @@ public class PackageBean{
 
         public void setEndtime(int endtime) {
             this.endtime = endtime;
+        }
+
+        public int getNum() {
+            return num;
+        }
+
+        public void setNum(int num) {
+            this.num = num;
         }
 
         public static class TextBean implements Serializable{

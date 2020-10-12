@@ -21,6 +21,7 @@ import com.younge.changetheelectricity.mine.view.RealNameAuthenticationCenterVie
 import com.younge.changetheelectricity.util.ImageLoaderUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.CustomDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,6 +51,8 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
     @BindView(R.id.iv_card_hold)
     ImageView iv_card_hold;
     private BatteryDetailsAdapter mAdapter;
+
+    private CustomDialog customDialog;
 
     private List<BatteryDetailsBean> allList = new ArrayList<>();
 
@@ -124,7 +127,57 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
                     return;
                 }
 
-                mPresenter.realNameAuthentication(name,idCard,positiveImg,backImg,holdImg, (String) SharedPreferencesUtils.getParam(RealNameAuthentication01Activity.this,"token",""));
+
+                customDialog = new CustomDialog(this);
+                customDialog.setTitle("确认身份信息");
+                customDialog.setMessage("姓名："+name + "  身份证号："+idCard);
+                customDialog.setButton1Text("确认");
+                customDialog.setButton2Text("取消");
+                customDialog.setCanceledOnTouchOutside(true);
+                customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        customDialog.dismiss();
+                        if(mPresenter != null){
+                            mPresenter.realNameAuthentication(name,idCard,positiveImg,backImg,holdImg, (String) SharedPreferencesUtils.getParam(RealNameAuthentication01Activity.this,"token",""));
+                        }
+                    }
+                });
+                customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        customDialog.dismiss();
+
+
+                        customDialog = new CustomDialog(RealNameAuthentication01Activity.this);
+                        customDialog.setTitle("提示");
+                        customDialog.setMessage("不实名认证将不能使用换电服务");
+                        customDialog.setButton1Text("继续认证");
+                        customDialog.setButton2Text("稍后认证");
+                        customDialog.setCanceledOnTouchOutside(true);
+                        customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                            @Override
+                            public void onClick(CustomDialog dialog, int id, Object object) {
+                                customDialog.dismiss();
+                                if(mPresenter != null){
+                                    mPresenter.realNameAuthentication(name,idCard,positiveImg,backImg,holdImg, (String) SharedPreferencesUtils.getParam(RealNameAuthentication01Activity.this,"token",""));
+                                }
+                            }
+                        });
+                        customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                            @Override
+                            public void onClick(CustomDialog dialog, int id, Object object) {
+                                customDialog.dismiss();
+                            }
+                        });
+                        customDialog.show();
+
+                    }
+                });
+                customDialog.show();
+
+
+
 
                 break;
             case R.id.iv_card_positive:
