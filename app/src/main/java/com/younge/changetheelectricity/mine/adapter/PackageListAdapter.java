@@ -3,9 +3,11 @@ package com.younge.changetheelectricity.mine.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
+import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.util.ImageLoaderUtil;
@@ -18,8 +20,12 @@ import java.util.List;
 
 public class PackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
 
-    public PackageListAdapter(Context context, List<PackageBean.ListBean> mDatas, int layoutId) {
+
+    private OnItemBtnClickCallBack onItemBtnClickCallBack;
+
+    public PackageListAdapter(Context context, List<PackageBean.ListBean> mDatas, int layoutId, OnItemBtnClickCallBack onItemBtnClickCallBack) {
        super(context,mDatas,layoutId);
+       this.onItemBtnClickCallBack = onItemBtnClickCallBack;
     }
 
     @Override
@@ -29,14 +35,47 @@ public class PackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
         holder.setText(R.id.tv_title,item.getTitle());
         holder.setText(R.id.tv_price,"￥"+item.getText().getMoney());
 
-        TextView tv_reduce = holder.findViewById(R.id.tv_reduce);
+        LinearLayout ll_reduce = holder.findViewById(R.id.ll_reduce);
         TextView tv_num = holder.findViewById(R.id.tv_num);
-        TextView iv_add = holder.findViewById(R.id.iv_add);
+        ImageView iv_add = holder.findViewById(R.id.iv_add);
 
         iv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ll_reduce.getVisibility() == View.GONE){
+                    ll_reduce.setVisibility(View.VISIBLE);
+                    tv_num.setVisibility(View.VISIBLE);
+                    item.setChecked(true);
+                    item.setNum(1);
+                }else{
+                    int goodAccount = Integer.parseInt(tv_num.getText().toString().trim());
+                    goodAccount++;
+                    tv_num.setText(String.valueOf(goodAccount));
+                    item.setChecked(true);
+                    item.setNum(goodAccount);
+                }
 
+                onItemBtnClickCallBack.OnItemBtnclick(layoutPosition,0);
+            }
+        });
+
+        ll_reduce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    int goodAccount = Integer.parseInt(tv_num.getText().toString().trim());
+                    goodAccount--;
+
+                    if(goodAccount == 0){
+                        ll_reduce.setVisibility(View.GONE);
+                        tv_num.setVisibility(View.GONE);
+                        item.setChecked(false);
+                        item.setNum(0);
+                    }else{
+                        item.setChecked(true);
+                        item.setNum(goodAccount);
+                        tv_num.setText(String.valueOf(goodAccount));
+                    }
+                onItemBtnClickCallBack.OnItemBtnclick(layoutPosition,0);
             }
         });
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
+import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.activity.ConfirmOrderActivity;
 import com.younge.changetheelectricity.mine.adapter.PackageListAdapter;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
 import com.younge.changetheelectricity.mine.view.PackageListView;
+import com.younge.changetheelectricity.util.JsonUtil;
+import com.younge.changetheelectricity.util.ToastUtil;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -35,6 +39,11 @@ public class RechargePackageFragment extends MyBaseFragment<PackagePresenter> im
     RecyclerView rv_data;
     @BindView(R.id.mBGARefreshLayout)
     BGARefreshLayout mBGARefreshLayout;
+
+    @BindView(R.id.tv_submit)
+    TextView tv_submit;
+    @BindView(R.id.tv_price)
+    TextView tv_price;
 
     private PackageListAdapter mAdapter;
 
@@ -61,16 +70,29 @@ public class RechargePackageFragment extends MyBaseFragment<PackagePresenter> im
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getActivity(), false);
         mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
 
-        mAdapter = new PackageListAdapter(getActivity(),allList,R.layout.item_package_list);
+        mAdapter = new PackageListAdapter(getActivity(), allList, R.layout.item_package_list, new OnItemBtnClickCallBack() {
+            @Override
+            public void OnItemBtnclick(int pisition, int btn) {
+
+                Double allShowPrice = 0d;
+                for(int i= 0;i<mAdapter.getItemCount();i++) {
+                    if(mAdapter.getItem(i).isChecked()){
+                        allShowPrice = allShowPrice + mAdapter.getItem(i).getNum() * mAdapter.getItem(i).getText().getMoney();
+                    }
+                }
+
+                tv_price.setText("¥ "+allShowPrice);
+            }
+        });
         rv_data.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_data.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
-                Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+             /*   Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
                 intent.putExtra("packageDetail",mAdapter.getItem(position));
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
@@ -89,6 +111,29 @@ public class RechargePackageFragment extends MyBaseFragment<PackagePresenter> im
             }
         });
         mBGARefreshLayout.beginRefreshing();
+
+        tv_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<PackageBean.ListBean> selList = new ArrayList<>();
+                for(int i= 0;i<mAdapter.getItemCount();i++) {
+                    if(mAdapter.getItem(i).isChecked()){
+                        selList.add(mAdapter.getItem(i));
+                    }
+                }
+
+                if(selList != null && selList.size() > 0 ){
+                    Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                    String jsons = JsonUtil.parserObjectToGson(selList);
+                    intent.putExtra("packageDetail",jsons);
+                    startActivity(intent);
+                }else{
+                    ToastUtil.makeText(getContext(),"请选择你要购买的套餐！");
+                }
+
+            }
+        });
     }
 
 

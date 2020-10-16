@@ -202,7 +202,7 @@ public class PackageBean{
             private String use;
             private String hour;
             private String day;
-            private String money;
+            private Double money;
 
             public String getUse() {
                 return use;
@@ -228,11 +228,11 @@ public class PackageBean{
                 this.day = day;
             }
 
-            public String getMoney() {
+            public Double getMoney() {
                 return money;
             }
 
-            public void setMoney(String money) {
+            public void setMoney(Double money) {
                 this.money = money;
             }
         }

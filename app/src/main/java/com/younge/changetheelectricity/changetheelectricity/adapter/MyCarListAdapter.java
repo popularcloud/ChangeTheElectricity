@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
@@ -38,6 +39,14 @@ public class MyCarListAdapter extends SuperAdapter<MyCarBean.ListBean> {
         holder.setText(R.id.tv_battery_id, TextUtils.isEmpty(item.getBattery_sn())?"未绑定电池":String.valueOf(item.getBattery_sn()));
         holder.setText(R.id.tv_car_brand,item.getSerial());
         holder.setText(R.id.tv_car_num,item.getCarno());
+
+        TextView tv_other = holder.findViewById(R.id.tv_other);
+
+        if(layoutPosition == 1){
+            tv_other.setVisibility(View.VISIBLE);
+        }else{
+            tv_other.setVisibility(View.GONE);
+        }
 
         ImageView imageView = holder.itemView.findViewById(R.id.tv_car_header);
         ImageLoaderUtil.getInstance().displayFromNetDCircular(mContext,item.getPicfront(),imageView,R.mipmap.cte_logo);

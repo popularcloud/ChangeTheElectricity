@@ -8,6 +8,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
@@ -17,6 +20,7 @@ import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.presenter.PayPresenter;
 import com.younge.changetheelectricity.mine.view.PayView;
+import com.younge.changetheelectricity.util.JsonUtil;
 import com.younge.changetheelectricity.util.PayServant;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
@@ -48,7 +52,7 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
     private List<PackageBean.ListBean> allList = new ArrayList<>();
     private PayTypeDialog payTypeDialog;
     private Double money;
-    private PackageBean.ListBean packageDetail;
+    private List<PackageBean.ListBean> packageDetailList;
 
     @Override
     protected PayPresenter createPresenter() {
@@ -64,9 +68,10 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
     protected void init() {
         tv_center_title.setText("确认订单");
 
-        packageDetail = (PackageBean.ListBean) getIntent().getSerializableExtra("packageDetail");
+        String packageDetails = getIntent().getStringExtra("packageDetail");
+        packageDetailList  = JsonUtil.parserGsonToArray(packageDetails,new TypeToken<ArrayList<PackageBean.ListBean>>(){});
 
-        initList(packageDetail);
+        initList();
     }
 
     @Override
@@ -79,11 +84,11 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
 
     }
 
-    private void initList(PackageBean.ListBean packageDetail){
+    private void initList(){
 
         allList.clear();
 
-        allList.add(packageDetail);
+        allList.addAll(packageDetailList);
 
         mAdapter = new ConfirmOrderAdapter(this,allList,R.layout.item_comfirm_order);
         rv_data.setLayoutManager(new LinearLayoutManager(this));
@@ -103,28 +108,36 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_submit:
+
+                if(allList == null || allList.size() < 1){
+                    ToastUtil.makeText(ConfirmOrderActivity.this,"请选择购买的套餐");
+                    return;
+                }
+
                 payTypeDialog = new PayTypeDialog(ConfirmOrderActivity.this, String.valueOf(money),new PayTypeDialog.CallBack() {
                     @Override
                     public void onSubmit(final int payType, String passWord) {
-                        JSONObject jsonObject = new JSONObject();
-                        try {
-                            jsonObject.put("id",packageDetail.getId());
-                            jsonObject.put("num","1");
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        JsonArray jsonArray = new JsonArray();
+                        for(int i = 0;i < allList.size(); i ++){
+                            JsonObject jsonObject = new JsonObject();
+
+                            jsonObject.addProperty("id",allList.get(i).getId());
+                            jsonObject.addProperty("num",allList.get(i).getNum());
+
+                            jsonArray.add(jsonObject);
                         }
 
-                        Log.e("json数据打印","========="+jsonObject.toString()+packageDetail.getType()+"支付方式："+payType);
+                        Log.e("json数据打印","========="+JsonUtil.parserObjectToGson(jsonArray)+"支付方式："+payType);
                         switch (payType){  //1钱包 2.支付宝 3.微信
                             case 1:
-                                mPresenter.rechargeByWallet(String.valueOf(packageDetail.getType()),"["+jsonObject.toString()+"]", (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                mPresenter.rechargeByWallet(String.valueOf(allList.get(0).getType()),JsonUtil.parserObjectToGson(jsonArray), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
                                 break;
                             case 2:
-                                mPresenter.rechargeByAli(String.valueOf(packageDetail.getType()),"["+jsonObject.toString()+"]", (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                mPresenter.rechargeByAli(String.valueOf(allList.get(0).getType()),JsonUtil.parserObjectToGson(jsonArray), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
                                 break;
                             case 3:
-                                mPresenter.rechargeByWechat(String.valueOf(packageDetail.getType()),"["+jsonObject.toString()+"]", (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
+                                mPresenter.rechargeByWechat(String.valueOf(allList.get(0).getType()),JsonUtil.parserObjectToGson(jsonArray), (String) SharedPreferencesUtils.getParam(ConfirmOrderActivity.this,"token",""));
                                 break;
                         }
 
@@ -147,7 +160,7 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
         money = 0d;
         if(allList != null){
             for(int i = 0;i < allList.size();i++){
-                money = money + Double.parseDouble(allList.get(i).getText().getMoney());
+                money = money + allList.get(i).getText().getMoney() * allList.get(i).getNum();
             }
         }
         tv_price.setText("￥"+money+"元");

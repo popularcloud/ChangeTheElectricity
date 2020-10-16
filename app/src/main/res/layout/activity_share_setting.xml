@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:background="@color/gray_fa">
     <include layout="@layout/include_title_bar" />
     <ImageView
+        android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_335"
         android:src="@mipmap/ic_share_setting" />
@@ -50,6 +52,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/dp_30">
             <LinearLayout
+                android:id="@+id/ll_share_wechat"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -70,6 +73,7 @@
                     android:text="微信好友"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_share_wechat_circle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -90,6 +94,7 @@
                     android:text="朋友圈"/>
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"

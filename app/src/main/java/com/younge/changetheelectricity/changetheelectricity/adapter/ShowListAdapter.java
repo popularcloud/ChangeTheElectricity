@@ -7,18 +7,19 @@ import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.callback.OnCommClickCallBack;
+import com.younge.changetheelectricity.mine.bean.BaseItemBean;
 
 import org.byteam.superadapter.SuperAdapter;
 import org.byteam.superadapter.SuperViewHolder;
 
 import java.util.List;
 
-public class ShowListAdapter extends SuperAdapter<String> {
+public class ShowListAdapter extends SuperAdapter<BaseItemBean> {
 
     private Context context;
     private OnCommClickCallBack onCommClickCallBack;
     private int presentPosition = -1;
-    public ShowListAdapter(Context context, List<String> items, int layoutResId, OnCommClickCallBack clickCallBack) {
+    public ShowListAdapter(Context context, List<BaseItemBean> items, int layoutResId, OnCommClickCallBack clickCallBack) {
         super(context, items, layoutResId);
         this.context = context;
         this.onCommClickCallBack = clickCallBack;
@@ -29,11 +30,11 @@ public class ShowListAdapter extends SuperAdapter<String> {
         //notifyDataSetChanged();
     }
     @Override
-    public void onBind(SuperViewHolder holder, int viewType, final int layoutPosition, String item) {
+    public void onBind(SuperViewHolder holder, int viewType, final int layoutPosition, BaseItemBean item) {
 
         TextView tv_qb_pay = holder.itemView.findViewById(R.id.tv_qb_pay);
         CheckBox cb_box = holder.itemView.findViewById(R.id.cb_box);
-        tv_qb_pay.setText(item);
+        tv_qb_pay.setText(item.getName());
 
         cb_box.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

@@ -13,6 +13,7 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.adapter.MyCarListAdapter;
+import com.younge.changetheelectricity.mine.bean.BaseItemBean;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.presenter.MyCarPresenter;
@@ -175,10 +176,10 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
         if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
 
             List<MyBatteryBean.ListBean> dataList = data.getData().getList();
-            List<String> myReason = new ArrayList<>();
+            List<BaseItemBean> myReason = new ArrayList<BaseItemBean>();
 
             for(int i = 0; i < dataList.size(); i++){
-                myReason.add(String.valueOf(dataList.get(i).getId()));
+                myReason.add(new BaseItemBean(String.valueOf(dataList.get(i).getId()),dataList.get(i).getCar_carvin()));
             }
 
             showListDialog = new ShowListDialog(MyCarActivity.this, new ShowListDialog.CallBack() {
@@ -186,7 +187,7 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
                 public void onSubmit(int position) {
                     showListDialog.dismiss();
                     if(presentOperateId != null){
-                        mPresenter.carBindBattery(myReason.get(position),presentOperateId, (String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
+                        mPresenter.carBindBattery(myReason.get(position).getId(),presentOperateId, (String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
                     }
                 }
             },myReason,"改绑电池","",false);

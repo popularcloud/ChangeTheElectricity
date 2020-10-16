@@ -394,4 +394,17 @@ public interface ApiServer {
     Observable<BaseModel<PageInfoBean>> aboutUs(@Field("HTTP_API") String httpApi,
                                                              @Field("name") String about,
                                                              @Field("token") String token);
+
+    /**
+     *
+     * @param httpApi
+     * @param token
+     * @return
+     */
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: api/common/config")
+    Observable<BaseModel<PageInfoBean>> share(@Field("HTTP_API") String httpApi,
+                                                @Field("group") String group,
+                                                @Field("token") String token);
 }

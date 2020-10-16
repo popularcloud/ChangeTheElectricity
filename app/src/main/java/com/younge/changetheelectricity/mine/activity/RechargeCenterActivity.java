@@ -110,7 +110,7 @@ public class RechargeCenterActivity extends MyBaseActivity<RechargeCenterPresent
     public void onReceiveMsg(OnSelectEventMessage message){
         selectPosition = message.getPosition();
         //tv_total_price.setText(DateUtil.getMoney(allList.get(selectPosition).getText().getMoney()) +"元");
-        rechargeMoney = allList.get(selectPosition).getText().getMoney();
+        rechargeMoney = String.valueOf(allList.get(selectPosition).getText().getMoney());
     }
 
 

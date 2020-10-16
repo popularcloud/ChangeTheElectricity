@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.callback.OnCommClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.adapter.ShowListAdapter;
+import com.younge.changetheelectricity.mine.bean.BaseItemBean;
 
 import org.byteam.superadapter.OnItemClickListener;
 
@@ -46,7 +47,7 @@ public class ShowListDialog extends Dialog implements View.OnClickListener{
 	private String title;
 	private String reasonDesc;
 
-	public ShowListDialog(Context context, CallBack callBack, List<String> reasons, String title, String reasonDesc, boolean hasBtn) {
+	public ShowListDialog(Context context, CallBack callBack, List<BaseItemBean> reasons, String title, String reasonDesc, boolean hasBtn) {
 		super(context, R.style.BottomDialogStyle);
 		// 拿到Dialog的Window, 修改Window的属性
 		Window window = getWindow();
@@ -87,7 +88,7 @@ public class ShowListDialog extends Dialog implements View.OnClickListener{
 	 * @param context
 	 * 
 	 */
-	protected void init(Context context, List<String> reasons) {
+	protected void init(Context context, List<BaseItemBean> reasons) {
 		this.context = context;
 		this.setCancelable(true);
 		this.setCanceledOnTouchOutside(true);

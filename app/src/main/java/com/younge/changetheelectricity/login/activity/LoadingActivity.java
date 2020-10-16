@@ -49,7 +49,10 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
             Permission.READ_EXTERNAL_STORAGE,
             Permission.WRITE_EXTERNAL_STORAGE,
             Permission.ACCESS_COARSE_LOCATION,
+            Permission.ACCESS_FINE_LOCATION,
             Permission.READ_PHONE_STATE,
+            Permission.CALL_PHONE,
+            Permission.GET_ACCOUNTS,
             Permission.READ_PHONE_NUMBERS};
 
     private BatteryDetailsAdapter mAdapter;

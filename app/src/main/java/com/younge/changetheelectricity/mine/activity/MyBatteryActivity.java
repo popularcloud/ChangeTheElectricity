@@ -17,12 +17,14 @@ import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.base.MyConstants;
 import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.adapter.MyBatteryListAdapter;
+import com.younge.changetheelectricity.mine.bean.BaseItemBean;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.presenter.MyBatteryPresenter;
 import com.younge.changetheelectricity.mine.view.MyBatteryView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.CustomDialog;
 import com.younge.changetheelectricity.widget.ShowListDialog;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.common.Constant;
@@ -56,6 +58,7 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
 
     private ShowListDialog showListDialog;
     private String presentOperateId;
+    private CustomDialog customDialog;
 
     @Override
     protected MyBatteryPresenter createPresenter() {
@@ -115,7 +118,29 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
             public void OnItemBtnclick(int pisition, int btn) {
 
                 if(btn == 1){ //删除
-                    mPresenter.delBattery(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
+                    customDialog = new CustomDialog(MyBatteryActivity.this);
+                    customDialog.setTitle("温馨提示");
+                    customDialog.setMessage("您确定要删除电池 "+mAdapter.getItem(pisition).getNo());
+                    customDialog.setButton1Text("是");
+                    customDialog.setButton2Text("否");
+                    customDialog.setCanceledOnTouchOutside(true);
+                    customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                        @Override
+                        public void onClick(CustomDialog dialog, int id, Object object) {
+                            customDialog.dismiss();
+                            if(mPresenter != null){
+                                mPresenter.delBattery(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
+                            }
+                        }
+                    });
+                    customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                        @Override
+                        public void onClick(CustomDialog dialog, int id, Object object) {
+                            customDialog.dismiss();
+                        }
+                    });
+                    customDialog.show();
+
                 }else{
                     presentOperateId = String.valueOf(mAdapter.getItem(pisition).getId());
                     mPresenter.getMyCarList("1",(String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
@@ -187,10 +212,10 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
         if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
 
             List<MyCarBean.ListBean> dataList = data.getData().getList();
-            List<String> myReason = new ArrayList<>();
+            List<BaseItemBean> myReason = new ArrayList<BaseItemBean>();
 
             for(int i = 0; i < dataList.size(); i++){
-                myReason.add(String.valueOf(dataList.get(i).getId()));
+                myReason.add(new BaseItemBean(String.valueOf(dataList.get(i).getId()),dataList.get(i).getCarno()));
             }
 
             showListDialog = new ShowListDialog(MyBatteryActivity.this, new ShowListDialog.CallBack() {
@@ -198,14 +223,14 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
                 public void onSubmit(int position) {
                     showListDialog.dismiss();
                     if(presentOperateId != null){
-                        mPresenter.carBindBattery(myReason.get(position),presentOperateId, (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
+                        mPresenter.carBindBattery(myReason.get(position).getId(),presentOperateId, (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
                     }
                 }
             },myReason,"改绑电池","",false);
             showListDialog.show();
 
         }else{
-            ToastUtil.makeText(this,"您还未绑定电池！");
+            ToastUtil.makeText(this,"您还未绑定车辆！");
         }
     }
 

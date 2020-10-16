@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
@@ -37,6 +38,13 @@ public class MyBatteryListAdapter extends SuperAdapter<MyBatteryBean.ListBean> {
         holder.setText(R.id.tv_type,item.getSerial());
         holder.setText(R.id.tv_sn,item.getSn());
         holder.setText(R.id.tv_quantity,item.getBattery()+"%");
+        TextView tv_other = holder.findViewById(R.id.tv_other);
+
+        if(layoutPosition == 1){
+            tv_other.setVisibility(View.VISIBLE);
+        }else{
+            tv_other.setVisibility(View.GONE);
+        }
 
         ImageView imageView = holder.itemView.findViewById(R.id.iv_more);
 

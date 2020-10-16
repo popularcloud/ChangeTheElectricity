@@ -3,13 +3,15 @@ package com.younge.changetheelectricity.mine.presenter;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
+import com.younge.changetheelectricity.mine.bean.ShareSettingBean;
+import com.younge.changetheelectricity.mine.view.ShareView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
 
 import com.younge.changetheelectricity.login.view.LoginView;
 
-public class ShareSettingPresenter extends BasePresenter<LoginView> {
+public class ShareSettingPresenter extends BasePresenter<ShareView> {
 
-    public ShareSettingPresenter(LoginView baseView) {
+    public ShareSettingPresenter(ShareView baseView) {
         super(baseView);
     }
 
@@ -19,7 +21,7 @@ public class ShareSettingPresenter extends BasePresenter<LoginView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.ongetCodeSuccess((BaseModel<Object>) o);
+                baseView.onGetShareSuccess((BaseModel<ShareSettingBean>) o);
             }
 
             @Override

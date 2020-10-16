@@ -58,6 +58,7 @@ public class MyApplication extends Application {
         //友盟分享
         // 微信 appid appsecret
         PlatformConfig.setWeixin("wx197fcf39e65d69a9", "ebb31de9cb77fcff21256d2f2f593580");
+
     }
 
 }

@@ -109,6 +109,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_10"
                     android:paddingLeft="@dimen/dp_10"
+                    android:visibility="gone"
                     android:background="@drawable/item_white_circle_right"
                     android:gravity="center"
                     android:text="实名认证"
