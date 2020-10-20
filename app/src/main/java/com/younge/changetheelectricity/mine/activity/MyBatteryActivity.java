@@ -226,7 +226,7 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
                         mPresenter.carBindBattery(myReason.get(position).getId(),presentOperateId, (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
                     }
                 }
-            },myReason,"改绑电池","",false);
+            },myReason,"改绑车辆","",false);
             showListDialog.show();
 
         }else{

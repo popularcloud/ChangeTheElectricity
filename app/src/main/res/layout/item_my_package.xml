@@ -15,9 +15,10 @@
         android:padding="@dimen/dp_15"
         android:orientation="horizontal">
         <ImageView
+            android:id="@+id/tv_header"
+            android:scaleType="fitXY"
             android:layout_width="@dimen/dp_120"
-            android:layout_height="@dimen/dp_80"
-            android:src="@color/f0_gray_line"/>
+            android:layout_height="@dimen/dp_80"/>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"

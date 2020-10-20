@@ -65,6 +65,11 @@ public class UseHistoryActivity extends MyBaseActivity<UserHistoryPresenter> imp
     protected void init() {
         tv_center_title.setText("使用记录");
         initList();
+
+
+        String sn = (String) SharedPreferencesUtils.getParam(this,"presentBattery","");
+
+        tv_battery_num.setText("当前电池（"+sn+")");
     }
 
     @Override

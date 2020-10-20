@@ -36,7 +36,7 @@ public class MyPackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
 
         }
 
-        ImageView imageView = holder.itemView.findViewById(R.id.iv_header);
+        ImageView imageView = holder.itemView.findViewById(R.id.tv_header);
         ImageLoaderUtil.getInstance().displayFromNetDCircular(mContext,item.getImage(),imageView,R.mipmap.cte_logo);
 
     }

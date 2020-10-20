@@ -179,7 +179,7 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
             List<BaseItemBean> myReason = new ArrayList<BaseItemBean>();
 
             for(int i = 0; i < dataList.size(); i++){
-                myReason.add(new BaseItemBean(String.valueOf(dataList.get(i).getId()),dataList.get(i).getCar_carvin()));
+                myReason.add(new BaseItemBean(String.valueOf(dataList.get(i).getId()),dataList.get(i).getSn()));
             }
 
             showListDialog = new ShowListDialog(MyCarActivity.this, new ShowListDialog.CallBack() {
