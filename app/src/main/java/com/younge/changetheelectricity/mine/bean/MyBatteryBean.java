@@ -64,6 +64,8 @@ public class MyBatteryBean {
         private int battery;
         private int createtime;
         private int updatetime;
+        private String lat;
+        private String lng;
         private String car_carvin;
 
         public String getCar_carvin() {
@@ -144,6 +146,22 @@ public class MyBatteryBean {
 
         public void setUpdatetime(int updatetime) {
             this.updatetime = updatetime;
+        }
+
+        public String getLat() {
+            return lat;
+        }
+
+        public void setLat(String lat) {
+            this.lat = lat;
+        }
+
+        public String getLng() {
+            return lng;
+        }
+
+        public void setLng(String lng) {
+            this.lng = lng;
         }
     }
 }

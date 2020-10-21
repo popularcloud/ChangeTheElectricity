@@ -100,9 +100,11 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
 
                 if(btn == 1){ //删除
                     mPresenter.delCar(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
-                }else{
+                }else if(btn == 0){ //改绑电池
                     presentOperateId = String.valueOf(mAdapter.getItem(pisition).getId());
                     mPresenter.getMyBattery("1",(String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
+                }else if(btn == 2){ //使用车辆
+
                 }
 
             }
@@ -171,7 +173,6 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
 
     @Override
     public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
-
 
         if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
 

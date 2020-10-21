@@ -41,11 +41,18 @@ public class MyCarListAdapter extends SuperAdapter<MyCarBean.ListBean> {
         holder.setText(R.id.tv_car_num,item.getCarno());
 
         TextView tv_other = holder.findViewById(R.id.tv_other);
+        TextView tv_submit = holder.findViewById(R.id.tv_submit);
 
         if(layoutPosition == 1){
             tv_other.setVisibility(View.VISIBLE);
         }else{
             tv_other.setVisibility(View.GONE);
+        }
+
+        if(layoutPosition > 0){
+            tv_submit.setVisibility(View.VISIBLE);
+        }else{
+            tv_submit.setVisibility(View.GONE);
         }
 
         ImageView imageView = holder.itemView.findViewById(R.id.tv_car_header);
@@ -80,6 +87,13 @@ public class MyCarListAdapter extends SuperAdapter<MyCarBean.ListBean> {
                 });
                 //显示(这一行代码不要忘记了)
                 popup.show();
+            }
+        });
+
+        tv_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemBtnClickCallBack.OnItemBtnclick(layoutPosition,2);
             }
         });
 

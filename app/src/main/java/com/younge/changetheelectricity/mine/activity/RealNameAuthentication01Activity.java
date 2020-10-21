@@ -130,7 +130,7 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
 
                 customDialog = new CustomDialog(this);
                 customDialog.setTitle("确认身份信息");
-                customDialog.setMessage("姓名："+name + "  身份证号："+idCard);
+                customDialog.setMessage("姓名："+name + "\n身份证号："+idCard);
                 customDialog.setButton1Text("确认");
                 customDialog.setButton2Text("取消");
                 customDialog.setCanceledOnTouchOutside(true);

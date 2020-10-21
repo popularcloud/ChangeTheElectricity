@@ -223,7 +223,7 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
                 public void onSubmit(int position) {
                     showListDialog.dismiss();
                     if(presentOperateId != null){
-                        mPresenter.carBindBattery(myReason.get(position).getId(),presentOperateId, (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
+                        mPresenter.carBindBattery(presentOperateId,myReason.get(position).getId(), (String) SharedPreferencesUtils.getParam(MyBatteryActivity.this,"token",""));
                     }
                 }
             },myReason,"改绑车辆","",false);
@@ -236,7 +236,7 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
 
     @Override
     public void onCarBatteryBindSuccess(BaseModel data) {
-        ToastUtil.makeText(this,"绑定成功！");
+        ToastUtil.makeText(this,"改绑成功！");
         mBGARefreshLayout.beginRefreshing();
     }
 

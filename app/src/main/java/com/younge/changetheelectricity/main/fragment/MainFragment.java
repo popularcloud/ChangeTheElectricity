@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -385,6 +386,11 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
             // 返回 true 则表示接口已响应事件，否则返回false
             @Override
             public boolean onMarkerClick(Marker marker) {
+
+
+                if(TextUtils.isEmpty(marker.getTitle())){
+                    return false;
+                }
                 isShow = false;
                 isShop = true;
                 ll_shop.setVisibility(View.VISIBLE);
@@ -410,6 +416,13 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
         if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
            // ToastUtil.makeText(getContext(),"已监测到您的电池");
+
+            //获取到了电池 并且电池的定位不为空】
+            MyBatteryBean.ListBean defaultBattery = data.getData().getList().get(0);
+            if(!TextUtils.isEmpty(defaultBattery.getLat()) && !TextUtils.isEmpty(defaultBattery.getLng())){
+
+            }
+
             if(userInfoDetail != null && userInfoDetail.getVerification() != 1){
                 customDialog = new CustomDialog(getActivity());
                 customDialog.setTitle("温馨提示");
