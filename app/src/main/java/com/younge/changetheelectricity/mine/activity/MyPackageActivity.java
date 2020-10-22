@@ -44,6 +44,8 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
     TextView tv_submit;
     @BindView(R.id.tv_msg)
     TextView tv_msg;
+    @BindView(R.id.ll_msg)
+    LinearLayout ll_msg;
     @BindView(R.id.tv_sn)
     TextView tv_sn;
 //    @BindView(R.id.ll_no_use)
@@ -73,9 +75,6 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
         tv_center_title.setText("我的套餐");
 
-        String sn = (String) SharedPreferencesUtils.getParam(this,"presentBattery","");
-
-        tv_sn.setText("当前电池（"+sn+")");
         tv_right.setVisibility(View.VISIBLE);
         tv_right.setText("使用记录");
         tv_right.setOnClickListener(new View.OnClickListener() {
@@ -99,16 +98,19 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
     private void initList(){
 
-        String presentSn = (String) SharedPreferencesUtils.getParam(this,"","");
+        String presentSn = (String) SharedPreferencesUtils.getParam(this,"presentBattery","");
 
-        if(!TextUtils.isEmpty(presentSn)){
+        if(TextUtils.isEmpty(presentSn)){
             tv_submit.setText("绑定电池");
-            tv_msg.setVisibility(View.VISIBLE);
             mBGARefreshLayout.setVisibility(View.GONE);
+            tv_sn.setVisibility(View.GONE);
+            tv_msg.setText("未绑定电池，无法购卡");
+            ll_msg.setVisibility(View.VISIBLE);
         }else{
             tv_submit.setText("购买套餐");
-            tv_msg.setVisibility(View.GONE);
             mBGARefreshLayout.setVisibility(View.VISIBLE);
+            tv_sn.setVisibility(View.VISIBLE);
+            tv_sn.setText("当前电池（"+presentSn+")");
         }
 
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
@@ -163,14 +165,18 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
     @Override
     public void onGetDataSuccess(BaseModel<PackageBean> data) {
         if(data != null && data.getData() != null && data.getData().getList() != null){
-
             if(page == 1) {
                 tv_submit.setText("购买套餐");
-                tv_msg.setVisibility(View.GONE);
                 mBGARefreshLayout.setVisibility(View.VISIBLE);
                 mAdapter.replaceAll(data.getData().getList());
             }else{
                 mAdapter.addAll(data.getData().getList());
+            }
+        }else{
+            if(page == 1){
+                tv_submit.setText("购买套餐");
+                mBGARefreshLayout.setVisibility(View.VISIBLE);
+                tv_msg.setText("您还没有购买套餐");
             }
         }
 

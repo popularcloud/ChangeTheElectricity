@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
     <include layout="@layout/include_title_bar" />
-
     <TextView
         android:id="@+id/tv_sn"
         android:layout_width="match_parent"
@@ -16,19 +15,31 @@
         android:textSize="@dimen/sp_16"
         android:padding="@dimen/dp_15"
         android:text="当前电池（）"/>
-    <TextView
-        android:id="@+id/tv_msg"
+    <LinearLayout
+        android:id="@+id/ll_msg"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:textSize="@dimen/sp_15"
-        android:textColor="@color/gray_99"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:gravity="center"
-        android:text="未绑定电池，无法购卡"/>
-
+        android:visibility="visible"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_gift"/>
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/dp_19"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp_15"
+            android:textColor="@color/gray_99"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="未绑定电池，无法购卡"/>
+    </LinearLayout>
     <cn.bingoogolapple.refreshlayout.BGARefreshLayout
         android:id="@+id/mBGARefreshLayout"
         android:layout_width="match_parent"

@@ -196,6 +196,7 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
                 mAdapter.addAll(data.getData().getList());
             }
         }else{
+            SharedPreferencesUtils.setParam(MyBatteryActivity.this,"presentBattery","");
             mBGARefreshLayout.setVisibility(View.INVISIBLE);
         }
 

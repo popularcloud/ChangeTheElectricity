@@ -125,6 +125,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     private double presentLongitude;
     private double presentLatitude;
 
+    private double presentBatteryLongitude;
+    private double presentBatteryLatitude;
+
     private CustomDialog customDialog;
 
     private UserInfoBean.UserinfoBean userInfoDetail;
@@ -419,6 +422,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
             //获取到了电池 并且电池的定位不为空】
             MyBatteryBean.ListBean defaultBattery = data.getData().getList().get(0);
+            SharedPreferencesUtils.setParam(getActivity(),"presentBattery",defaultBattery.getSn());
             if(!TextUtils.isEmpty(defaultBattery.getLat()) && !TextUtils.isEmpty(defaultBattery.getLng())){
 
             }
@@ -442,6 +446,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 mPresenter.getMyPackageList("1","1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
             }
         }else{
+            SharedPreferencesUtils.setParam(getActivity(),"presentBattery","");
+
             customDialog = new CustomDialog(getActivity());
             customDialog.setTitle("温馨提示");
             customDialog.setMessage("未监测到您的电池");
