@@ -97,16 +97,15 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
         mAdapter = new MyCarListAdapter(this, allList, R.layout.item_my_car, new OnItemBtnClickCallBack() {
             @Override
             public void OnItemBtnclick(int pisition, int btn) {
-
                 if(btn == 1){ //删除
                     mPresenter.delCar(String.valueOf(mAdapter.getItem(pisition).getId()), (String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
                 }else if(btn == 0){ //改绑电池
                     presentOperateId = String.valueOf(mAdapter.getItem(pisition).getId());
                     mPresenter.getMyBattery("1",(String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
                 }else if(btn == 2){ //使用车辆
-
+                    presentOperateId = String.valueOf(mAdapter.getItem(pisition).getId());
+                    mPresenter.car_default(presentOperateId,(String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
                 }
-
             }
         });
         rv_data.setLayoutManager(new LinearLayoutManager(this));
@@ -204,6 +203,12 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
     @Override
     public void onCarBatteryBindSuccess(BaseModel data) {
         ToastUtil.makeText(this,"绑定成功！");
+        mBGARefreshLayout.beginRefreshing();
+    }
+
+    @Override
+    public void onSetCarDefault(BaseModel data) {
+        ToastUtil.makeText(this,"使用成功！");
         mBGARefreshLayout.beginRefreshing();
     }
 

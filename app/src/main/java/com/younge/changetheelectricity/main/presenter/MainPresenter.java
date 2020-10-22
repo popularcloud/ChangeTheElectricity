@@ -10,6 +10,7 @@ import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.net.ApiRetrofit;
+import com.younge.changetheelectricity.util.JsonUtil;
 
 public class MainPresenter extends BasePresenter<MainView> {
 
@@ -114,7 +115,16 @@ public class MainPresenter extends BasePresenter<MainView> {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
-                baseView.onGetUsingOrderSuccess((BaseModel<UsingOrderBean>) o);
+
+                if(o.getData().toString().length() < 3){
+                    baseView.onGetUsingOrderSuccess(null);
+                }else{
+                    UsingOrderBean usingOrderBean = JsonUtil.parserGsonToObject(String.valueOf(o.getData()),UsingOrderBean.class);
+                    o.setDataBean(usingOrderBean);
+                    baseView.onGetUsingOrderSuccess((BaseModel<UsingOrderBean>) o);
+                }
+
+
             }
 
             @Override

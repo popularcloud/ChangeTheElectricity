@@ -488,7 +488,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     @Override
     public void onGetUsingOrderSuccess(BaseModel<UsingOrderBean> data) {
-        if(data.getData() != null && data.getData().getInfo().getOrder_type() == 0){  //"order_type": 1,//0普通  1预约
+        if(data != null && data.getData() != null && data.getData().getInfo().getOrder_type() == 0){  //"order_type": 1,//0普通  1预约
             if("0".equals(data.getData().getInfo().getGoods_type())){ //0换电 1充电
                 Intent intent = new Intent(getActivity(), OperateStatuActivity.class);
                 intent.putExtra("orderId", data.getData().getInfo().getId());

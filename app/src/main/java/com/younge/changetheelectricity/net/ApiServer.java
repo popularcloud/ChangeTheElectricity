@@ -378,7 +378,7 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/usercenter/api/car/battery_car")
-    Observable<BaseModel<UsingOrderBean>> getUsingOrder(@Field("HTTP_API") String httpApi,
+    Observable<BaseModel<Object>> getUsingOrder(@Field("HTTP_API") String httpApi,
                                                         @Field("token") String token);
 
 
@@ -407,4 +407,17 @@ public interface ApiServer {
     Observable<BaseModel<PageInfoBean>> share(@Field("HTTP_API") String httpApi,
                                                 @Field("group") String group,
                                                 @Field("token") String token);
+
+    /**
+     *
+     * @param httpApi
+     * @param token
+     * @return
+     */
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/car_default")
+    Observable<BaseModel> car_default(@Field("HTTP_API") String httpApi,
+                                              @Field("id") String id,
+                                              @Field("token") String token);
 }

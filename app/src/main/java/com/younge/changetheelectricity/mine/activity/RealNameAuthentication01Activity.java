@@ -19,6 +19,7 @@ import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.presenter.RealNameAuthenticationPresenter;
 import com.younge.changetheelectricity.mine.view.RealNameAuthenticationCenterView;
 import com.younge.changetheelectricity.util.ImageLoaderUtil;
+import com.younge.changetheelectricity.util.RegexUtils;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 import com.younge.changetheelectricity.widget.CustomDialog;
@@ -104,8 +105,8 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
                     return;
                 }
 
-                if(TextUtils.isEmpty(idCard)){
-                    ToastUtil.makeText(RealNameAuthentication01Activity.this,"请填写身份证号");
+                if(!RegexUtils.isID(idCard)){
+                    ToastUtil.makeText(RealNameAuthentication01Activity.this,"请填写正确身份证号");
                     return;
                 }
 

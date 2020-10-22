@@ -139,6 +139,11 @@ public class PackageListActivity extends MyBaseActivity<MyCarPresenter> implemen
     }
 
     @Override
+    public void onSetCarDefault(BaseModel data) {
+
+    }
+
+    @Override
     public void onDelSuccess(BaseModel data) {
 
     }
