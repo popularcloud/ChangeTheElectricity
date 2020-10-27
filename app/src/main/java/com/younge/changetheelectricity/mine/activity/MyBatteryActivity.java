@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -81,8 +84,28 @@ public class MyBatteryActivity extends MyBaseActivity<MyBatteryPresenter> implem
             public void onClick(View v) {
                // startActivity(new Intent(MyBatteryActivity.this, BatterySNActivity.class));
 
-                Intent intent = new Intent(MyBatteryActivity.this, CaptureActivity.class);
-                startActivityForResult(intent, MyConstants.REQUEST_CODE_BIND_BATTERY);
+                //创建弹出式菜单对象（最低版本11）
+                PopupMenu popup = new PopupMenu(MyBatteryActivity.this, v);//第二个参数是绑定的那个view
+                //获取菜单填充器
+                MenuInflater inflater = popup.getMenuInflater();
+                //填充菜单
+                inflater.inflate(R.menu.popupmenu_scan, popup.getMenu());
+                //绑定菜单项的点击事件
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                            if(item.getItemId() == R.id.item_scan){
+                                Intent intent = new Intent(MyBatteryActivity.this, CaptureActivity.class);
+                                startActivityForResult(intent, MyConstants.REQUEST_CODE_BIND_BATTERY);
+                            }else{
+                                Intent intent = new Intent(MyBatteryActivity.this, BatterySNActivity.class);
+                                startActivity(intent);
+                            }
+                        return false;
+                    }
+                });
+                //显示(这一行代码不要忘记了)
+                popup.show();
             }
         });
         initList();

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingDefaultResource">
+    <item
+        android:id="@+id/item_scan"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="扫一扫添加"
+        tools:ignore="AppCompatResource">
+    </item>
+    <item
+        android:id="@+id/item_sn"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="输入SN码添加"
+        tools:ignore="AppCompatResource">
+    </item>
+
+</menu>

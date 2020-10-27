@@ -140,6 +140,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
 
             DeviceDetailBean.AppointmentBean appointmentBean = data.getData().getAppointment();
             if(appointmentBean != null && appointmentBean.getMy_order() != null){
+                tv_battery_account.setVisibility(View.INVISIBLE);
                 ll_order_battery.setVisibility(View.VISIBLE);
                 rv_data.setVisibility(View.GONE);
 
@@ -160,6 +161,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
             }else{
                 ll_order_battery.setVisibility(View.GONE);
                 rv_data.setVisibility(View.VISIBLE);
+                tv_battery_account.setVisibility(View.VISIBLE);
                 tv_battery_account.setText("电池数量："+ data.getData().getBox()+"个");
                 tv_num.setText("电柜编号："+macno);
 

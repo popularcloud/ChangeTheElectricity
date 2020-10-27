@@ -109,6 +109,7 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
         }else{
             tv_submit.setText("购买套餐");
             mBGARefreshLayout.setVisibility(View.VISIBLE);
+            ll_msg.setVisibility(View.GONE);
             tv_sn.setVisibility(View.VISIBLE);
             tv_sn.setText("当前电池（"+presentSn+")");
         }

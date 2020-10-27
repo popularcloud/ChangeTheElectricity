@@ -23,6 +23,7 @@ import com.younge.changetheelectricity.util.ImageLoaderUtil;
 import com.younge.changetheelectricity.util.JsonUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.CustomDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class BindCarActivity extends MyBaseActivity<BindCarPresenter> implements
     private BatteryDetailsAdapter mAdapter;
 
     private List<BatteryDetailsBean> allList = new ArrayList<>();
+    private CustomDialog customDialog;
 
     @Override
     protected BindCarPresenter createPresenter() {
@@ -232,8 +234,34 @@ public class BindCarActivity extends MyBaseActivity<BindCarPresenter> implements
 
     @Override
     public void onAddCarSuccess(BaseModel<Object> data) {
-        ToastUtil.makeText(BindCarActivity.this,"添加成功"+data.getErrmsg());
-        finish();
+        ToastUtil.makeText(BindCarActivity.this,"添加成功");
+
+        String presentSn = (String) SharedPreferencesUtils.getParam(this,"presentBattery","");
+        if(TextUtils.isEmpty(presentSn)){
+            customDialog = new CustomDialog(BindCarActivity.this);
+            customDialog.setTitle("温馨提示");
+            customDialog.setMessage("检测到您还未绑定电池，是否继续绑定电池");
+            customDialog.setButton1Text("继续绑定");
+            customDialog.setButton2Text("稍后自行绑定");
+            customDialog.setCanceledOnTouchOutside(true);
+            customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                @Override
+                public void onClick(CustomDialog dialog, int id, Object object) {
+                    customDialog.dismiss();
+                    finish();
+                    startActivity(new Intent(BindCarActivity.this, MyBatteryActivity.class));
+                }
+            });
+            customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                @Override
+                public void onClick(CustomDialog dialog, int id, Object object) {
+                    customDialog.dismiss();
+                    finish();
+                }
+            });
+            customDialog.show();
+        }
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.younge.changetheelectricity.mine.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.younge.changetheelectricity.mine.presenter.MyCarPresenter;
 import com.younge.changetheelectricity.mine.view.MyCarView;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.CustomDialog;
 import com.younge.changetheelectricity.widget.ShowListDialog;
 
 import org.byteam.superadapter.OnItemClickListener;
@@ -53,6 +55,7 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
     private int page = 1;
 
     private ShowListDialog showListDialog;
+
 
     @Override
     protected MyCarPresenter createPresenter() {
@@ -204,6 +207,7 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
     public void onCarBatteryBindSuccess(BaseModel data) {
         ToastUtil.makeText(this,"绑定成功！");
         mBGARefreshLayout.beginRefreshing();
+
     }
 
     @Override
