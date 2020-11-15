@@ -138,4 +138,11 @@ public class ChargeDetailsFragment extends MyBaseFragment<DeviceDetailPresenter>
     public void onGetDataFail() {
 
     }
+
+    public void getBatteryDetailData(){
+        if(getContext() != null){
+            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
+            mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+        }
+    }
 }

@@ -81,26 +81,56 @@ public class PackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
 
         StringBuilder rules = new StringBuilder();
 
-        switch (item.getText().getUse()){//使用次数 0无限次 1单次 其它N次
-            case "0":
-                rules.append("无限次/");
-                break;
-            case "1":
-                rules.append("单次/");
-                break;
-            default:
-                rules.append(item.getText().getUse()+"次/");
-                break;
+        if(item.getType() == 1){// 1换电套餐
+            switch (item.getText().getUse()){//使用次数 0无限次 1单次 其它N次
+                case "0":
+                    rules.append("无限次/");
+                case "":
+                    rules.append("无限次/");
+                    break;
+                case "1":
+                    rules.append("单次/");
+                    break;
+                default:
+                    rules.append(item.getText().getUse()+"次/");
+                    break;
+            }
+
+            switch (item.getText().getDay()){//有效天数 0永久
+                case "0":
+                    rules.append("永久");
+                    break;
+                default:
+                    rules.append(item.getText().getDay()+"天");
+                    break;
+            }
+
+        }else if(item.getType() == 2){ //2充电套餐
+            switch (item.getText().getHour()){//使用时长
+                case "0":
+                    rules.append("不限制/");
+                case "":
+                    rules.append("不限制/");
+                    break;
+                case "1":
+                    rules.append(item.getText().getHour()+"小时/");
+                    break;
+                default:
+                    rules.append(item.getText().getUse()+"次/");
+                    break;
+            }
+
+            switch (item.getText().getDay()){//有效天数 0永久
+                case "0":
+                    rules.append("永久");
+                    break;
+                default:
+                    rules.append(item.getText().getDay()+"天");
+                    break;
+            }
+
         }
 
-        switch (item.getText().getDay()){//有效天数 0永久
-            case "0":
-                rules.append("永久");
-                break;
-            default:
-                rules.append(item.getText().getDay()+"天");
-                break;
-        }
 
         holder.setText(R.id.tv_desc,rules);
 

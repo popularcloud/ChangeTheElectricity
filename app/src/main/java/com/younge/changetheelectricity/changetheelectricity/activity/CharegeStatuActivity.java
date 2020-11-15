@@ -206,13 +206,16 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 case 5:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
                     tv_cancel.setVisibility(View.VISIBLE);
-                    tv_cancel.setText("取消");
+                    tv_cancel.setText("重试");
                     break;
                 case 9:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage()+"三秒钟后将回到主页面");
                     iv_header.setImageResource(R.mipmap.ic_wc);
                     exitDelay();
                     cancel();
+                    break;
+                case 12: //未启动
+                    mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(CharegeStatuActivity.this,"token",""));
                     break;
 
             }

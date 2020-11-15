@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:background="@color/f0_gray_line">
     <TextView
+        android:id="@+id/tv_present_battery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray_99"

@@ -48,7 +48,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailView> {
      * @param token
      */
     public void submitOrder(String macno,String device_box,String goods_type,String order_type,String package_id,String package_user_id,String token) {
-        addDisposable(ApiRetrofit.getInstance().getApiService().submitOrder("vv/order/api/index/submit",macno,device_box,goods_type,order_type,package_id,package_user_id,token), new BaseObserver(baseView) {
+            addDisposable(ApiRetrofit.getInstance().getApiService().submitOrder("vv/order/api/index/submit",macno,device_box,goods_type,order_type,package_id,package_user_id,token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();

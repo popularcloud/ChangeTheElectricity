@@ -178,6 +178,8 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
                         public void onClick(View v) {
                             String token = (String) SharedPreferencesUtils.getParam(LoadingActivity.this,"token","");
 
+                            finish();
+
                             if(TextUtils.isEmpty(token)){
                                 startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
                             }else{

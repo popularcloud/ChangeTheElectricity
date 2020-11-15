@@ -90,6 +90,9 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
             }
         }, 0, spanString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+
+        hideBackBtn();
+
         SpannableString spanStringTwo = new SpannableString("《隐私政策法律法规》");
         spanStringTwo.setSpan(new ClickableSpan() {
             @Override
@@ -155,8 +158,8 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
                 break;
             case R.id.tv_login:
                 phone = et_phone.getText().toString().trim();
-               // code = et_code.getText().toString().trim();
-                code = "1111";
+                code = et_code.getText().toString().trim();
+               // code = "1111";
                 if(!RegexUtils.validateMobilePhone(phone)){
                     ToastUtil.makeText(LoginActivity.this,"请输入正确的手机号");
                     return;
@@ -186,7 +189,7 @@ public class LoginActivity extends MyBaseActivity<LoginPresenter> implements Log
     /**
      * 第三方登录
      * @param data
-     * @param name
+     * @param
      */
   /*  private void thirdLogin(final Map<String,String> data, String name){
         final Map<String,String> params = new HashMap<>();

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.younge.changetheelectricity.mine.bean.ShareSettingBean;
 import com.younge.changetheelectricity.mine.presenter.ShareSettingPresenter;
 import com.younge.changetheelectricity.mine.view.ShareView;
 import com.younge.changetheelectricity.net.ApiRetrofit;
+import com.younge.changetheelectricity.util.DisplayUtil;
 import com.younge.changetheelectricity.util.ImageLoaderUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 
@@ -57,6 +60,12 @@ public class ShareSettingActivity extends MyBaseActivity<ShareSettingPresenter> 
 
     @Override
     protected void init() {
+
+        int width = DisplayUtil.getDisplayWidth(this);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) iv_bg.getLayoutParams();
+
+        layoutParams.height = width/4*3;
+        iv_bg.setLayoutParams(layoutParams);
 
         mPresenter.getShareSetting((String) SharedPreferencesUtils.getParam(this,"token",""));
     }

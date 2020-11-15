@@ -172,7 +172,7 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
             ll_order_battery.setVisibility(View.GONE);
             rv_data.setVisibility(View.VISIBLE);
 
-            tv_battery_account.setText("电池数量："+ data.getData().getBox()+"个");
+            tv_battery_account.setText("电池数量："+ data.getData().getActive_box()+"个");
             tv_num.setText("电柜编号："+macno);
             tv_title.setText(data.getData().getTitle());
             tv_address.setText(data.getData().getAddress());
@@ -205,6 +205,9 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
                 ToastUtil.makeText(BatteryDetailActivity.this,"预约成功");
                 ll_order_battery.setVisibility(View.VISIBLE);
                 ll_batterys.setVisibility(View.GONE);
+
+
+
             }
 
         }

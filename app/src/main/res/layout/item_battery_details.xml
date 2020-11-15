@@ -35,7 +35,7 @@
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="约18分钟可充满"/>
+            android:text=""/>
         <TextView
             android:id="@+id/tv_charge_time"
             android:layout_width="match_parent"
@@ -45,8 +45,6 @@
             android:visibility="gone"
             android:textColor="@color/gray_99"
             android:layout_gravity="center"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:text="约18分钟可充满"/>
     </LinearLayout>
 

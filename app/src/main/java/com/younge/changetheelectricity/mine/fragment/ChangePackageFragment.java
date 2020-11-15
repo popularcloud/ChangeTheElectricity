@@ -21,6 +21,7 @@ import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
 import com.younge.changetheelectricity.mine.view.PackageListView;
 import com.younge.changetheelectricity.util.JsonUtil;
+import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 
 import org.byteam.superadapter.OnItemClickListener;
@@ -44,6 +45,8 @@ public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> impl
     TextView tv_submit;
     @BindView(R.id.tv_price)
     TextView tv_price;
+    @BindView(R.id.tv_present_battery)
+    TextView tv_present_battery;
 
     private PackageListAdapter mAdapter;
 
@@ -59,6 +62,9 @@ public class ChangePackageFragment extends MyBaseFragment<PackagePresenter> impl
         ButterKnife.bind(this, view);
 
         mPresenter = createPresenter();
+
+        String presentSn = (String) SharedPreferencesUtils.getParam(getContext(),"presentBattery","");
+        tv_present_battery.setText("当前电池:（"+presentSn+"）");
 
         initList();
         return view;

@@ -1,5 +1,6 @@
 package com.younge.changetheelectricity.changetheelectricity.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,12 @@ import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetai
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
 import com.younge.changetheelectricity.main.view.DeviceDetailView;
+import com.younge.changetheelectricity.mine.activity.PackageListActivity;
+import com.younge.changetheelectricity.util.DateUtil;
 import com.younge.changetheelectricity.util.DisplayUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
+import com.younge.changetheelectricity.widget.CustomDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,8 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     private BatteryDetailsAdapter mAdapter;
 
     private String macno;
+
+    private CustomDialog customDialog;
 
 
     private List<DeviceDetailBean.DeviceGoodsBean> allList = new ArrayList<>();
@@ -106,8 +112,30 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
             @Override
             public void OnItemBtnclick(int position, int btn) {
 
-                DeviceDetailBean.DeviceGoodsBean deviceGoodsBean = mAdapter.getItem(position);
-                mPresenter.submitOrder(macno,String.valueOf(deviceGoodsBean.getDevice_box()),"0","1","","", (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+
+                String laterTime = DateUtil.getPresentTimeAddSome(10);
+
+                customDialog = new CustomDialog(getActivity());
+                customDialog.setTitle("");
+                customDialog.setMessage("请于"+laterTime+"前到达换电柜处换电");
+                customDialog.setButton1Text("确定");
+                customDialog.setButton2Text("取消");
+                customDialog.setCanceledOnTouchOutside(true);
+                customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        customDialog.dismiss();
+                    }
+                });
+                customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        DeviceDetailBean.DeviceGoodsBean deviceGoodsBean = mAdapter.getItem(position);
+                        mPresenter.submitOrder(macno,String.valueOf(deviceGoodsBean.getDevice_box()),"0","1","","", (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+                        customDialog.dismiss();
+                    }
+                });
+                customDialog.show();
             }
         });
         rv_data.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -146,23 +174,27 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
 
                 List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
                 for(int i = 0;i < deviceGoodsBeans.size();i++){
-                    if(appointmentBean.getMy_order().getStart_box() == deviceGoodsBeans.get(i).getDevice_box()){
-                        tv_has.setText(deviceGoodsBeans.get(i).getBattery()+"%");
+                    if(appointmentBean.getMy_order().getStop_box() == deviceGoodsBeans.get(i).getDevice_box()){
+
+                        float battery = deviceGoodsBeans.get(i).getBattery();
+
+                        tv_has.setText(String.valueOf(battery)+"%");
                         //计算电量背景的长度
                         float bgLength =  80 * (deviceGoodsBeans.get(i).getBattery()/100);
                         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv_has_bg.getLayoutParams();
                         layoutParams.width = DisplayUtil.dip2px(getContext(),bgLength);
+                        tv_has_bg.setLayoutParams(layoutParams);
                     }
                 }
 
-                tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStart_box()+"号电池");
+                tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStop_box()+"号电池");
                 tv_msg.setText("请于"+appointmentBean.getAppointment_minute()+"分钟内到此门店更换，过时将自动取消预约\n本月剩余次数："+(appointmentBean.getAppointment_count()-appointmentBean.getMy_count())+"次");
 
             }else{
                 ll_order_battery.setVisibility(View.GONE);
                 rv_data.setVisibility(View.VISIBLE);
                 tv_battery_account.setVisibility(View.VISIBLE);
-                tv_battery_account.setText("电池数量："+ data.getData().getBox()+"个");
+                tv_battery_account.setText("电池数量："+ data.getData().getActive_box()+"个");
                 tv_num.setText("电柜编号："+macno);
 
                 List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
@@ -202,5 +234,13 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     public void showError(String msg) {
         super.showError(msg);
         ToastUtil.makeText(getContext(),msg);
+    }
+
+
+    public void getBatteryDetailData(){
+        if(getContext() != null){
+            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
+            mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
+        }
     }
 }

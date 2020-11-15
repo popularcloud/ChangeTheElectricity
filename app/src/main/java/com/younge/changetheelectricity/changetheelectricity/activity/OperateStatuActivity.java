@@ -235,6 +235,9 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     iv_header.setImageResource(R.mipmap.ic_wc);
                     tv_msg.setText(chargeStatusBean.getResult().getMessage()+"三秒钟后将回到主页面");
                     break;
+                case 12: //未启动
+                    mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
+                    break;
 
             }
         }

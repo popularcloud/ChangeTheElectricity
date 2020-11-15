@@ -67,10 +67,6 @@ public class BatteryDetailsAdapter extends SuperAdapter<DeviceDetailBean.DeviceG
                     ll_battery_bg.setVisibility(View.GONE);
                 }else{ //充电中
 
-                    if(item.getCharge_minute() != 0){
-                        tv_charge_time.setVisibility(View.VISIBLE);
-                        tv_charge_time.setText("约"+item.getCharge_minute()+"分钟可充满");
-                    }
                 }
                 break;
             case 1:
@@ -101,6 +97,14 @@ public class BatteryDetailsAdapter extends SuperAdapter<DeviceDetailBean.DeviceG
                 tv_order.setBackgroundResource(R.drawable.btn_gray_bg);
                 break;
 
+        }
+
+        //判断是否充电中
+        if(item.getCharge_minute() != 0 && !TextUtils.isEmpty(item.getMacno())){
+            tv_charge_time.setVisibility(View.VISIBLE);
+            tv_charge_time.setText("约"+item.getCharge_minute()+"分钟可充满");
+        }else{
+            tv_charge_time.setVisibility(View.GONE);
         }
 
 

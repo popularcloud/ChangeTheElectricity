@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -25,6 +26,7 @@ public abstract class MyBaseActivity<P extends BasePresenter> extends FragmentAc
 	public Bundle savedInstanceState;
 	protected TextView txtActionbarTitle;
 	private TextView tvqd;
+	private RelativeLayout rl_fanhui_left;
 
 	protected P mPresenter;
 
@@ -49,6 +51,7 @@ public abstract class MyBaseActivity<P extends BasePresenter> extends FragmentAc
 		try {
 			txtActionbarTitle = (TextView) findViewById(R.id.tv_center_title);
 			tvqd = (TextView) findViewById(R.id.tv_right);
+			rl_fanhui_left = (RelativeLayout) findViewById(R.id.rl_fanhui_left);
 		} catch (Exception e){}
 
 		/**
@@ -87,6 +90,19 @@ public abstract class MyBaseActivity<P extends BasePresenter> extends FragmentAc
 		if (txtActionbarTitle != null && title != null) {
 			txtActionbarTitle.setText(title);
 			txtActionbarTitle.setTextColor(textColor);
+		}
+	}
+
+
+	protected void showBackBtn() {
+		if (rl_fanhui_left != null) {
+			rl_fanhui_left.setVisibility(View.VISIBLE);
+		}
+	}
+
+	protected void hideBackBtn() {
+		if (rl_fanhui_left != null) {
+			rl_fanhui_left.setVisibility(View.GONE);
 		}
 	}
 

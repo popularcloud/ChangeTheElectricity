@@ -37,7 +37,7 @@
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_data"
-        android:visibility="gone"
+        android:visibility="visible"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
@@ -48,7 +48,7 @@
         android:id="@+id/ll_order_battery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         android:orientation="vertical">
         <RelativeLayout
             android:id="@+id/ll_battery_bg"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="%"
+                android:text="10%"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_15"
                 android:textStyle="bold" />

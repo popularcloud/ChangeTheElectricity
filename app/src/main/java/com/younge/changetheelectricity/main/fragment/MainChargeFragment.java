@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -241,14 +242,17 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
     ,R.id.tv_battery_detail_txt,R.id.tv_shop_detail_txt})
     public void onBtnClick(View view){
         switch (view.getId()){
-            case R.id.tv_scan:
+            case R.id.tv_scan:  //充电只需要验证套餐
+
+                mPresenter.getMyPackageList("2","1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
+
                /* if(presentShop != null){
                     Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
                     intent.putExtra("macno",presentShop.getMacno());
                     getActivity().startActivity(intent);
                 }*/
 
-                if(!isHasCar){
+              /*  if(!isHasCar){
                     customDialog = new CustomDialog(getActivity());
                     customDialog.setTitle("温馨提示");
                     customDialog.setMessage("您是否有动力风专用车");
@@ -274,7 +278,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                     customDialog.show();
                 }else{
                     mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
-                }
+                }*/
 
               //  ((MainActivity)getActivity()).startScanActivity(MyConstants.REQUEST_CODE_SCAN_CHARGE);
 
@@ -364,6 +368,13 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
             // 返回 true 则表示接口已响应事件，否则返回false
             @Override
             public boolean onMarkerClick(Marker marker) {
+
+
+
+                if (TextUtils.isEmpty(marker.getTitle())) {
+                    return false;
+                }
+
                 isShow = false;
                 isShop = true;
                 ll_shop.setVisibility(View.VISIBLE);
@@ -385,7 +396,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
     @Override
     public void onGetBatterySuccess(BaseModel<MyBatteryBean> data) {
-        if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
+       /* if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
             // ToastUtil.makeText(getContext(),"已监测到您的电池");
             if(userInfoDetail != null && userInfoDetail.getVerification() != 1){
                 customDialog = new CustomDialog(getActivity());
@@ -420,12 +431,12 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                 }
             });
             customDialog.show();
-        }
+        }*/
     }
 
     @Override
     public void onGetCarSuccess(BaseModel<MyCarBean> data) {
-        if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
+        /*if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
             isHasCar = true;
             ToastUtil.makeText(getContext(),"已监测到您的车辆");
             mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
@@ -444,7 +455,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                 }
             });
             customDialog.show();
-        }
+        }*/
 
 
     }
@@ -479,13 +490,15 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
 
     private void updateChildFragmentData(String shopId,String macno){
-       /* if(fragmentList != null && fragmentList.size() == 2){
-            ((ShopDetailFragment)fragmentList.get(1)).getShopData(shopId,macno);
-            ((ChargeDetailsFragment)fragmentList.get(0)).getBatteryDetailData(macno);
-        }*/
 
         SharedPreferencesUtils.setParam(getActivity(),"presentMacno",macno);
         SharedPreferencesUtils.setParam(getActivity(),"presentShopId",shopId);
+        SharedPreferencesUtils.setParam(getActivity(),"isChange","0"); //充电0 换电1
+
+        if(fragmentList != null && fragmentList.size() == 2){
+            ((ShopDetailFragment)fragmentList.get(1)).getShopData();
+            ((ChargeDetailsFragment)fragmentList.get(0)).getBatteryDetailData();
+        }
     }
 
     @Override

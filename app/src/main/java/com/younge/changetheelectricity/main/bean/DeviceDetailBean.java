@@ -412,7 +412,8 @@ public class DeviceDetailBean {
         private int id;
         private int expiretime;
         private int start_box;
-        private String start_macno;
+        private int stop_box;
+        private String stop_macno;
 
         public int getId() {
             return id;
@@ -438,12 +439,20 @@ public class DeviceDetailBean {
             this.start_box = start_box;
         }
 
-        public String getStart_macno() {
-            return start_macno;
+        public int getStop_box() {
+            return stop_box;
         }
 
-        public void setStart_macno(String start_macno) {
-            this.start_macno = start_macno;
+        public void setStop_box(int stop_box) {
+            this.stop_box = stop_box;
+        }
+
+        public String getStop_macno() {
+            return stop_macno;
+        }
+
+        public void setStop_macno(String stop_macno) {
+            this.stop_macno = stop_macno;
         }
     }
 

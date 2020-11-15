@@ -1,6 +1,7 @@
 package com.younge.changetheelectricity.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
@@ -80,5 +81,14 @@ public class DateUtil {
                 return juliLong + "m";
             }
         }
+    }
+
+
+    public static String getPresentTimeAddSome(int minute){
+        Calendar nowTime = Calendar.getInstance();
+        nowTime.add(Calendar.MINUTE, minute);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        return sdf.format(nowTime.getTime());
+
     }
 }

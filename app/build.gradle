@@ -85,6 +85,8 @@ dependencies {
     implementation 'com.amap.api:3dmap:latest.integration'
     //定位功能
     implementation 'com.amap.api:location:latest.integration'
+    //搜索功能
+    implementation 'com.amap.api:search:latest.integration'
 
     //
     implementation 'org.byteam.superadapter:superadapter:3.6.6'

@@ -47,6 +47,8 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
     TextView tv_submit;
     @BindView(R.id.tv_price)
     TextView tv_price;
+    @BindView(R.id.tv_present_battery)
+    TextView tv_present_battery;
     private ConfirmOrderAdapter mAdapter;
 
     private List<PackageBean.ListBean> allList = new ArrayList<>();
@@ -70,6 +72,9 @@ public class ConfirmOrderActivity extends MyBaseActivity<PayPresenter> implement
 
         String packageDetails = getIntent().getStringExtra("packageDetail");
         packageDetailList  = JsonUtil.parserGsonToArray(packageDetails,new TypeToken<ArrayList<PackageBean.ListBean>>(){});
+
+        String presentSn = (String) SharedPreferencesUtils.getParam(this,"presentBattery","");
+        tv_present_battery.setText("当前电池:（"+presentSn+"）");
 
         initList();
     }

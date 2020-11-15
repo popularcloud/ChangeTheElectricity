@@ -1,7 +1,9 @@
 package com.younge.changetheelectricity.mine.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
@@ -26,14 +28,22 @@ public class MyPackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
         holder.setText(R.id.tv_title,item.getTitle());
         holder.setText(R.id.tv_time, DateUtil.timeStamp2Date(String.valueOf(item.getEndtime()),"yyyy-MM-dd")+"到期");
        // holder.setText(R.id.tv_price,"￥"+item.getText().getMoney());
-        switch (item.getText().getUse()){
-            case "0":
+
+        TextView tv_no_use = holder.itemView.findViewById(R.id.tv_no_use);
+        switch (item.getNum()){
+            case 0:
                 holder.setText(R.id.tv_desc,"无限次");
                 break;
             default:
-                holder.setText(R.id.tv_desc,item.getText().getUse()+"次");
+                holder.setText(R.id.tv_desc,"剩余 "+(item.getNum()-Integer.parseInt(item.getText().getUse()))+"次");
                 break;
 
+        }
+
+        if(layoutPosition == 0){
+            tv_no_use.setVisibility(View.VISIBLE);
+        }else{
+            tv_no_use.setVisibility(View.GONE);
         }
 
         ImageView imageView = holder.itemView.findViewById(R.id.tv_header);

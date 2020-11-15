@@ -116,6 +116,7 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(this, false);
         mBGARefreshLayout.setRefreshViewHolder(refreshViewHolder);
+        mBGARefreshLayout.setIsShowLoadingMoreView(false);
 
         mAdapter = new MyPackageListAdapter(this,allList,R.layout.item_my_package);
         rv_data.setLayoutManager(new LinearLayoutManager(this));
