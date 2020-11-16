@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
 import com.stx.xhb.xbanner.XBanner;
 import com.yanzhenjie.permission.Action;
@@ -171,7 +173,18 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
                 LoadingImgBean loadingImgBean = (LoadingImgBean) model;
                 Glide.with(LoadingActivity.this).load(loadingImgBean.getImage()).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background).into((ImageView) view);
 
-                if(position == loadingImgBeans.size() -1 && position != 0){
+            }
+        });
+
+        xBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == loadingImgBeans.size()-1){
                     tv_go_in.setVisibility(View.VISIBLE);
                     tv_go_in.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -187,7 +200,14 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
                             }
                         }
                     });
+                }else{
+                    tv_go_in.setVisibility(View.GONE);
                 }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
 
