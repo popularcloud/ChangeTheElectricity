@@ -38,7 +38,7 @@
             android:background="@drawable/btn_blue_bg"
             android:gravity="center"
             android:padding="@dimen/dp_10"
-            android:text="￥ 4"
+            android:text="￥ 0"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_16" />
         <TextView

@@ -122,7 +122,12 @@ public class MineFragment extends MyBaseFragment<MinePresenter> implements MineV
         String userInfoDetail = JsonUtil.parserObjectToGson(userinfoBean);
         SharedPreferencesUtils.setParam(getContext(),"userInfoDetail",userInfoDetail);
 
-        txt_name.setText(userinfoBean.getUsername());
+        if(!TextUtils.isEmpty(userinfoBean.getUsername())){
+            txt_name.setText(userinfoBean.getUsername());
+        }else{
+            txt_name.setText(userinfoBean.getNickname());
+        }
+
 
         ImageLoaderUtil.getInstance().displayFromNetDCircularT(getContext(),userinfoBean.getAvatar(),img_head,R.mipmap.default_portrait_100);
 

@@ -35,6 +35,7 @@ import com.younge.changetheelectricity.changetheelectricity.activity.ChargeDetai
 import com.younge.changetheelectricity.changetheelectricity.fragment.BatteryDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ChargeDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ShopDetailFragment;
+import com.younge.changetheelectricity.login.activity.LoginActivity;
 import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
@@ -51,6 +52,7 @@ import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 import com.younge.changetheelectricity.util.JsonUtil;
+import com.younge.changetheelectricity.util.LoginUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 import com.younge.changetheelectricity.widget.CustomDialog;
@@ -243,6 +245,11 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_scan:  //充电只需要验证套餐
+
+                if(!LoginUtil.isLogin(getContext())){
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    return;
+                }
 
                 mPresenter.getMyPackageList("2","1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
 

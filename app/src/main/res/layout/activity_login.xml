@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_fa"
+    android:background="@color/white"
     android:fitsSystemWindows="true">
 <LinearLayout
     android:layout_height="match_parent"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_24"
             android:inputType="phone"
-            android:background="@color/gray_fa"
+            android:background="@color/white"
             android:textColor="@color/black_33"
             android:text="" />
     </LinearLayout>
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/sp_24"
             android:inputType="number"
-            android:background="@color/gray_fa"
+            android:background="@color/white"
             android:textColor="@color/black_33"
             android:text="" />
         <TextView

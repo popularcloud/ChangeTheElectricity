@@ -46,6 +46,8 @@ import com.younge.changetheelectricity.changetheelectricity.activity.ChargeDetai
 import com.younge.changetheelectricity.changetheelectricity.activity.OperateStatuActivity;
 import com.younge.changetheelectricity.changetheelectricity.fragment.BatteryDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ShopDetailFragment;
+import com.younge.changetheelectricity.login.activity.LoadingActivity;
+import com.younge.changetheelectricity.login.activity.LoginActivity;
 import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
 import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
@@ -61,12 +63,15 @@ import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
+import com.younge.changetheelectricity.util.AMapUtil;
 import com.younge.changetheelectricity.util.JsonUtil;
+import com.younge.changetheelectricity.util.LoginUtil;
 import com.younge.changetheelectricity.util.NavigationUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 import com.younge.changetheelectricity.widget.CustomDialog;
 import com.younge.changetheelectricity.widget.CustomViewPager;
+import com.younge.changetheelectricity.widget.WalkRouteOverlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -292,6 +297,12 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                     getActivity().startActivity(intent);
                 }*/
 
+                if(!LoginUtil.isLogin(getContext())){
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    return;
+                }
+
+
                 if (!isHasCar) {
                     customDialog = new CustomDialog(getActivity());
                     customDialog.setTitle("温馨提示");
@@ -387,7 +398,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
                     @Override
                     public void onWalkRouteSearched(WalkRouteResult result, int errorCode) {
-                       /*  aMap.clear();// 清理地图上的所有覆盖物
+                        aMap.clear();// 清理地图上的所有覆盖物
                         if (errorCode == AMapException.CODE_AMAP_SUCCESS) {
                             if (result != null && result.getPaths() != null) {
                                 if (result.getPaths().size() > 0) {
@@ -398,19 +409,19 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                                         return;
                                     }
                                    WalkRouteOverlay walkRouteOverlay = new WalkRouteOverlay(
-                                            this, aMap, walkPath,
+                                            getActivity(), aMap, walkPath,
                                             mWalkRouteResult.getStartPos(),
                                             mWalkRouteResult.getTargetPos());
                                     walkRouteOverlay.removeFromMap();
                                     walkRouteOverlay.addToMap();
                                     walkRouteOverlay.zoomToSpan();
-                                    mBottomLayout.setVisibility(View.VISIBLE);
+                                    //mBottomLayout.setVisibility(View.VISIBLE);
                                     int dis = (int) walkPath.getDistance();
                                     int dur = (int) walkPath.getDuration();
                                     String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
-                                    mRotueTimeDes.setText(des);
-                                    mRouteDetailDes.setVisibility(View.GONE);
-                                    mBottomLayout.setOnClickListener(new View.OnClickListener() {
+                                    //mRotueTimeDes.setText(des);
+                                   // mRouteDetailDes.setVisibility(View.GONE);
+                                  /*  mBottomLayout.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
                                             Intent intent = new Intent(mContext,
@@ -420,16 +431,16 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                                                     mWalkRouteResult);
                                             startActivity(intent);
                                         }
-                                    });
+                                    });*/
                                 } else if (result != null && result.getPaths() == null) {
-                                    ToastUtil.show(mContext, R.string.no_result);
+                                    ToastUtil.makeText(mContext,getString(R.string.no_result));
                                 }
                             } else {
-                                ToastUtil.show(mContext, R.string.no_result);
+                                ToastUtil.makeText(mContext, getString(R.string.no_result));
                             }
                         } else {
-                            ToastUtil.showerror(this.getApplicationContext(), errorCode);
-                        }*/
+                            ToastUtil.makeText(mContext, "错误码:"+errorCode);
+                        }
 
                     }
 
