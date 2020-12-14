@@ -4,9 +4,9 @@ public class UsingOrderBean {
 
 
     /**
-     * order_id : 2
-     * info : {"id":2,"goods_type":0,"order_type":1,"begintime":0,"expiretime":0,"status":0,"start_box":1,"stop_box":2,"stop_macno":"123456"}
-     * appointment : {"appointment_minute":"10","appointment_count":"5","my_count":0}
+     * order_id : 97
+     * info : {"id":97,"goods_type":1,"order_type":0,"begintime":1606142917,"expiretime":0,"status":2,"start_box":1,"stop_box":0,"stop_macno":""}
+     * appointment : {"appointment_minute":"10","appointment_count":"5","my_count":12}
      */
 
     private int order_id;
@@ -39,15 +39,15 @@ public class UsingOrderBean {
 
     public static class InfoBean {
         /**
-         * id : 2
-         * goods_type : 0
-         * order_type : 1
-         * begintime : 0
+         * id : 97
+         * goods_type : 1
+         * order_type : 0
+         * begintime : 1606142917
          * expiretime : 0
-         * status : 0
+         * status : 2
          * start_box : 1
-         * stop_box : 2
-         * stop_macno : 123456
+         * stop_box : 0
+         * stop_macno :
          */
 
         private int id;
@@ -137,7 +137,7 @@ public class UsingOrderBean {
         /**
          * appointment_minute : 10
          * appointment_count : 5
-         * my_count : 0
+         * my_count : 12
          */
 
         private String appointment_minute;

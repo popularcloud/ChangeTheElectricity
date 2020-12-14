@@ -1,5 +1,8 @@
 package com.younge.changetheelectricity.main.presenter;
 
+import android.util.Log;
+
+import com.google.gson.JsonObject;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
 import com.younge.changetheelectricity.base.BasePresenter;
@@ -11,6 +14,7 @@ import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.net.ApiRetrofit;
 import com.younge.changetheelectricity.util.JsonUtil;
+import com.younge.changetheelectricity.util.ToastUtil;
 
 public class MainPresenter extends BasePresenter<MainView> {
 
@@ -119,9 +123,16 @@ public class MainPresenter extends BasePresenter<MainView> {
                 if(o.getData().toString().length() < 3){
                     baseView.onGetUsingOrderSuccess(null);
                 }else{
-                    UsingOrderBean usingOrderBean = JsonUtil.parserGsonToObject(String.valueOf(o.getData()),UsingOrderBean.class);
-                    o.setDataBean(usingOrderBean);
-                    baseView.onGetUsingOrderSuccess((BaseModel<UsingOrderBean>) o);
+
+                    try{
+                        UsingOrderBean usingOrderBean = JsonUtil.parserGsonToObject(JsonUtil.parserObjectToGson(o.getData()),UsingOrderBean.class);
+                        o.setDataBean(usingOrderBean);
+                        baseView.onGetUsingOrderSuccess((BaseModel<UsingOrderBean>) o);
+                    }catch (Exception e){
+                        //ToastUtil.makeText();
+                        Log.e("报错",e.getMessage());
+                    }
+
                 }
 
 

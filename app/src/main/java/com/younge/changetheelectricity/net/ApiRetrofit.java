@@ -21,7 +21,8 @@ public class ApiRetrofit {
     //public static String baseUrl = "http://gxyc.jxcqs.com/";    //正式版
     //public static String tupian = "http://gxyc.jxcqs.com";    //正式版
 
-    public static String baseUrl = "http://winpower.wljueli.com";     //测试版
+    //public static String baseUrl = "http://winpower.wljueli.com";     //测试版
+    public static String baseUrl = "https://winpower.jxcqs.com/";     //测试版
     //public static String tupian = "http://gxyccs.jxcqs.com";     //测试版
 
     private static ApiRetrofit apiRetrofit;
