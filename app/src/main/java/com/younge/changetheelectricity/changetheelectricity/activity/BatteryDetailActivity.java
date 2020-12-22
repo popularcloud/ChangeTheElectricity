@@ -3,6 +3,7 @@ package com.younge.changetheelectricity.changetheelectricity.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -156,16 +157,21 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
 
             List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
             for(int i = 0;i < deviceGoodsBeans.size();i++){
-                if(appointmentBean.getMy_order().getStart_box() == deviceGoodsBeans.get(i).getDevice_box()){
-                    tv_has.setText(deviceGoodsBeans.get(i).getBattery()+"%");
+                if(appointmentBean.getMy_order().getStop_box() == deviceGoodsBeans.get(i).getDevice_box() && deviceGoodsBeans.get(i).getGoods_type() == 0){
+
+                    float battery = deviceGoodsBeans.get(i).getBattery();
+
+                    tv_has.setText(String.valueOf(battery)+"%");
                     //计算电量背景的长度
                     float bgLength =  80 * (deviceGoodsBeans.get(i).getBattery()/100);
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv_has_bg.getLayoutParams();
-                    layoutParams.width = DisplayUtil.dip2px(BatteryDetailActivity.this,bgLength);
+                    layoutParams.height = DisplayUtil.dip2px(BatteryDetailActivity.this,bgLength);
+                    Log.e("背景长度:",""+bgLength);
+                    // tv_has_bg.setLayoutParams(layoutParams);
                 }
             }
 
-            tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStart_box()+"号电池");
+            tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStop_box()+"号电池");
             tv_msg.setText("请于"+appointmentBean.getAppointment_minute()+"分钟内到此门店更换，过时将自动取消预约\n本月剩余次数："+(appointmentBean.getAppointment_count()-appointmentBean.getMy_count())+"次");
 
         }else{

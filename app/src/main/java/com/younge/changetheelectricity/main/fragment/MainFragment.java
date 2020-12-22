@@ -87,7 +87,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     @BindView(R.id.cvp_data)
     CustomViewPager cvp_data;
     @BindView(R.id.tv_scan)
-    TextView tv_scan;
+    LinearLayout tv_scan;
     @BindView(R.id.tv_changeElectricity)
     TextView tv_changeElectricity;
     @BindView(R.id.tv_chargeElectricity)
@@ -117,6 +117,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     @BindView(R.id.tv_to_authentication)
     TextView tv_to_authentication;
 
+    @BindView(R.id.tv_order_msg)
+    TextView tv_order_msg;
+
     private boolean isHasCar = false;
 
     private boolean isShow = false;
@@ -129,6 +132,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     List<ShopDetailLocationBean.ListBean> listBeans;
 
     private ShopDetailLocationBean.ListBean presentShop;
+
+
+    private boolean isScan = true;
 
     //初始化地图控制器对象
     AMap aMap = null;
@@ -161,6 +167,12 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
         initMapView();
         initViewpager();
+
+
+        //检测是否有绑定车辆
+        isScan = false;
+        mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
+
 
         //获取正在进行的订单
         mPresenter.getUsingOrder((String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
@@ -204,7 +216,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         myLocationStyle.interval(60000); //设置连续定位模式下的定位间隔，只在连续定位模式下生效，单次定位模式下不会生效。单位为毫秒。
         // myLocationStyle.showMyLocation(true);
         myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                .decodeResource(getResources(), R.mipmap.ic_car_location)));
+                .decodeResource(getResources(), R.mipmap.location_marker)));
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
 
         aMap.getUiSettings().setMyLocationButtonEnabled(true); //设置默认定位按钮是否显示，非必需设置。
@@ -272,6 +284,16 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     }
 
+    public void showOrderTime(String msg){
+        tv_order_msg.setText(msg);
+        tv_order_msg.setVisibility(View.VISIBLE);
+    }
+
+
+    public void hiddenOrderTime(){
+        tv_order_msg.setVisibility(View.GONE);
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -297,6 +319,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                     getActivity().startActivity(intent);
                 }*/
 
+
+                isScan = true;
                 if(!LoginUtil.isLogin(getContext())){
                     startActivity(new Intent(getActivity(), LoginActivity.class));
                     return;
@@ -548,11 +572,16 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         if (data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0) {
             // ToastUtil.makeText(getContext(),"已监测到您的电池");
 
-            //获取到了电池 并且电池的定位不为空】
-            MyBatteryBean.ListBean defaultBattery = data.getData().getList().get(0);
-            SharedPreferencesUtils.setParam(getActivity(), "presentBattery", defaultBattery.getSn());
-            if (!TextUtils.isEmpty(defaultBattery.getLat()) && !TextUtils.isEmpty(defaultBattery.getLng())) {
-
+            if(!isScan){
+                //获取到了电池 并且电池的定位不为空】
+                MyBatteryBean.ListBean defaultBattery = data.getData().getList().get(0);
+                SharedPreferencesUtils.setParam(getActivity(), "presentBattery", defaultBattery.getSn());
+                if (!TextUtils.isEmpty(defaultBattery.getLat()) && !TextUtils.isEmpty(defaultBattery.getLng())) {
+                    myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                            .decodeResource(getResources(), R.mipmap.ic_car_location)));
+                    aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
+                }
+                return;
             }
 
             if (userInfoDetail != null && userInfoDetail.getVerification() != 1) {
@@ -591,6 +620,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
             });
             customDialog.show();
         }
+
+        isScan =true;
     }
 
     @Override
@@ -623,7 +654,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     @Override
     public void onGetUsingOrderSuccess(BaseModel<UsingOrderBean> data) {
         if (data != null && data.getData() != null && data.getData().getInfo().getOrder_type() == 0) {  //"order_type": 1,//0普通  1预约
-            if ("0".equals(data.getData().getInfo().getGoods_type())) { //0换电 1充电
+            if (data.getData().getInfo().getGoods_type()==0) { //0换电 1充电
                 Intent intent = new Intent(getActivity(), OperateStatuActivity.class);
                 intent.putExtra("orderId", data.getData().getInfo().getId());
                 startActivity(intent);
@@ -676,6 +707,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     @Override
     public void onGetDataFail() {
 
+        isScan = true;
     }
 
 

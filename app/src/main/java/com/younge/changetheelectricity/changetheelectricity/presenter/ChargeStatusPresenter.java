@@ -6,6 +6,8 @@ import com.younge.changetheelectricity.base.BasePresenter;
 import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.view.ChargeStatusView;
+import com.younge.changetheelectricity.mine.bean.PhoneSettingBean;
+import com.younge.changetheelectricity.mine.bean.ShareSettingBean;
 import com.younge.changetheelectricity.net.ApiRetrofit;
 
 public class ChargeStatusPresenter extends BasePresenter<ChargeStatusView> {
@@ -65,6 +67,28 @@ public class ChargeStatusPresenter extends BasePresenter<ChargeStatusView> {
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();
                 baseView.onCancelSuccess((BaseModel<StartResultBean>) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
+    public void getShareSetting(String token){
+        addDisposable(ApiRetrofit.getInstance().getApiService().getPhoneSetting("api/common/config","site.tel",token), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.onGetPhoneSuccess((BaseModel<PhoneSettingBean>) o);
             }
 
             @Override

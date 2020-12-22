@@ -1,5 +1,7 @@
 package com.younge.changetheelectricity.changetheelectricity.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,7 +17,9 @@ import com.younge.changetheelectricity.changetheelectricity.Bean.ChargeStatusBea
 import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.presenter.ChargeStatusPresenter;
 import com.younge.changetheelectricity.changetheelectricity.view.ChargeStatusView;
+import com.younge.changetheelectricity.mine.bean.PhoneSettingBean;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
+import com.younge.changetheelectricity.widget.CustomDialog;
 
 import java.util.concurrent.TimeUnit;
 
@@ -44,13 +48,18 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
     TextView tv_submit;
     @BindView(R.id.iv_header)
     ImageView iv_header;
+    @BindView(R.id.tv_submit_error)
+    TextView tv_submit_error;
 
     private String orderId;
 
     private Disposable mDisposable;
 
+    private String tel;
+
 
     private int act;
+    private CustomDialog customDialog;
 
     @Override
     protected ChargeStatusPresenter createPresenter() {
@@ -78,6 +87,8 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 mPresenter.getOrderStatus(orderId, (String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
             }
         });
+
+        mPresenter.getShareSetting((String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
     }
 
     @Override
@@ -90,7 +101,7 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
 
     }
 
-    @OnClick({R.id.rl_fanhui_left,R.id.tv_cancel,R.id.tv_submit})
+    @OnClick({R.id.rl_fanhui_left,R.id.tv_cancel,R.id.tv_submit,R.id.tv_submit_error})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.rl_fanhui_left:
@@ -106,6 +117,32 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 break;
             case R.id.tv_submit:
                 mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
+                break;
+            case R.id.tv_submit_error:
+                customDialog = new CustomDialog(this);
+                customDialog.setTitle("请立即联系店长");
+                customDialog.setMessage(tel);
+                customDialog.setButton1Text("拨打");
+                customDialog.setButton2Text("取消");
+                customDialog.setCanceledOnTouchOutside(true);
+                customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        customDialog.dismiss();
+
+                    }
+                });
+                customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        customDialog.dismiss();
+                        Uri uri = Uri.parse("tel:" + tel);
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    }
+                });
+                customDialog.show();
                 break;
         }
     }
@@ -266,6 +303,13 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
     @Override
     public void onCancelSuccess(BaseModel<StartResultBean> data) {
         //finish();
+    }
+
+    @Override
+    public void onGetPhoneSuccess(BaseModel<PhoneSettingBean> data) {
+        if(data != null && data.getData() != null && data.getData().getTel() != null){
+            tel = data.getData().getTel();
+        }
     }
 
     @Override

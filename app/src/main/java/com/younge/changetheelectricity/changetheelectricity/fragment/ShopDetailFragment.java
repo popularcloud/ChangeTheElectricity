@@ -140,13 +140,16 @@ public class ShopDetailFragment extends MyBaseFragment<ShopDetailPresenter> impl
 
         if(data != null && data.getData() != null){
             tv_num.setText(macno);
-            if(data.getData().getDevice_goods_stats() != null ){
-                List<ShopDetailBean.DeviceGoodsStatsBean> deviceGoodsStatsBeans = data.getData().getDevice_goods_stats();
+            List<ShopDetailBean.DeviceGoodsStatsBean> deviceGoodsStatsBeans = data.getData().getDevice_goods_stats();
+            if(deviceGoodsStatsBeans != null ){
+            /*    List<ShopDetailBean.DeviceGoodsStatsBean> deviceGoodsStatsBeans = data.getData().getDevice_goods_stats();
                 StringBuilder stringBuilder = new StringBuilder();
                 for(int i = 0;i < deviceGoodsStatsBeans.size();i++){
                     stringBuilder.append(deviceGoodsStatsBeans.get(i).getTitle()+"/"+deviceGoodsStatsBeans.get(i).getNum()+"个  ");
-                }
-                tv_count.setText(stringBuilder.toString());
+                }*/
+                tv_count.setText(deviceGoodsStatsBeans.size()+"个");
+            }else{
+                tv_count.setText(0+"个");
             }
 
             tv_phone.setText(data.getData().getTel());

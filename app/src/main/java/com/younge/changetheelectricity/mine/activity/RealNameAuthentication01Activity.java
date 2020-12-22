@@ -16,9 +16,11 @@ import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
+import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 import com.younge.changetheelectricity.mine.presenter.RealNameAuthenticationPresenter;
 import com.younge.changetheelectricity.mine.view.RealNameAuthenticationCenterView;
 import com.younge.changetheelectricity.util.ImageLoaderUtil;
+import com.younge.changetheelectricity.util.JsonUtil;
 import com.younge.changetheelectricity.util.RegexUtils;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
@@ -234,7 +236,8 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
     @Override
     public void onSubmitSuccess(BaseModel<Object> data) {
         ToastUtil.makeText(this,"认证信息提交成功！");
-        finish();
+        mPresenter.getPersonalInfo((String) SharedPreferencesUtils.getParam(this,"token",""));
+       // finish();
     }
 
     @Override
@@ -256,6 +259,18 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
                 ImageLoaderUtil.getInstance().displayFromNetDCircular(RealNameAuthentication01Activity.this,holdImg,iv_card_hold,R.mipmap.cte_logo);
                 break;
         }
+    }
+
+    @Override
+    public void onGetPersonInfo(BaseModel<UserInfoBean> data) {
+
+        if(data != null && data.getData() != null && data.getData().getUserinfo() != null){
+            String userInfoDetail = JsonUtil.parserObjectToGson(data.getData().getUserinfo());
+            SharedPreferencesUtils.setParam(this,"userInfoDetail",userInfoDetail);
+        }
+
+        finish();
+
     }
 
     @Override

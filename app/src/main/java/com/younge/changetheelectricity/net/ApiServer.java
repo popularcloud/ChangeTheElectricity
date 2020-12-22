@@ -17,6 +17,7 @@ import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
+import com.younge.changetheelectricity.mine.bean.PhoneSettingBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.bean.ShareSettingBean;
 import com.younge.changetheelectricity.mine.bean.UserInfoBean;
@@ -351,6 +352,13 @@ public interface ApiServer {
     @Headers("HTTP_API: api/common/config")
     Observable<BaseModel<ShareSettingBean>> getShareSetting(@Field("HTTP_API") String httpApi,
                                                             @Field("group") String type,
+                                                            @Field("token") String token);
+
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: api/common/config")
+    Observable<BaseModel<PhoneSettingBean>> getPhoneSetting(@Field("HTTP_API") String httpApi,
+                                                            @Field("key") String key,
                                                             @Field("token") String token);
 
     /**

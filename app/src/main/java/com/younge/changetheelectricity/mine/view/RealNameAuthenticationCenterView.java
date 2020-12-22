@@ -4,6 +4,7 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseView;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
+import com.younge.changetheelectricity.mine.bean.UserInfoBean;
 
 /**
  * File descripition:
@@ -17,6 +18,8 @@ public interface RealNameAuthenticationCenterView extends BaseView {
     void onSubmitSuccess(BaseModel<Object> data);
 
     void onUploadPicSuccess(BaseModel<ReturnImgUrlBean> data);
+
+    void onGetPersonInfo(BaseModel<UserInfoBean> data);
 
     void onGetDataFail();
 }

@@ -117,20 +117,24 @@ public class MineFragment extends MyBaseFragment<MinePresenter> implements MineV
 
     @Override
     public void onGetDataSuccess(BaseModel<UserInfoBean> data) {
-        userinfoBean = data.getData().getUserinfo();
 
-        String userInfoDetail = JsonUtil.parserObjectToGson(userinfoBean);
-        SharedPreferencesUtils.setParam(getContext(),"userInfoDetail",userInfoDetail);
+        if(data != null && data.getData() != null && data.getData().getUserinfo() != null){
+            userinfoBean = data.getData().getUserinfo();
 
-        if(!TextUtils.isEmpty(userinfoBean.getUsername())){
-            txt_name.setText(userinfoBean.getUsername());
-        }else{
-            txt_name.setText(userinfoBean.getNickname());
+            String userInfoDetail = JsonUtil.parserObjectToGson(userinfoBean);
+            SharedPreferencesUtils.setParam(getContext(),"userInfoDetail",userInfoDetail);
+
+            if(!TextUtils.isEmpty(userinfoBean.getUsername())){
+                txt_name.setText(userinfoBean.getUsername());
+            }else{
+                txt_name.setText(userinfoBean.getNickname());
+            }
+
+
+            ImageLoaderUtil.getInstance().displayFromNetDCircularT(getContext(),userinfoBean.getAvatar(),img_head,R.mipmap.default_portrait_100);
+
+
         }
-
-
-        ImageLoaderUtil.getInstance().displayFromNetDCircularT(getContext(),userinfoBean.getAvatar(),img_head,R.mipmap.default_portrait_100);
-
 
 
        // tv_status.setText(userinfoBean.getVerification_desc());

@@ -166,10 +166,11 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
 
     @Override
     public void onGetDataSuccess(BaseModel<PackageBean> data) {
-        if(data != null && data.getData() != null && data.getData().getList() != null){
+        if(data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0){
+            ll_msg.setVisibility(View.GONE);
+            mBGARefreshLayout.setVisibility(View.VISIBLE);
             if(page == 1) {
                 tv_submit.setText("购买套餐");
-                mBGARefreshLayout.setVisibility(View.VISIBLE);
                 mAdapter.replaceAll(data.getData().getList());
             }else{
                 mAdapter.addAll(data.getData().getList());
@@ -177,7 +178,8 @@ public class MyPackageActivity extends MyBaseActivity<MyPackagePresenter> implem
         }else{
             if(page == 1){
                 tv_submit.setText("购买套餐");
-                mBGARefreshLayout.setVisibility(View.VISIBLE);
+                mBGARefreshLayout.setVisibility(View.GONE);
+                ll_msg.setVisibility(View.VISIBLE);
                 tv_msg.setText("您还没有购买套餐");
             }
         }

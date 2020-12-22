@@ -7,6 +7,8 @@ import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean
 import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
+import com.younge.changetheelectricity.mine.bean.PhoneSettingBean;
+import com.younge.changetheelectricity.mine.bean.ShareSettingBean;
 
 public interface ChargeStatusView extends BaseView {
 
@@ -15,6 +17,8 @@ public interface ChargeStatusView extends BaseView {
     void onStartSuccess(BaseModel<StartResultBean> data);
 
     void onCancelSuccess(BaseModel<StartResultBean> data);
+
+    void onGetPhoneSuccess(BaseModel<PhoneSettingBean> data);
 
     void onGetDataFail();
 }

@@ -35,7 +35,7 @@ public class MyPackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
                 holder.setText(R.id.tv_desc,"无限次");
                 break;
             default:
-                holder.setText(R.id.tv_desc,"剩余 "+(item.getNum()-Integer.parseInt(item.getText().getUse()))+"次");
+               holder.setText(R.id.tv_desc,"剩余 "+(item.getNum()-item.getUse())+"次");
                 break;
 
         }

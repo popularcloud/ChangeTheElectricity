@@ -40,8 +40,7 @@
         android:text="5号插座已通电，请插入充电"></TextView>
     <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="@dimen/dp__80" />
     <TextView
         android:id="@+id/tv_submit"
         android:layout_width="match_parent"
@@ -72,4 +71,21 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/btn_gray_bg_line"
         android:text="取消" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tv_submit_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:visibility="visible"
+        android:textSize="@dimen/sp_16"
+        android:background="@drawable/text_underline"
+        android:textColor="@color/red"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:text="故障上报" />
 </LinearLayout>

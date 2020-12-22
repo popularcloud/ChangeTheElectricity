@@ -9,8 +9,10 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.younge.changetheelectricity.R;
+import com.younge.changetheelectricity.util.DisplayUtil;
 
 
 /**
@@ -27,6 +29,7 @@ public class PayTypeDialog extends Dialog implements View.OnClickListener{
 	RelativeLayout rl_wechat;
 	RelativeLayout rl_alipay;
 	LinearLayout ll_pay_type;
+	TextView tv_pay_money;
 	LinearLayout ll_pay_pwd;
 	ImageView ic_close;
 
@@ -84,6 +87,10 @@ public class PayTypeDialog extends Dialog implements View.OnClickListener{
 		rl_alipay = findViewById(R.id.rl_alipay);
 		ll_pay_type = findViewById(R.id.ll_pay_type);
 		ic_close = findViewById(R.id.ic_close);
+		tv_pay_money = findViewById(R.id.tv_pay_money);
+
+
+		tv_pay_money.setText(payPrice+"元");
 
 		ic_close.setOnClickListener(this);
 		widgetListener();

@@ -2,6 +2,7 @@ package com.younge.changetheelectricity.changetheelectricity.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,9 @@ import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.Bean.OrderResultBean;
 import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
+import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.main.bean.DeviceDetailBean;
+import com.younge.changetheelectricity.main.fragment.MainFragment;
 import com.younge.changetheelectricity.main.presenter.DeviceDetailPresenter;
 import com.younge.changetheelectricity.main.view.DeviceDetailView;
 import com.younge.changetheelectricity.mine.activity.PackageListActivity;
@@ -68,6 +71,9 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     private List<DeviceDetailBean.DeviceGoodsBean> allList = new ArrayList<>();
 
     private Unbinder unbinder;
+    private int appointmentMinute;
+    private String laterTime;
+
     public BatteryDetailsFragment() {
     }
 
@@ -113,7 +119,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
             public void OnItemBtnclick(int position, int btn) {
 
 
-                String laterTime = DateUtil.getPresentTimeAddSome(10);
+                laterTime = DateUtil.getPresentTimeAddSome(appointmentMinute);
 
                 customDialog = new CustomDialog(getActivity());
                 customDialog.setTitle("");
@@ -174,7 +180,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
 
                 List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
                 for(int i = 0;i < deviceGoodsBeans.size();i++){
-                    if(appointmentBean.getMy_order().getStop_box() == deviceGoodsBeans.get(i).getDevice_box()){
+                    if(appointmentBean.getMy_order().getStop_box() == deviceGoodsBeans.get(i).getDevice_box() && deviceGoodsBeans.get(i).getGoods_type() == 0){
 
                         float battery = deviceGoodsBeans.get(i).getBattery();
 
@@ -182,10 +188,13 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
                         //计算电量背景的长度
                         float bgLength =  80 * (deviceGoodsBeans.get(i).getBattery()/100);
                         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv_has_bg.getLayoutParams();
-                        layoutParams.width = DisplayUtil.dip2px(getContext(),bgLength);
-                        tv_has_bg.setLayoutParams(layoutParams);
+                        layoutParams.height = DisplayUtil.dip2px(getContext(),bgLength);
+                        Log.e("背景长度:",""+bgLength);
+                       // tv_has_bg.setLayoutParams(layoutParams);
                     }
                 }
+
+                ((MainFragment)getParentFragment()).showOrderTime(appointmentBean.getMy_order().getStop_box()+"号电池预约成功，换电时间为"+laterTime);
 
                 tv_title01.setText("您已预约"+appointmentBean.getMy_order().getStop_box()+"号电池");
                 tv_msg.setText("请于"+appointmentBean.getAppointment_minute()+"分钟内到此门店更换，过时将自动取消预约\n本月剩余次数："+(appointmentBean.getAppointment_count()-appointmentBean.getMy_count())+"次");
@@ -196,6 +205,13 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
                 tv_battery_account.setVisibility(View.VISIBLE);
                 tv_battery_account.setText("电池数量："+ data.getData().getActive_box()+"个");
                 tv_num.setText("电柜编号："+macno);
+
+                ((MainFragment)getParentFragment()).hiddenOrderTime();
+
+
+                appointmentMinute = Integer.parseInt(data.getData().getAppointment().getAppointment_minute());
+                tv_msg.setText("本月剩余次数："+(appointmentBean.getAppointment_count()-appointmentBean.getMy_count())+"次");
+
 
                 List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
                 allList.clear();
