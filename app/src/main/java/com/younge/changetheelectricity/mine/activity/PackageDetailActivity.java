@@ -76,7 +76,7 @@ public class PackageDetailActivity extends MyBaseActivity<BindCarPresenter> impl
 
     @Override
     protected int getContentViewId(Bundle savedInstanceState) {
-        return R.layout.activity_bind_car;
+        return R.layout.activity_package_detail;
     }
 
     @Override

@@ -84,7 +84,7 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
         boxId = getIntent().getStringExtra("boxId");
 
 
-        tv_msg.setText(boxId+"号插座已通电，请插入充电");
+        //tv_msg.setText(boxId+"号插座已通电，请插入充电");
 
 
         interval(2000, new RxAction() {

@@ -235,6 +235,7 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
             intent.putExtra("orderId", data.getData().getOrder_id());
             intent.putExtra("boxId", selectChargeBox);
             startActivity(intent);
+            finish();
         }
     }
 

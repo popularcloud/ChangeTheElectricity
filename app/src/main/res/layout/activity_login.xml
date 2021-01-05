@@ -113,6 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_24"
+        android:checked="true"
         android:gravity="top"
         android:text="已同意《用户服务协议》及《隐私政策法律法规》并同意动力风/智能充换电网络获取本机号码"/>
     <LinearLayout

@@ -54,10 +54,11 @@ public class UsingOrderBean {
         private int goods_type;
         private int order_type;
         private int begintime;
-        private int expiretime;
+        private String expiretime;
         private int status;
         private int start_box;
         private int stop_box;
+        private String macno;
         private String stop_macno;
 
         public int getId() {
@@ -92,14 +93,6 @@ public class UsingOrderBean {
             this.begintime = begintime;
         }
 
-        public int getExpiretime() {
-            return expiretime;
-        }
-
-        public void setExpiretime(int expiretime) {
-            this.expiretime = expiretime;
-        }
-
         public int getStatus() {
             return status;
         }
@@ -130,6 +123,18 @@ public class UsingOrderBean {
 
         public void setStop_macno(String stop_macno) {
             this.stop_macno = stop_macno;
+        }
+
+        public void setExpiretime(String expiretime) {
+            this.expiretime = expiretime;
+        }
+
+        public String getMacno() {
+            return macno;
+        }
+
+        public void setMacno(String macno) {
+            this.macno = macno;
         }
     }
 

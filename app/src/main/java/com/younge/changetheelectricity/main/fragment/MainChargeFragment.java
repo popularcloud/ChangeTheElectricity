@@ -31,7 +31,9 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
 import com.younge.changetheelectricity.base.MyConstants;
 import com.younge.changetheelectricity.changetheelectricity.activity.BatteryDetailActivity;
+import com.younge.changetheelectricity.changetheelectricity.activity.CharegeStatuActivity;
 import com.younge.changetheelectricity.changetheelectricity.activity.ChargeDetailActivity;
+import com.younge.changetheelectricity.changetheelectricity.activity.OperateStatuActivity;
 import com.younge.changetheelectricity.changetheelectricity.fragment.BatteryDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ChargeDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ShopDetailFragment;
@@ -251,7 +253,9 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
                     return;
                 }
 
-                mPresenter.getMyPackageList("2","1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
+
+                //获取正在进行的订单
+                mPresenter.getUsingOrder((String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
 
                /* if(presentShop != null){
                     Intent intent = new Intent(getActivity(), ChargeDetailActivity.class);
@@ -472,7 +476,21 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
     @Override
     public void onGetUsingOrderSuccess(BaseModel<UsingOrderBean> data) {
+        if (data != null && data.getData() != null && data.getData().getInfo().getOrder_type() == 0) {  //"order_type": 1,//0普通  1预约
+            if (data.getData().getInfo().getGoods_type()==0) { //0换电 1充电
+                Intent intent = new Intent(getActivity(), OperateStatuActivity.class);
+                intent.putExtra("orderId", String.valueOf(data.getData().getInfo().getId()));
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(getActivity(), CharegeStatuActivity.class);
+                intent.putExtra("orderId", String.valueOf(data.getData().getInfo().getId()));
+                intent.putExtra("boxId", data.getData().getInfo().getStart_box());
+                startActivity(intent);
+            }
+        }else{
+            mPresenter.getMyPackageList("2","1", (String) SharedPreferencesUtils.getParam(getActivity(),"token",""));
 
+        }
     }
 
     @Override

@@ -20,7 +20,6 @@ import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
@@ -34,19 +33,15 @@ import com.amap.api.services.route.RideRouteResult;
 import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
-import com.amap.api.services.routepoisearch.RoutePOISearchQuery;
 import com.orhanobut.logger.Logger;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
 import com.younge.changetheelectricity.base.MyConstants;
-import com.younge.changetheelectricity.changetheelectricity.activity.BatteryDetailActivity;
 import com.younge.changetheelectricity.changetheelectricity.activity.CharegeStatuActivity;
-import com.younge.changetheelectricity.changetheelectricity.activity.ChargeDetailActivity;
 import com.younge.changetheelectricity.changetheelectricity.activity.OperateStatuActivity;
 import com.younge.changetheelectricity.changetheelectricity.fragment.BatteryDetailsFragment;
 import com.younge.changetheelectricity.changetheelectricity.fragment.ShopDetailFragment;
-import com.younge.changetheelectricity.login.activity.LoadingActivity;
 import com.younge.changetheelectricity.login.activity.LoginActivity;
 import com.younge.changetheelectricity.main.MainActivity;
 import com.younge.changetheelectricity.main.adapter.MyPagerAdapter;
@@ -54,7 +49,6 @@ import com.younge.changetheelectricity.main.bean.ShopDetailLocationBean;
 import com.younge.changetheelectricity.main.bean.UsingOrderBean;
 import com.younge.changetheelectricity.main.presenter.MainPresenter;
 import com.younge.changetheelectricity.main.view.MainView;
-import com.younge.changetheelectricity.mine.activity.BindBatteryActivity;
 import com.younge.changetheelectricity.mine.activity.BindCarActivity;
 import com.younge.changetheelectricity.mine.activity.MyBatteryActivity;
 import com.younge.changetheelectricity.mine.activity.PackageListActivity;
@@ -324,38 +318,11 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                     getActivity().startActivity(intent);
                 }*/
 
-
-                isScan = true;
-                if(!LoginUtil.isLogin(getContext())){
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
-                    return;
-                }
+                //获取正在进行的订单
+                mPresenter.getUsingOrder((String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
 
 
-                //if (!isHasCar) {
-                    customDialog = new CustomDialog(getActivity());
-                    customDialog.setTitle("温馨提示");
-                    customDialog.setMessage("您是否有动力风专用车");
-                    customDialog.setButton1Text("是");
-                    customDialog.setButton2Text("否");
-                    customDialog.setCanceledOnTouchOutside(true);
-                    customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
-                        @Override
-                        public void onClick(CustomDialog dialog, int id, Object object) {
-                            customDialog.dismiss();
-                            if (mPresenter != null) {
-                                //检测是否绑定车辆
-                                mPresenter.getMyCarList("1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
-                            }
-                        }
-                    });
-                    customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
-                        @Override
-                        public void onClick(CustomDialog dialog, int id, Object object) {
-                            customDialog.dismiss();
-                        }
-                    });
-                    customDialog.show();
+
                // } else {
                  //   mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
                // }
@@ -616,6 +583,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         } else {
             SharedPreferencesUtils.setParam(getActivity(), "presentBattery", "");
 
+            if(isScan){
             customDialog = new CustomDialog(getActivity());
             customDialog.setTitle("温馨提示");
             customDialog.setMessage("未监测到您的电池");
@@ -630,6 +598,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 }
             });
             customDialog.show();
+            }
         }
 
         isScan =true;
@@ -675,6 +644,37 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 intent.putExtra("boxId", data.getData().getInfo().getStart_box());
                 startActivity(intent);
             }
+        }else{
+            isScan = true;
+            if(!LoginUtil.isLogin(getContext())){
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                return;
+            }
+
+            //if (!isHasCar) {
+            customDialog = new CustomDialog(getActivity());
+            customDialog.setTitle("温馨提示");
+            customDialog.setMessage("您是否有动力风专用车");
+            customDialog.setButton1Text("是");
+            customDialog.setButton2Text("否");
+            customDialog.setCanceledOnTouchOutside(true);
+            customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                @Override
+                public void onClick(CustomDialog dialog, int id, Object object) {
+                    customDialog.dismiss();
+                    if (mPresenter != null) {
+                        //检测是否绑定车辆
+                        mPresenter.getMyCarList("1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
+                    }
+                }
+            });
+            customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                @Override
+                public void onClick(CustomDialog dialog, int id, Object object) {
+                    customDialog.dismiss();
+                }
+            });
+            customDialog.show();
         }
     }
 

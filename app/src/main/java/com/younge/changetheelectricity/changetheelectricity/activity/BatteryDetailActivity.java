@@ -212,8 +212,6 @@ public class BatteryDetailActivity extends MyBaseActivity<DeviceDetailPresenter>
                 ll_order_battery.setVisibility(View.VISIBLE);
                 ll_batterys.setVisibility(View.GONE);
 
-
-
             }
 
         }

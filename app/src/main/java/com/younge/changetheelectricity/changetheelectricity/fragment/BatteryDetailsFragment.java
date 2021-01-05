@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +44,9 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
 
     @BindView(R.id.rv_data)
     RecyclerView rv_data;
+
+    @BindView(R.id.fl_data)
+    FrameLayout fl_data;
     @BindView(R.id.ll_order_battery)
     LinearLayout ll_order_battery;
 
@@ -119,7 +123,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
             public void OnItemBtnclick(int position, int btn) {
 
 
-                laterTime = DateUtil.getPresentTimeAddSome(appointmentMinute);
+               // laterTime = DateUtil.getPresentTimeAddSome(appointmentMinute);
 
                 customDialog = new CustomDialog(getActivity());
                 customDialog.setTitle("");
@@ -176,7 +180,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
             if(appointmentBean != null && appointmentBean.getMy_order() != null){
                 tv_battery_account.setVisibility(View.INVISIBLE);
                 ll_order_battery.setVisibility(View.VISIBLE);
-                rv_data.setVisibility(View.GONE);
+                fl_data.setVisibility(View.GONE);
 
                 List<DeviceDetailBean.DeviceGoodsBean> deviceGoodsBeans = data.getData().getDevice_goods();
                 for(int i = 0;i < deviceGoodsBeans.size();i++){
@@ -201,7 +205,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
 
             }else{
                 ll_order_battery.setVisibility(View.GONE);
-                rv_data.setVisibility(View.VISIBLE);
+                fl_data.setVisibility(View.VISIBLE);
                 tv_battery_account.setVisibility(View.VISIBLE);
                 tv_battery_account.setText("电池数量："+ data.getData().getActive_box()+"个");
                 tv_num.setText("电柜编号："+macno);
