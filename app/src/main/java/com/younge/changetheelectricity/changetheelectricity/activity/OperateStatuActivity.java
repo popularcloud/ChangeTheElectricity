@@ -60,6 +60,7 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
 
     private int act;
     private CustomDialog customDialog;
+    private int status;
 
     @Override
     protected ChargeStatusPresenter createPresenter() {
@@ -108,15 +109,24 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 finish();
                 break;
             case R.id.tv_cancel:
+                String retry = "";
+                if(status == 3){
+                    retry = "1";
+                }
+
                 if(act == 2){
                     mPresenter.cancel(orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
                 }else if(act == 1){
-                    mPresenter.start("3",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
+                    mPresenter.start("3",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""),retry);
                 }
 
                 break;
             case R.id.tv_submit:
-                mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
+                String retry2 = "";
+                if(status == 3){
+                    retry2 = "1";
+                }
+                mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""),retry2);
                 break;
             case R.id.tv_submit_error:
                 customDialog = new CustomDialog(this);
@@ -209,8 +219,8 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
             tv_cancel.setVisibility(View.GONE);
 
             tv_msg.setText(chargeStatusBean.getResult().getMessage());
-
-            switch (chargeStatusBean.getResult().getStatus()){
+            status = chargeStatusBean.getResult().getStatus();
+            switch (status){
                 case 0:
                     iv_header.setImageResource(R.mipmap.ic_cdz);
                     break;
@@ -273,7 +283,7 @@ public class OperateStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     tv_msg.setText(chargeStatusBean.getResult().getMessage()+"三秒钟后将回到主页面");
                     break;
                 case 12: //未启动
-                    mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""));
+                    mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(OperateStatuActivity.this,"token",""),"");
                     break;
 
             }

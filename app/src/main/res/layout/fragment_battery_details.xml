@@ -35,15 +35,25 @@
             android:gravity="center"
             android:text=""/>
     </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_data"
-        android:visibility="visible"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/white"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_data"
+            android:visibility="visible"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="1px"
+            android:layout_height="@dimen/dp_160"
+            android:background="@color/f0_gray_line"
+            android:layout_gravity="center"></View>
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/ll_order_battery"
         android:layout_width="match_parent"

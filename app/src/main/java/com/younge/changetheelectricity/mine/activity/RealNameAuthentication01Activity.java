@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -95,7 +96,7 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.rl_fanhui_left:
-                finish();
+                onBackShow();
                 break;
             case R.id.tv_submit:
 
@@ -261,6 +262,30 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
         }
     }
 
+
+    private void onBackShow(){
+        customDialog = new CustomDialog(RealNameAuthentication01Activity.this);
+        customDialog.setTitle("提示");
+        customDialog.setMessage("不实名认证将不能使用换电服务");
+        customDialog.setButton1Text("继续认证");
+        customDialog.setButton2Text("稍后认证");
+        customDialog.setCanceledOnTouchOutside(true);
+        customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+            @Override
+            public void onClick(CustomDialog dialog, int id, Object object) {
+                customDialog.dismiss();
+            }
+        });
+        customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+            @Override
+            public void onClick(CustomDialog dialog, int id, Object object) {
+                customDialog.dismiss();
+                finish();
+            }
+        });
+        customDialog.show();
+    }
+
     @Override
     public void onGetPersonInfo(BaseModel<UserInfoBean> data) {
 
@@ -275,6 +300,22 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
 
     @Override
     public void onGetDataFail() {
+
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { //按下的如果是BACK，同时没有重复
+            onBackShow();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBack(View view) {
 
     }
 }

@@ -39,8 +39,8 @@ public class ChargeStatusPresenter extends BasePresenter<ChargeStatusView> {
     }
 
 
-    public void start(String act,String orderId,String token) {
-        addDisposable(ApiRetrofit.getInstance().getApiService().start("vv/order/api/index/start",act,orderId,token), new BaseObserver(baseView) {
+    public void start(String act,String orderId,String token,String retry) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().start("vv/order/api/index/start",act,orderId,retry,token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.younge.changetheelectricity.changetheelectricity.Bean.StartResultBean
 import com.younge.changetheelectricity.changetheelectricity.presenter.ChargeStatusPresenter;
 import com.younge.changetheelectricity.changetheelectricity.view.ChargeStatusView;
 import com.younge.changetheelectricity.mine.bean.PhoneSettingBean;
+import com.younge.changetheelectricity.util.DateUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.widget.CustomDialog;
 
@@ -60,6 +62,7 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
     @BindView(R.id.tv_submit_error)
     TextView tv_submit_error;
     private CustomDialog customDialog;
+    private int status;
 
 
     @Override
@@ -87,6 +90,7 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
         interval(2000, new RxAction() {
             @Override
             public void action(long number) {
+                Log.e("log","参数：orderId="+ orderId);
                 mPresenter.getOrderStatus(orderId, (String) SharedPreferencesUtils.getParam(CharegeStatuActivity.this,"token",""));
             }
         });
@@ -160,7 +164,12 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 mPresenter.cancel(orderId,(String) SharedPreferencesUtils.getParam(CharegeStatuActivity.this,"token",""));
                 break;
             case R.id.tv_submit:
-                mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(CharegeStatuActivity.this,"token",""));
+                if(status == 3){
+                    mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(CharegeStatuActivity.this,"token",""),"1");
+                }else{
+                    mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(CharegeStatuActivity.this,"token",""),"");
+                }
+
                 break;
             case R.id.tv_submit_error:
                 customDialog = new CustomDialog(this);
@@ -210,10 +219,11 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
 
             tv_submit.setVisibility(View.GONE);
             tv_cancel.setVisibility(View.GONE);
-            tv_time.setText("已用时:"+data.getData().getUsetime());
+            tv_time.setVisibility(View.GONE);
 
             tv_msg.setText(chargeStatusBean.getResult().getMessage());
-            switch (chargeStatusBean.getResult().getStatus()){
+            status = chargeStatusBean.getResult().getStatus();
+            switch (status){
                 case 0:
                     iv_header.setImageResource(R.mipmap.ic_cdz);
                     break;
@@ -237,6 +247,14 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                 case 4:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
                     tv_cancel.setVisibility(View.VISIBLE);
+
+                    tv_time.setVisibility(View.VISIBLE);
+                    Integer countdown = data.getData().getCountdown();
+                    if(countdown != null && countdown != 0){
+                        tv_time.setText("剩余:"+ DateUtil.formatDateFromSecond(countdown));
+
+                    }
+
                     tv_cancel.setText("取消");
                     break;
                 case 5:
@@ -251,7 +269,7 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     cancel();
                     break;
                 case 12: //未启动
-                    mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(CharegeStatuActivity.this,"token",""));
+                    mPresenter.start("",orderId,(String) SharedPreferencesUtils.getParam(CharegeStatuActivity.this,"token",""),"");
                     break;
 
             }

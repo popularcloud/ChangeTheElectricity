@@ -51,7 +51,7 @@
     <RelativeLayout
         android:id="@+id/ll_battery_bg"
         android:layout_width="@dimen/dp_104"
-        android:layout_height="@dimen/dp_48"
+        android:layout_height="@dimen/dp_58"
         android:layout_marginLeft="@dimen/dp_25"
         android:layout_gravity="center"
         android:background="@mipmap/ic_battery_bg"

@@ -91,4 +91,29 @@ public class DateUtil {
         return sdf.format(nowTime.getTime());
 
     }
+
+    public static String formatDateFromSecond(Integer second){
+        String  html="0秒";
+        if(second!=null){
+            Double s=Double.valueOf(second);
+            String format;
+            Object[] array;
+            Integer hours =(int) (s/(60*60));
+            Integer minutes = (int) (s/60-hours*60);
+            Integer seconds = (int) (s-minutes*60-hours*60*60);
+            if(hours>0){
+                format="%1$,d时%2$,d分%3$,d秒";
+                array=new Object[]{hours,minutes,seconds};
+            }else if(minutes>0){
+                format="%1$,d分%2$,d秒";
+                array=new Object[]{minutes,seconds};
+            }else{
+                format="%1$,d秒";
+                array=new Object[]{seconds};
+            }
+            html= String.format(format, array);
+        }
+        return html;
+
+    }
 }

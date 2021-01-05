@@ -23,7 +23,9 @@
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_below="@+id/iv_header"
             android:textSize="@dimen/sp_16"
             android:textColor="@color/black_33"
             android:text="00:00:00"/>
@@ -40,7 +42,7 @@
         android:text="5号插座已通电，请插入充电"></TextView>
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp__80" />
+        android:layout_height="@dimen/dp_80" />
     <TextView
         android:id="@+id/tv_submit"
         android:layout_width="match_parent"
@@ -52,7 +54,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16"
         android:gravity="center"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_alignParentBottom="true"
         android:background="@drawable/btn_blue_bg"
         android:text="确定" />

@@ -28,7 +28,7 @@ public class ChargeDetailsAdapter extends SuperAdapter<PackageBean.ListBean> {
     @Override
     public void onBind(SuperViewHolder holder, int viewType, int layoutPosition, PackageBean.ListBean item) {
 
-        holder.setText(R.id.tv_hour,item.getText().getHour()+"");
+        holder.setText(R.id.tv_hour,item.getText().getHour()+"小时");
         holder.setText(R.id.tv_money,"¥"+item.getText().getMoney());
 
         if(selPosition == layoutPosition){

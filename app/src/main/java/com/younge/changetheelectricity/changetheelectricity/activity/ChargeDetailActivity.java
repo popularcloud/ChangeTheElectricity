@@ -114,8 +114,6 @@ public class ChargeDetailActivity extends MyBaseActivity<ChargeDetailPresenter> 
 
         mPresenter.getMyPackageList("2","1",(String) SharedPreferencesUtils.getParam(ChargeDetailActivity.this,"token",""));
 
-
-
     }
 
     @Override

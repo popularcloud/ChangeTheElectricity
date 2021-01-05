@@ -241,7 +241,7 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
 
     @OnClick({R.id.tv_scan,R.id.tv_changeElectricity,R.id.tv_chargeElectricity,R.id.tv_show_hide,R.id.iv_shop
-    ,R.id.tv_battery_detail_txt,R.id.tv_shop_detail_txt})
+    ,R.id.tv_battery_detail_txt,R.id.tv_shop_detail_txt,R.id.tv_to_authentication})
     public void onBtnClick(View view){
         switch (view.getId()){
             case R.id.tv_scan:  //充电只需要验证套餐
@@ -296,6 +296,9 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
             case R.id.tv_chargeElectricity: //换电
                 ((MainActivity)getActivity()).changeTag(1);
                 break;
+            case R.id.tv_to_authentication: //
+                startActivity(new Intent(getActivity(), RealNameAuthentication01Activity.class));
+                break;
             case R.id.iv_shop:
                 isShow = false;
                 isShop = true;
@@ -338,12 +341,12 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
         String userInfoDetailStr = (String) SharedPreferencesUtils.getParam(getActivity(),"userInfoDetail","");
         userInfoDetail = JsonUtil.parserGsonToObject(userInfoDetailStr, UserInfoBean.UserinfoBean.class);
-
+/*
         if(userInfoDetail.getVerification() == 1){
             tv_to_authentication.setVisibility(View.GONE);
         }else{
             tv_to_authentication.setVisibility(View.VISIBLE);
-        }
+        }*/
 
     }
 

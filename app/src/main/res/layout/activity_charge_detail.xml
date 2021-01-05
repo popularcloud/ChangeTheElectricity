@@ -58,7 +58,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_data"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/dp_150"
+            android:scrollbars="vertical" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -77,6 +78,7 @@
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_data_two"
+            android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>

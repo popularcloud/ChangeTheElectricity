@@ -26,6 +26,7 @@ public class ChargeStatusBean {
     private int confirmtime;
     private int status;
     private int usetime;
+    private int countdown;
     private ResultBean result;
 
     public int getId() {
@@ -102,6 +103,14 @@ public class ChargeStatusBean {
 
     public int getUsetime() {
         return usetime;
+    }
+
+    public int getCountdown() {
+        return countdown;
+    }
+
+    public void setCountdown(int countdown) {
+        this.countdown = countdown;
     }
 
     public void setUsetime(int usetime) {

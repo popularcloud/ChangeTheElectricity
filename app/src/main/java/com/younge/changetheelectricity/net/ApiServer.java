@@ -318,6 +318,7 @@ public interface ApiServer {
     Observable<BaseModel<StartResultBean>> start(@Field("HTTP_API") String httpApi,
                                                            @Field("act") String act,
                                                            @Field("order_id") String order_id,
+                                                           @Field("retry") String retry,
                                                            @Field("token") String token);
 
     //取消订单

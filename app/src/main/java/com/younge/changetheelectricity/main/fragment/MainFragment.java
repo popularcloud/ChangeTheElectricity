@@ -120,6 +120,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     @BindView(R.id.tv_order_msg)
     TextView tv_order_msg;
 
+    @BindView(R.id.tv_routeSearch)
+    TextView tv_routeSearch;
+
     private boolean isHasCar = false;
 
     private boolean isShow = false;
@@ -234,6 +237,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     private void initViewpager() {
 
+        aMap.clear();
+
         fragmentList.clear();
 
         BatteryDetailsFragment batteryDetailsFragment01 = new BatteryDetailsFragment();
@@ -309,7 +314,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
     }
 
     @OnClick({R.id.tv_scan, R.id.tv_changeElectricity, R.id.tv_chargeElectricity, R.id.tv_show_hide, R.id.iv_shop,
-            R.id.tv_battery_detail_txt, R.id.tv_shop_detail_txt, R.id.tv_to_authentication, R.id.tv_nav, R.id.tv_routeSearch})
+            R.id.tv_battery_detail_txt, R.id.tv_shop_detail_txt, R.id.tv_to_authentication, R.id.tv_nav, R.id.tv_routeSearch, R.id.iv_re_location})
     public void onBtnClick(View view) {
         switch (view.getId()) {
             case R.id.tv_scan:
@@ -327,7 +332,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 }
 
 
-                if (!isHasCar) {
+                //if (!isHasCar) {
                     customDialog = new CustomDialog(getActivity());
                     customDialog.setTitle("温馨提示");
                     customDialog.setMessage("您是否有动力风专用车");
@@ -351,9 +356,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                         }
                     });
                     customDialog.show();
-                } else {
-                    mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
-                }
+               // } else {
+                 //   mPresenter.getMyBattery("1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
+               // }
 
                 // ((MainActivity)getActivity()).startScanActivity(MyConstants.REQUEST_CODE_SCAN_CHANGE);
 
@@ -406,6 +411,10 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
             case R.id.tv_to_authentication: //
                 startActivity(new Intent(getActivity(), RealNameAuthentication01Activity.class));
                 break;
+            case R.id.iv_re_location: //
+                initMapView();
+                initViewpager();
+                break;
             case R.id.tv_routeSearch:
 
                 routeSearch = new RouteSearch(getContext());
@@ -443,6 +452,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                                     int dis = (int) walkPath.getDistance();
                                     int dur = (int) walkPath.getDuration();
                                     String des = AMapUtil.getFriendlyTime(dur)+"("+AMapUtil.getFriendlyLength(dis)+")";
+
+                                    tv_routeSearch.setText(des);
                                     //mRotueTimeDes.setText(des);
                                    // mRouteDetailDes.setVisibility(View.GONE);
                                   /*  mBottomLayout.setOnClickListener(new View.OnClickListener() {
@@ -656,11 +667,11 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         if (data != null && data.getData() != null && data.getData().getInfo().getOrder_type() == 0) {  //"order_type": 1,//0普通  1预约
             if (data.getData().getInfo().getGoods_type()==0) { //0换电 1充电
                 Intent intent = new Intent(getActivity(), OperateStatuActivity.class);
-                intent.putExtra("orderId", data.getData().getInfo().getId());
+                intent.putExtra("orderId", String.valueOf(data.getData().getInfo().getId()));
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(getActivity(), CharegeStatuActivity.class);
-                intent.putExtra("orderId", data.getData().getInfo().getId());
+                intent.putExtra("orderId", String.valueOf(data.getData().getInfo().getId()));
                 intent.putExtra("boxId", data.getData().getInfo().getStart_box());
                 startActivity(intent);
             }
