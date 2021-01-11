@@ -243,6 +243,8 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
                     tv_submit.setText("重试");
                     tv_submit.setVisibility(View.VISIBLE);
+                    tv_cancel.setVisibility(View.VISIBLE);
+                    tv_cancel.setText("取消");
                     break;
                 case 4:
                     tv_msg.setText(chargeStatusBean.getResult().getMessage());
