@@ -15,6 +15,7 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
 import com.younge.changetheelectricity.callback.OnItemBtnClickCallBack;
 import com.younge.changetheelectricity.changetheelectricity.activity.ConfirmOrderActivity;
+import com.younge.changetheelectricity.mine.activity.PackageDetailActivity;
 import com.younge.changetheelectricity.mine.adapter.PackageListAdapter;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
 import com.younge.changetheelectricity.mine.presenter.PackagePresenter;
@@ -96,9 +97,9 @@ public class RechargePackageFragment extends MyBaseFragment<PackagePresenter> im
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
-             /*   Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
-                intent.putExtra("packageDetail",mAdapter.getItem(position));
-                startActivity(intent);*/
+                Intent intent = new Intent(getActivity(), PackageDetailActivity.class);
+                intent.putExtra("packageId",String.valueOf(mAdapter.getItem(position).getId()));
+                startActivity(intent);
             }
         });
 

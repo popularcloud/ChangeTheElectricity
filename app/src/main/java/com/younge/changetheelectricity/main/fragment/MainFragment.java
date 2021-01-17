@@ -631,6 +631,10 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     }
 
+    /**
+     * 获取进行中的订单
+     * @param data
+     */
     @Override
     public void onGetUsingOrderSuccess(BaseModel<UsingOrderBean> data) {
         if (data != null && data.getData() != null && data.getData().getInfo().getOrder_type() == 0) {  //"order_type": 1,//0普通  1预约
@@ -644,6 +648,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 intent.putExtra("boxId", data.getData().getInfo().getStart_box());
                 startActivity(intent);
             }
+
+            //SharedPreferencesUtils.setParam(getActivity(), "hasUsingOrder",data.getData().getInfo().getMacno());
         }else{
             isScan = true;
             if(!LoginUtil.isLogin(getContext())){

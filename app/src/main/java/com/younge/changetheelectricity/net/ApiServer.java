@@ -16,6 +16,7 @@ import com.younge.changetheelectricity.mine.bean.DepositHistoryBean;
 import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.PackageBean;
+import com.younge.changetheelectricity.mine.bean.PackageDetailBean;
 import com.younge.changetheelectricity.mine.bean.PayByWechatBean;
 import com.younge.changetheelectricity.mine.bean.PhoneSettingBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
@@ -176,8 +177,8 @@ public interface ApiServer {
     @POST("/api/index")
     @FormUrlEncoded
     @Headers("HTTP_API: vv/package/api/index/show")
-    Observable<BaseModel<PackageBean>> getPackageDetail(@Field("HTTP_API") String httpApi,
-                                                  @Field("id") String id);
+    Observable<BaseModel<PackageDetailBean>> getPackageDetail(@Field("HTTP_API") String httpApi,
+                                                              @Field("id") String id);
 
 
     //充值下单
