@@ -7,7 +7,7 @@ public class OrderResultBean {
      */
 
     private String order_id;
-    private int expiretime;
+    private String expiretime;
 
     public String getOrder_id() {
         return order_id;
@@ -17,11 +17,11 @@ public class OrderResultBean {
         this.order_id = order_id;
     }
 
-    public int getExpiretime() {
+    public String getExpiretime() {
         return expiretime;
     }
 
-    public void setExpiretime(int expiretime) {
+    public void setExpiretime(String expiretime) {
         this.expiretime = expiretime;
     }
 }

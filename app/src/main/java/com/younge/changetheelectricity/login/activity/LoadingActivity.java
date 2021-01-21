@@ -242,5 +242,16 @@ public class LoadingActivity extends MyBaseActivity<LoadingPresenter> implements
     @Override
     public void onGetDataFail() {
         ToastUtil.makeText(LoadingActivity.this,"获取轮播图失败");
+
+        String token = (String) SharedPreferencesUtils.getParam(LoadingActivity.this,"token","");
+
+        finish();
+
+        if(TextUtils.isEmpty(token)){
+            startActivity(new Intent(LoadingActivity.this, LoginActivity.class));
+        }else{
+            startActivity(new Intent(LoadingActivity.this, MainActivity.class));
+        }
+
     }
 }

@@ -123,7 +123,7 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
             public void OnItemBtnclick(int position, int btn) {
 
 
-               // laterTime = DateUtil.getPresentTimeAddSome(appointmentMinute);
+                laterTime = DateUtil.getPresentTimeAddSome(appointmentMinute);
 
                 customDialog = new CustomDialog(getActivity());
                 customDialog.setTitle("");
@@ -237,6 +237,11 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
         /*ll_order_battery.setVisibility(View.VISIBLE);
         rv_data.setVisibility(View.GONE);*/
 
+        if(data != null && data.getData() != null){
+            laterTime =  DateUtil.date2TimeStamp(data.getData().getExpiretime(),"HH:mm");
+        }
+
+
         mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
     }
 
@@ -257,9 +262,9 @@ public class BatteryDetailsFragment extends MyBaseFragment<DeviceDetailPresenter
     }
 
 
-    public void getBatteryDetailData(){
+    public void getBatteryDetailData(String presentMacno){
         if(getContext() != null){
-            macno = (String) SharedPreferencesUtils.getParam(getContext(),"presentMacno","");
+            macno = presentMacno;
             mPresenter.getDeviceDetail("","",macno, (String) SharedPreferencesUtils.getParam(getContext(),"token",""));
         }
     }

@@ -716,7 +716,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
         if(fragmentList != null && fragmentList.size() == 2){
             ((ShopDetailFragment)fragmentList.get(1)).getShopData();
-            ((BatteryDetailsFragment)fragmentList.get(0)).getBatteryDetailData();
+            ((BatteryDetailsFragment)fragmentList.get(0)).getBatteryDetailData(macno);
         }
 
     }
