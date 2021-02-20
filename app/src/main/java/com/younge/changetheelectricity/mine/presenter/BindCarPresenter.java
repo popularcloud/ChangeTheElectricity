@@ -63,4 +63,26 @@ public class BindCarPresenter extends BasePresenter<BindCarView> {
         });
     }
 
+    public void editCar(String id,String carvin, String serial,String carno,String picfront,String picback,String picleft,String picright,String token) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().editCar("vv/usercenter/api/car/car_edit",id,carvin,serial,carno,picfront,picback,picleft,picright, token), new BaseObserver(baseView) {
+            @Override
+            public void onSuccess(BaseModel o) {
+                baseView.hideLoading();
+                baseView.onAddCarSuccess((BaseModel<Object>) o);
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.hideLoading();
+                if (baseView != null) {
+                    if("连接错误".equals(msg)){
+                        baseView.onGetDataFail();
+                    }else {
+                        baseView.showError(msg);
+                    }
+                }
+            }
+        });
+    }
+
 }

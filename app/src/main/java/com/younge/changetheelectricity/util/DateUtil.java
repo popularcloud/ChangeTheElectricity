@@ -65,7 +65,7 @@ public class DateUtil {
     public static String getJuLiUnit(String juli) {
         if (juli.contains(".")) {
             int index = juli.indexOf(".");
-            juli = juli.substring(0,index);
+            juli = juli.substring(0,index+2);
 
             Long juliLong = Long.valueOf(juli);
             if(juliLong > 1000){

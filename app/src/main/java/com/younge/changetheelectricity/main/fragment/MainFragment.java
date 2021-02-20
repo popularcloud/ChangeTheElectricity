@@ -318,6 +318,7 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                     getActivity().startActivity(intent);
                 }*/
 
+                isScan = true;
                 //获取正在进行的订单
                 mPresenter.getUsingOrder((String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
 
@@ -651,36 +652,39 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
             //SharedPreferencesUtils.setParam(getActivity(), "hasUsingOrder",data.getData().getInfo().getMacno());
         }else{
-            isScan = true;
-            if(!LoginUtil.isLogin(getContext())){
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                return;
+            if(isScan){
+                //isScan = true;
+                if(!LoginUtil.isLogin(getContext())){
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    return;
+                }
+
+                //if (!isHasCar) {
+                customDialog = new CustomDialog(getActivity());
+                customDialog.setTitle("温馨提示");
+                customDialog.setMessage("您是否有动力风专用车");
+                customDialog.setButton1Text("是");
+                customDialog.setButton2Text("否");
+                customDialog.setCanceledOnTouchOutside(true);
+                customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        customDialog.dismiss();
+                        if (mPresenter != null) {
+                            //检测是否绑定车辆
+                            mPresenter.getMyCarList("1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
+                        }
+                    }
+                });
+                customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
+                    @Override
+                    public void onClick(CustomDialog dialog, int id, Object object) {
+                        customDialog.dismiss();
+                    }
+                });
+                customDialog.show();
             }
 
-            //if (!isHasCar) {
-            customDialog = new CustomDialog(getActivity());
-            customDialog.setTitle("温馨提示");
-            customDialog.setMessage("您是否有动力风专用车");
-            customDialog.setButton1Text("是");
-            customDialog.setButton2Text("否");
-            customDialog.setCanceledOnTouchOutside(true);
-            customDialog.setEnterBtn(new CustomDialog.OnClickListener() {
-                @Override
-                public void onClick(CustomDialog dialog, int id, Object object) {
-                    customDialog.dismiss();
-                    if (mPresenter != null) {
-                        //检测是否绑定车辆
-                        mPresenter.getMyCarList("1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
-                    }
-                }
-            });
-            customDialog.setCancelBtn(new CustomDialog.OnClickListener() {
-                @Override
-                public void onClick(CustomDialog dialog, int id, Object object) {
-                    customDialog.dismiss();
-                }
-            });
-            customDialog.show();
         }
     }
 

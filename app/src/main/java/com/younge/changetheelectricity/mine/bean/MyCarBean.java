@@ -2,6 +2,7 @@ package com.younge.changetheelectricity.mine.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MyCarBean {
@@ -40,7 +41,7 @@ public class MyCarBean {
         this.list = list;
     }
 
-    public static class ListBean {
+    public static class ListBean implements Serializable {
         /**
          * id : 2
          * user_id : 2
@@ -67,8 +68,11 @@ public class MyCarBean {
         private String picleft;
         private String picright;
         private String battery_sn;
+        private String battery_lat;
+        private String battery_lng;
         private int createtime;
         private int updatetime;
+        private long battery_lnglattime;
         @SerializedName("default")
         private int defaultX;
 
@@ -174,6 +178,22 @@ public class MyCarBean {
 
         public void setDefaultX(int defaultX) {
             this.defaultX = defaultX;
+        }
+
+        public String getBattery_lat() {
+            return battery_lat;
+        }
+
+        public void setBattery_lat(String battery_lat) {
+            this.battery_lat = battery_lat;
+        }
+
+        public String getBattery_lng() {
+            return battery_lng;
+        }
+
+        public void setBattery_lng(String battery_lng) {
+            this.battery_lng = battery_lng;
         }
     }
 }

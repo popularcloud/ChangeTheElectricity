@@ -84,6 +84,7 @@
         <activity android:name=".changetheelectricity.activity.CharegeStatuActivity" />
         <activity android:name=".mine.activity.ShareSettingActivity" />
         <activity android:name=".mine.activity.PackageDetailActivity" />
+        <activity android:name=".mine.activity.MyCarLastLocationActivity" />
 
         <meta-data android:name="com.amap.api.v2.apikey" android:value="d35bef7a58b82cffc7b4e04a16533c3d">
         </meta-data>
@@ -108,5 +109,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <service android:name="com.amap.api.location.APSService"></service>
     </application>
 </manifest>

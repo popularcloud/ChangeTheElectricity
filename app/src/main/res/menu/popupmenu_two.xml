@@ -16,5 +16,12 @@
         android:title="删除车辆"
         tools:ignore="AppCompatResource">
     </item>
+    <item
+        android:id="@+id/item_edit_car"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="编辑车辆"
+        tools:ignore="AppCompatResource">
+    </item>
 
 </menu>

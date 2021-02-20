@@ -16,6 +16,7 @@ import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseActivity;
 import com.younge.changetheelectricity.changetheelectricity.Bean.BatteryDetailsBean;
 import com.younge.changetheelectricity.changetheelectricity.adapter.BatteryDetailsAdapter;
+import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.bean.ReturnImgUrlBean;
 import com.younge.changetheelectricity.mine.presenter.BindCarPresenter;
 import com.younge.changetheelectricity.mine.view.BindCarView;
@@ -26,6 +27,7 @@ import com.younge.changetheelectricity.util.ToastUtil;
 import com.younge.changetheelectricity.widget.CustomDialog;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +71,7 @@ public class BindCarActivity extends MyBaseActivity<BindCarPresenter> implements
 
     private List<BatteryDetailsBean> allList = new ArrayList<>();
     private CustomDialog customDialog;
+    private MyCarBean.ListBean carInfo;
 
     @Override
     protected BindCarPresenter createPresenter() {
@@ -84,7 +87,25 @@ public class BindCarActivity extends MyBaseActivity<BindCarPresenter> implements
     @Override
     protected void init() {
 
-        tv_center_title.setText("绑定车辆");
+        carInfo = (MyCarBean.ListBean) getIntent().getSerializableExtra("carInfo");
+        if(carInfo == null){
+            tv_center_title.setText("绑定车辆");
+        }else{
+            tv_center_title.setText("编辑车辆");
+            showEditInfo();
+        }
+
+    }
+
+    private void showEditInfo(){
+        et_car_frame_number.setText(carInfo.getCarvin());
+        et_car_name.setText(carInfo.getSerial());
+        et_car_number.setText(carInfo.getCarno());
+
+        ImageLoaderUtil.getInstance().displayFromNetDCircular(BindCarActivity.this,carInfo.getPicfront(),iv_car_positive,R.mipmap.cte_logo);
+        ImageLoaderUtil.getInstance().displayFromNetDCircular(BindCarActivity.this,carInfo.getPicback(),iv_car_back,R.mipmap.cte_logo);
+        ImageLoaderUtil.getInstance().displayFromNetDCircular(BindCarActivity.this,carInfo.getPicleft(),iv_car_left,R.mipmap.cte_logo);
+        ImageLoaderUtil.getInstance().displayFromNetDCircular(BindCarActivity.this,carInfo.getPicright(),iv_car_right,R.mipmap.cte_logo);
     }
 
     @Override
@@ -124,30 +145,35 @@ public class BindCarActivity extends MyBaseActivity<BindCarPresenter> implements
                     return;
                 }
 
-                if(TextUtils.isEmpty(positiveImg)){
+                if(TextUtils.isEmpty(positiveImg) && carInfo == null){
                     ToastUtil.makeText(BindCarActivity.this,"请选择车辆正面照片");
                     return;
                 }
 
 
-                if(TextUtils.isEmpty(backImg)){
+                if(TextUtils.isEmpty(backImg) && carInfo == null){
                     ToastUtil.makeText(BindCarActivity.this,"请选择车辆背面照片");
                     return;
                 }
 
 
-                if(TextUtils.isEmpty(leftImg)){
+                if(TextUtils.isEmpty(leftImg) && carInfo == null){
                     ToastUtil.makeText(BindCarActivity.this,"请选择车辆左侧照片");
                     return;
                 }
 
 
-                if(TextUtils.isEmpty(rightImg)){
+                if(TextUtils.isEmpty(rightImg) && carInfo == null){
                     ToastUtil.makeText(BindCarActivity.this,"请选择车辆右侧照片");
                     return;
                 }
 
-                mPresenter.addCar(carvin,serial,carno,positiveImg,backImg,leftImg,rightImg, String.valueOf(SharedPreferencesUtils.getParam(BindCarActivity.this,"token","")));
+                if(carInfo != null){
+                    mPresenter.editCar(String.valueOf(carInfo.getId()),carvin,serial,carno,positiveImg,backImg,leftImg,rightImg, String.valueOf(SharedPreferencesUtils.getParam(BindCarActivity.this,"token","")));
+                }else{
+                    mPresenter.addCar(carvin,serial,carno,positiveImg,backImg,leftImg,rightImg, String.valueOf(SharedPreferencesUtils.getParam(BindCarActivity.this,"token","")));
+
+                }
                 //ToastUtil.makeText(this,"绑定成功！");
                 //startActivity(new Intent(BindCarActivity.this, MyCarActivity.class));
                 break;

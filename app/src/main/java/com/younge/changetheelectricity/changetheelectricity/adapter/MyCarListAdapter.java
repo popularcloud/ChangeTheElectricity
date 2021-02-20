@@ -77,8 +77,10 @@ public class MyCarListAdapter extends SuperAdapter<MyCarBean.ListBean> {
                         if(onItemBtnClickCallBack != null){
                             if(item.getItemId() == R.id.item_bind_battery){
                                 onItemBtnClickCallBack.OnItemBtnclick(layoutPosition,0);
-                            }else{
+                            }else if(item.getItemId() == R.id.item_del_car){
                                 onItemBtnClickCallBack.OnItemBtnclick(layoutPosition,1);
+                            }else{
+                                onItemBtnClickCallBack.OnItemBtnclick(layoutPosition,3);
                             }
 
                         }

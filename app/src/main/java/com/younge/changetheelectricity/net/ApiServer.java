@@ -144,6 +144,21 @@ public interface ApiServer {
                                                @Field("picright") String picright,
                                                @Field("token") String token);
 
+    //车辆添加
+    @POST("/api/index")
+    @FormUrlEncoded
+    @Headers("HTTP_API: vv/usercenter/api/car/car_edit")
+    Observable<BaseModel<Object>> editCar(@Field("HTTP_API") String httpApi,
+                                         @Field("id") String id,
+                                         @Field("carvin") String carvin,
+                                         @Field("serial") String serial,
+                                         @Field("carno") String carno,
+                                         @Field("picfront") String picfront,
+                                         @Field("picback") String picback,
+                                         @Field("picleft") String picleft,
+                                         @Field("picright") String picright,
+                                         @Field("token") String token);
+
     //上传图片
     @Multipart
     @POST("/api/index")

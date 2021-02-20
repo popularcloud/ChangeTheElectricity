@@ -19,6 +19,7 @@ import com.younge.changetheelectricity.mine.bean.MyBatteryBean;
 import com.younge.changetheelectricity.mine.bean.MyCarBean;
 import com.younge.changetheelectricity.mine.presenter.MyCarPresenter;
 import com.younge.changetheelectricity.mine.view.MyCarView;
+import com.younge.changetheelectricity.util.DateUtil;
 import com.younge.changetheelectricity.util.SharedPreferencesUtils;
 import com.younge.changetheelectricity.util.ToastUtil;
 import com.younge.changetheelectricity.widget.CustomDialog;
@@ -108,6 +109,10 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
                 }else if(btn == 2){ //使用车辆
                     presentOperateId = String.valueOf(mAdapter.getItem(pisition).getId());
                     mPresenter.car_default(presentOperateId,(String) SharedPreferencesUtils.getParam(MyCarActivity.this,"token",""));
+                }else if(btn == 3){ //编辑车辆
+                    Intent intent = new Intent(MyCarActivity.this, BindCarActivity.class);
+                    intent.putExtra("carInfo",allList.get(pisition));
+                    startActivity(intent);
                 }
             }
         });
@@ -117,7 +122,16 @@ public class MyCarActivity extends MyBaseActivity<MyCarPresenter> implements MyC
         mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
+                if(TextUtils.isEmpty(mAdapter.getItem(position).getBattery_lat())){
+                    ToastUtil.makeText(MyCarActivity.this,"没有车辆定位信息！");
+                    return;
+                }
 
+                Intent intent = new Intent(MyCarActivity.this, MyCarLastLocationActivity.class);
+                intent.putExtra("lat",mAdapter.getItem(position).getBattery_lat());
+                intent.putExtra("lng",mAdapter.getItem(position).getBattery_lng());
+                intent.putExtra("time", DateUtil.timeStamp2Date(String.valueOf(mAdapter.getItem(position).getCreatetime()),"yyyy-MM-dd HH:mm:ss"));
+                startActivity(intent);
             }
         });
 
