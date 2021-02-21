@@ -34,6 +34,7 @@ import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.orhanobut.logger.Logger;
+import com.yanzhenjie.permission.util.StringUtils;
 import com.younge.changetheelectricity.R;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.MyBaseFragment;
@@ -498,6 +499,11 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
             listBeans = data.getData().getList();
             for (int i = 0; i < listBeans.size(); i++) {
+
+                if(TextUtils.isEmpty(listBeans.get(i).getLat())){
+                    continue;
+                }
+
                 MarkerOptions markerOption = new MarkerOptions();
                 LatLng latLng = new LatLng(Double.parseDouble(listBeans.get(i).getLat()), Double.parseDouble(listBeans.get(i).getLng()));
                 markerOption.position(latLng);

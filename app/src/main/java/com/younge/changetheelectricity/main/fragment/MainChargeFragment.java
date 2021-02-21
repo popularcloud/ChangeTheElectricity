@@ -360,6 +360,12 @@ public class MainChargeFragment extends MyBaseFragment<MainPresenter> implements
 
             listBeans =  data.getData().getList();
             for(int i = 0;i < listBeans.size();i++){
+
+                if(TextUtils.isEmpty(listBeans.get(i).getLat())){
+                    continue;
+                }
+
+
                 MarkerOptions markerOption = new MarkerOptions();
                 LatLng latLng = new LatLng(Double.parseDouble(listBeans.get(i).getLat()),Double.parseDouble(listBeans.get(i).getLng()));
                 markerOption.position(latLng);
