@@ -217,14 +217,14 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 .decodeResource(getResources(), R.mipmap.location_marker)));
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
 
-        aMap.getUiSettings().setMyLocationButtonEnabled(true); //设置默认定位按钮是否显示，非必需设置。
+        aMap.getUiSettings().setMyLocationButtonEnabled(false); //设置默认定位按钮是否显示，非必需设置。
+        aMap.getUiSettings().setZoomControlsEnabled(false);
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
 
         //设置希望展示的地图缩放级别
-        CameraUpdate mCameraUpdate = CameraUpdateFactory.zoomTo(16);
+        CameraUpdate mCameraUpdate = CameraUpdateFactory.zoomTo(18);
         aMap.moveCamera(mCameraUpdate);
 
-        mUiSettings.setZoomControlsEnabled(true);
 
         //mPresenter.getShopLocations(String.valueOf(location.getLongitude()),String.valueOf(location.getLatitude()));
 
@@ -381,6 +381,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 startActivity(new Intent(getActivity(), RealNameAuthentication01Activity.class));
                 break;
             case R.id.iv_re_location: //
+
+
+                tv_routeSearch.setText("查看推荐换电柜");
                 initMapView();
                 initViewpager();
                 break;
@@ -500,6 +503,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
             listBeans = data.getData().getList();
             for (int i = 0; i < listBeans.size(); i++) {
 
+                tv_routeSearch.setVisibility(View.VISIBLE);
+
                 if(TextUtils.isEmpty(listBeans.get(i).getLat())){
                     continue;
                 }
@@ -517,6 +522,8 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
                 aMap.addMarker(markerOption);
             }
+        }else{
+            tv_routeSearch.setVisibility(View.GONE);
         }
 
 
@@ -557,8 +564,11 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
         if (data != null && data.getData() != null && data.getData().getList() != null && data.getData().getList().size() > 0) {
             // ToastUtil.makeText(getContext(),"已监测到您的电池");
 
+            /**
+             * 检测到绑定电池 并且不是扫描进来的
+             */
             if(!isScan){
-                //获取到了电池 并且电池的定位不为空】
+                //获取到了电池 并且电池的定位不为空  则显示电池定位 否则不做处理 即是个人定位
                 MyBatteryBean.ListBean defaultBattery = data.getData().getList().get(0);
                 SharedPreferencesUtils.setParam(getActivity(), "presentBattery", defaultBattery.getSn());
                 if (!TextUtils.isEmpty(defaultBattery.getLat()) && !TextUtils.isEmpty(defaultBattery.getLng())) {
@@ -569,6 +579,9 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 return;
             }
 
+            /**
+             * 验证实名了认证
+             */
             if (userInfoDetail != null && userInfoDetail.getVerification() != 1) {
                 customDialog = new CustomDialog(getActivity());
                 customDialog.setTitle("温馨提示");
@@ -588,6 +601,10 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
                 mPresenter.getMyPackageList("1", "1", (String) SharedPreferencesUtils.getParam(getActivity(), "token", ""));
             }
         } else {
+
+            /**
+             * 电池为空时。。。
+             */
             SharedPreferencesUtils.setParam(getActivity(), "presentBattery", "");
 
             if(isScan){
@@ -644,6 +661,11 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
      */
     @Override
     public void onGetUsingOrderSuccess(BaseModel<UsingOrderBean> data) {
+
+
+        /**
+         * 有进行中的订单的时候 直接跳到订单详情页面
+         */
         if (data != null && data.getData() != null && data.getData().getInfo().getOrder_type() == 0) {  //"order_type": 1,//0普通  1预约
             if (data.getData().getInfo().getGoods_type()==0) { //0换电 1充电
                 Intent intent = new Intent(getActivity(), OperateStatuActivity.class);
@@ -658,6 +680,10 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
             //SharedPreferencesUtils.setParam(getActivity(), "hasUsingOrder",data.getData().getInfo().getMacno());
         }else{
+
+            /**
+             * 没有进行中的订单的时候 如果是点击了扫描按钮  则进入询问  车 电池 和实名认证的判断
+             */
             if(isScan){
                 //isScan = true;
                 if(!LoginUtil.isLogin(getContext())){
@@ -733,7 +759,6 @@ public class MainFragment extends MyBaseFragment<MainPresenter> implements MainV
 
     @Override
     public void onGetDataFail() {
-
         isScan = true;
     }
 

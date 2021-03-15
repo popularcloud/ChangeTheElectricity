@@ -153,7 +153,7 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
                         customDialog.dismiss();
 
 
-                        customDialog = new CustomDialog(RealNameAuthentication01Activity.this);
+                      /*  customDialog = new CustomDialog(RealNameAuthentication01Activity.this);
                         customDialog.setTitle("提示");
                         customDialog.setMessage("不实名认证将不能使用换电服务");
                         customDialog.setButton1Text("继续认证");
@@ -174,7 +174,7 @@ public class RealNameAuthentication01Activity extends MyBaseActivity<RealNameAut
                                 customDialog.dismiss();
                             }
                         });
-                        customDialog.show();
+                        customDialog.show();*/
 
                     }
                 });

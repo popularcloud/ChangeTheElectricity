@@ -6,6 +6,8 @@
     <com.amap.api.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/dp_45"
+        android:layout_marginBottom="@dimen/dp_65"
         android:layout_height="match_parent"/>
     <TextView
         android:id="@+id/tv_routeSearch"

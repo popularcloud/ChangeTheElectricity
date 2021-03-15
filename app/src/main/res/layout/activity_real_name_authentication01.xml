@@ -180,17 +180,17 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_120"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             android:layout_marginRight="@dimen/dp_15"
             android:background="@drawable/circle_grayfb_bg"
-            android:src="@drawable/ic_shili01"/>
+            android:src="@mipmap/ic_shili01"/>
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_120"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             android:background="@drawable/circle_grayfb_bg"
-            android:src="@drawable/ic_shili02"/>
+            android:src="@mipmap/ic_shili02"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -201,10 +201,10 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="@dimen/dp_120"
-            android:scaleType="centerInside"
+            android:scaleType="fitXY"
             android:background="@drawable/circle_grayfb_bg"
             android:layout_marginRight="@dimen/dp_15"
-            android:src="@drawable/ic_shili03"/>
+            android:src="@mipmap/ic_shili03"/>
         <ImageView
             android:layout_width="0dp"
             android:layout_weight="1"

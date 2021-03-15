@@ -90,7 +90,7 @@ public class MineFragment extends MyBaseFragment<MinePresenter> implements MineV
                 startActivity(new Intent(getActivity(), RealNameAuthentication01Activity.class));
                 break;
             case R.id.tv_bind_battery:
-                startActivity(new Intent(getActivity(), MyBatteryActivity.class));
+                startActivity(new Intent(getActivity(), RealNameAuthentication01Activity.class));
                 break;
             case R.id.tv_bind_car:
                 startActivity(new Intent(getActivity(), MyCarActivity.class));

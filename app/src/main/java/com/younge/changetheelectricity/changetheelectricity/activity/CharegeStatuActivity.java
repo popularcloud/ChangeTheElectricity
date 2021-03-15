@@ -182,6 +182,10 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     @Override
                     public void onClick(CustomDialog dialog, int id, Object object) {
                         customDialog.dismiss();
+                        Uri uri = Uri.parse("tel:" + tel);
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(uri);
+                        startActivity(intent);
 
                     }
                 });
@@ -189,10 +193,6 @@ public class CharegeStatuActivity extends MyBaseActivity<ChargeStatusPresenter> 
                     @Override
                     public void onClick(CustomDialog dialog, int id, Object object) {
                         customDialog.dismiss();
-                        Uri uri = Uri.parse("tel:" + tel);
-                        Intent intent = new Intent(Intent.ACTION_DIAL);
-                        intent.setData(uri);
-                        startActivity(intent);
                     }
                 });
                 customDialog.show();

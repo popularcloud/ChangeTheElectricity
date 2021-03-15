@@ -1,5 +1,7 @@
 package com.younge.changetheelectricity.mine.presenter;
 
+import android.util.Log;
+
 import com.google.gson.JsonObject;
 import com.younge.changetheelectricity.base.BaseModel;
 import com.younge.changetheelectricity.base.BaseObserver;
@@ -42,6 +44,9 @@ public class BindCarPresenter extends BasePresenter<BindCarView> {
     }
 
     public void addCar(String carvin, String serial,String carno,String picfront,String picback,String picleft,String picright,String token) {
+
+       // Log.e("参数","picfront=="+picfront+"picback=="+picback+"picleft=="+picleft+"picright=="+picright);
+
         addDisposable(ApiRetrofit.getInstance().getApiService().addCar("vv/usercenter/api/car/car_edit",carvin,serial,carno,picfront,picback,picleft,picright, token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
