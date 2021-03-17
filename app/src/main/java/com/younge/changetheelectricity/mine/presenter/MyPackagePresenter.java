@@ -14,7 +14,7 @@ public class MyPackagePresenter extends BasePresenter<PackageListView> {
     }
 
     public void getMyPackageList(String type,String page,String token) {
-        addDisposable(ApiRetrofit.getInstance().getApiService().myPackageOrder("vv/package/api/index/my",type,"0",page,"10",token), new BaseObserver(baseView) {
+        addDisposable(ApiRetrofit.getInstance().getApiService().myPackageOrder("vv/package/api/index/my",type,"0","",page,"10",token), new BaseObserver(baseView) {
             @Override
             public void onSuccess(BaseModel o) {
                 baseView.hideLoading();

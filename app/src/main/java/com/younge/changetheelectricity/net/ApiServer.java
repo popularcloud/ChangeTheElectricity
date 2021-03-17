@@ -261,6 +261,7 @@ public interface ApiServer {
     Observable<BaseModel<PackageBean>> myPackageOrder(@Field("HTTP_API") String httpApi,
                                                     @Field("type") String type,
                                                     @Field("status") String status,
+                                                    @Field("used") String used,
                                                     @Field("page") String page,
                                                     @Field("size") String size,
                                                     @Field("token") String token);

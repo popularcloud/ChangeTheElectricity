@@ -113,21 +113,21 @@ public class PackageListAdapter extends SuperAdapter<PackageBean.ListBean> {
                     rules.append("不限制/");
                     break;
                 case "1":
-                    rules.append(item.getText().getHour()+"小时/");
+                    rules.append(item.getText().getHour()+"小时");
                     break;
                 default:
-                    rules.append(item.getText().getUse()+"次/");
+                    rules.append(item.getText().getUse()+"次");
                     break;
             }
 
-            switch (item.getText().getDay()){//有效天数 0永久
+         /*   switch (item.getText().getDay()){//有效天数 0永久
                 case "0":
                     rules.append("永久");
                     break;
                 default:
                     rules.append(item.getText().getDay()+"天");
                     break;
-            }
+            }*/
 
         }
 
